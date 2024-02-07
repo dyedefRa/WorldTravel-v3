@@ -1,0 +1,39 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model WorldTravel.Web.Pages.Admin.VisaType.EditModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@{
+    Layout = null;
+}
+
+<form method="post" enctype="multipart/form-data" asp-page="/Admin/VisaType/Edit">
+    <abp-modal size="Large">
+        <abp-modal-header title="@L["NewVisaType"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Id" type="hidden" />
+            <abp-input asp-for="VisaInfo.Title" label="@L["Title"]" />
+
+            <abp-input asp-for="VisaInfo.MainImage" label="@L["Image"]" accept="image/png, image/gif, image/jpeg" />
+            <abp-select asp-for="VisaInfo.CountryId" label="@L["Country"]">
+                <option disabled selected>@L["Choose"]</option>
+            </abp-select>
+            <abp-input asp-for="VisaInfo.Description" label="@L["Description"]" class="ckeditor"/>
+            <abp-input asp-for="VisaInfo.Rank" label="@L["Rank"]" />
+            <abp-input asp-for="VisaInfo.VisaFee" label="@L["VisaFee"]" />
+            <abp-input asp-for="VisaInfo.VisaDuration" label="@L["VisaDuration"]" />
+            <abp-input asp-for="VisaInfo.ShortDescription" label="@L["ShortDescription"]" class="ckeditor" />
+            <abp-input asp-for="VisaInfo.ExtraDescription" label="@L["ExtraDescription"]" class="ckeditor" />
+            <abp-input asp-for="VisaInfo.IsSeenHomePage" label="@L["IsSeenHomePage"]" />
+            <hr />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('.ckeditor').each(function () {
+            CKEDITOR.replace($(this).attr("id"));
+        });
+    });
+</script>

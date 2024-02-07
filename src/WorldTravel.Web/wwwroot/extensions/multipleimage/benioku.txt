@@ -1,0 +1,58 @@
+﻿BASE : https://codepen.io/arozqq/pen/zYoyEdQ
+
+--------------------------------------------------------------------------------------------------------------------------------
+CREATE ORNEGI 
+
+Page > Admin > CountryContent > Create te kullanılıyor.
+Sayfadaki css ve js yeterli.
+
+
+1) Css tanımla  (multipleimage.css)
+--------------------------------
+2) HTML INPUTU TANIMLA
+
+
+
+<div class="form-group">
+                <div class="img-thumbs img-thumbs-hidden" id="img-preview"></div>
+            </div>
+            <div class="form-group" style="font-size:15px;font-weight:bold;">
+                <abp-input asp-for="CountryContent.ImportFiles" label="@L["NewSlaytImages"]" style="display: none;" multiple id="upload-img" />
+            </div>
+--------------------------------
+3) JS EKLE
+
+var imgUpload = document.getElementById('upload-img')
+    , imgPreview = document.getElementById('img-preview')
+    , totalFiles
+    , img;
+
+imgUpload.addEventListener('change', previewImgs, true);
+
+function previewImgs(event) {
+    totalFiles = imgUpload.files.length;
+
+    if (!!totalFiles) {
+        imgPreview.classList.remove('img-thumbs-hidden');
+    }
+
+    for (var i = 0; i < totalFiles; i++) {
+        wrapper = document.createElement('div');
+        wrapper.classList.add('wrapper-thumb');
+        removeBtn = document.createElement("span");
+        nodeRemove = document.createTextNode('x');
+        removeBtn.classList.add('remove-btn');
+        removeBtn.appendChild(nodeRemove);
+        img = document.createElement('img');
+        img.src = URL.createObjectURL(event.target.files[i]);
+        img.classList.add('img-preview-thumb');
+        wrapper.appendChild(img);
+        wrapper.appendChild(removeBtn);
+        imgPreview.appendChild(wrapper);
+
+        $('.remove-btn').click(function () {
+            $(this).parent('.wrapper-thumb').remove();
+        });
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------

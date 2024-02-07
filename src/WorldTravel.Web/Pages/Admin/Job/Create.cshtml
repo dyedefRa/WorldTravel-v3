@@ -1,0 +1,37 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model WorldTravel.Web.Pages.Admin.Job.CreateModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@{
+    Layout = null;
+}
+
+<form asp-page="/Admin/Job/Create" method="post" enctype="multipart/form-data">
+    <abp-modal size="Large">
+        <abp-modal-header title="@L["NewJob"]"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Job.Title" label="@L["Title"]" />
+            <abp-input asp-for="Job.MainImage" label="@L["Image"]" accept="image/png, image/gif, image/jpeg" />
+            <abp-select asp-for="Job.CountryId" label="@L["Country"]">
+                <option disabled selected>@L["Choose"]</option>
+            </abp-select>
+            <abp-input asp-for="Job.AccommodationFee" label="@L["AccommodationFee"]" />
+            <abp-input asp-for="Job.HourlyRate" label="@L["HourlyRate"]" />
+            <abp-input asp-for="Job.LanguageName" label="@L["LanguageName"]" />
+            <abp-input asp-for="Job.ShortDescription" label="@L["ShortDescription"]" />
+            <abp-input asp-for="Job.Description" label="@L["Description"]" class="ckeditor" />
+            <abp-input asp-for="Job.ExtraDescription" label="@L["ExtraDescription"]" class="ckeditor" />
+            <abp-input asp-for="Job.Rank" label="@L["Rank"]" />
+            <abp-input asp-for="Job.IsSeenHomePage" label="@L["IsSeenHomePage"]" />
+            <hr />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>
+<script>
+      $(document).ready(function () {
+          $('.ckeditor').each(function () {
+              CKEDITOR.replace($(this).attr("id"));
+          });
+      });   
+</script>

@@ -1,0 +1,30 @@
+﻿@page
+@model WorldTravel.Web.Pages.Info.MaintenanceModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@L["ProjectName"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/web/images/world-logo.png" />
+    <link href="~/extensions/maintenance/maintenance.css" rel="stylesheet" />
+</head>
+<body>
+<div class="overlay"></div>
+<div class="stars" aria-hidden="true"></div>
+<div class="starts2" aria-hidden="true"></div>
+<div class="stars3" aria-hidden="true"></div>
+<main class="main">
+	<section class="contact">
+		<h1 class="title">Güncelleme Nedeniyle Bakımdayız</h1>
+		<h2 class="sub-title">Kısa zamanda sizlerleyiz </h2>
+	</section>
+</main>
+</body>
+</html>

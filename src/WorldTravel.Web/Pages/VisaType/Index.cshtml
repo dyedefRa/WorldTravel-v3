@@ -1,0 +1,93 @@
+﻿@page
+@using WorldTravel.Extensions;
+@model WorldTravel.Web.Pages.VisaType.IndexModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<style>
+    .home9-parallax .footer-top h4, .home9-parallax .footer-top .h4, .home9-parallax .footer-top, .home9-parallax .footer-links a, .home9-parallax .footer-top p, .home9-parallax .footer-bottom, .home9-parallax .footer-bottom a {
+        color: #fff;
+    }
+</style>
+
+@*<div class="page section-header">
+    <div class="bredcrumbWrap mb-00">
+        <div class="container breadcrumbs">
+            <a class="bread breadfirst" href="/Home" title="@L["Home"]"><i class="fa fa-home fa-fw"></i> @L["Home"]</a><span style="font-size: 14px;" aria-hidden="true">›</span>
+            <a class="bread breadsecond" href="#" onClick="return false;" title="@L["VisaTypes"]">@L["VisaTypes"]</a>
+        </div>
+    </div>
+</div>
+*@
+<div class="container" style="padding:40px 0;">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12" style="margin:0 15px;">
+            <div class="custom-search">
+                <form action="#" method="get" class="input-group search-header search" role="search" style="position: relative;">
+                    <input class="search-header__input search__input input-group__field" type="search" name="q" placeholder="@L["EnterVisaTypeTitle"]" id="txtVisaTypeTitleSearch" aria-label="Search" autocomplete="off">
+                    <span class="input-group__btn"><button class="btnSearch" type="button"> <i class="icon anm anm-search-l"></i> </button></span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!--Main Content-->
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+            <div class="categories-list-items">
+                <div class="row country-items wow fadeInUp" data-wow-duration="4s">
+                    @foreach (var visaType in Model.VisaType)
+                    {
+                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 article country-item" style="padding: 20px;border: 2px solid #f9f9f9;text-align:center;">
+                            <a class="article_featured-image" href="/VisaType/Detail?Id=@visaType.Id">
+                                <img width="300" style="height: 195px;
+    object-fit: cover;" class="blur-up lazyload" data-src="@visaType.PreviewImageUrl" src="@visaType.PreviewImageUrl" title="@visaType.Title" alt="@L["ImageFailedToLoad"]">
+                            </a>
+                            <h2 style="text-transform: none;" class="h3"><a href="/VisaType/Detail?Id=@visaType.Id" class="visaTypeTitle">@visaType.Title</a></h2>
+                            <div class="rte">
+                                <p>@L["PopCountryExtDesc"]</p>
+                            </div>
+
+                            <p>
+                                <a href="/VisaType/Detail?Id=@visaType.Id" class="btn btn-secondary btn--small"
+                               style="background-color:#ff7800; padding:10px 15px; border-radius:5px;">@L["ApplyNow"]</a>
+                            </p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <!--End Main Content-->
+    </div>
+</div>
+    @section scripts {
+        <script>
+            $(document).ready(function () {
+                $('body').addClass('home9-parallax');
+                $('.header-wrap').removeClass('classicHeader');
+            });
+
+            $('#txtVisaTypeTitleSearch').on('keyup', function () {
+                var searchVal = $(this).val().toLowerCase();
+
+                $('.visa-type-items .visa-type-item').each(function (i) {
+                    var visaTypeTitle = $(this).html().toLowerCase();
+                    var relatedParent = $(this).closest('.visa-type-item');
+                    if (visaTypeTitle.toLowerCase().indexOf(searchVal) > -1) {
+                        relatedParent.removeClass('d-none');
+                    }
+                    else {
+                        relatedParent.addClass('d-none');
+                    }
+                });
+            });
+
+            $('#txtVisaTypeTitleSearch').keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    event.preventDefault();
+                }
+            });
+        </script>
+    }

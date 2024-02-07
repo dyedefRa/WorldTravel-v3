@@ -1,0 +1,31 @@
+﻿@page
+@using WorldTravel.Localization
+@using Microsoft.Extensions.Localization
+@using System.Net;
+@inject IStringLocalizer<WorldTravelResource> L
+@model WorldTravel.Web.Pages.Error.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="error-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="empty-page-content text-center" style="padding:200px 0;">
+                    <h1>@Model.ErrorMessage</h1>
+                    <br />
+                    <p><a href="/Home" class="btn btn--has-icon-after">@L["ReturnHomePage"]</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('body').addClass('home9-parallax');
+            $('.header-wrap').removeClass('classicHeader');
+        });
+    </script>
+}

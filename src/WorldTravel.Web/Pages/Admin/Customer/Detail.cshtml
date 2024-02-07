@@ -1,0 +1,143 @@
+﻿@page
+@model WorldTravel.Web.Pages.Admin.Customer.Detail
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Pages.Shared.Components.AbpPageToolbar
+@using Volo.Abp.Identity
+@using Volo.Abp.Identity.Localization
+@using Volo.Abp.Identity.Web.Navigation
+@using Volo.Abp.Identity.Web.Pages.Identity.Users
+@using WorldTravel.Abstract
+@using WorldTravel.Dtos.Receipts
+@inject IReceiptAppService _receiptSevice
+@inject IHtmlLocalizer<IdentityResource> L
+@inject IAuthorizationService Authorization
+@inject IPageLayout PageLayout
+@{
+    List<ReceiptViewModel> receiptList = null;
+    if (ViewData["id"] != null)
+    {
+        try
+        {
+            string idString = ViewData["id"].ToString();
+            Guid idGuid = Guid.Parse(idString);
+            receiptList = await _receiptSevice.GetReceiptByUserIdAsync(idGuid);
+
+        }
+        catch (FormatException)
+        {
+        }
+    }
+    else
+    {
+    }
+
+    PageLayout.Content.Title = L["Users"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:IdentityManagement"].Value);
+    PageLayout.Content.MenuItemName = IdentityMenuNames.Users;
+}
+
+@section scripts
+    {
+    <abp-script src="/Pages/Admin/Customer/FormList.js" />
+}
+
+<div class="row">
+    <div class="col-xl-3 col-sm-6">
+        <div class="card bg-teal-400" style="background-image: url(../../../../global_assets/images/backgrounds/panel_bg.png); background-size: contain;">
+            <div class="card-body text-center">
+                <div class="card-img-actions d-inline-block mb-3">
+                    <img class="img-fluid rounded-circle" src="~/global_assets/images/placeholders/placeholder.jpg" width="170" height="170" alt="">
+                </div>
+                <input type="hidden" value="@Model.Id" id="userId" />
+                <h6 class="font-weight-semibold mb-0">@Model.Name</h6>
+                <span class="d-block opacity-75">@Model.Role</span>
+
+                <div class="list-icons list-icons-extended mt-3">
+                    <a href="#" class="list-icons-item text-white"><i clas s="icon-user"></i> @Model.UserName</a>
+                    <a href="#" class="list-icons-item text-white"><i class="icon-mail5"></i> @Model.Email</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9 col-sm-9">
+
+        <abp-card>
+            <abp-card-header>
+                <abp-row>
+                    <abp-column size-md="_12">
+                        <abp-card-title>Müşteri Vize Başvuruları</abp-card-title>
+                    </abp-column>
+                </abp-row>
+            </abp-card-header>
+            <abp-card-body>
+                <abp-table striped-rows="true" id="FormTable"></abp-table>
+            </abp-card-body>
+        </abp-card>
+        <abp-card>
+            <abp-card-header>
+                <abp-row>
+                    <abp-column size-md="_12">
+                        <abp-card-title>Dökümanlar</abp-card-title>
+                    </abp-column>
+                </abp-row>
+            </abp-card-header>
+            <abp-card-body>
+                <table class="table table-striped dataTable no-footer">
+                    <thead>
+                        <tr>
+                            <th>Belge No</th>
+                            <th>Belge Adı</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in receiptList)
+                        {
+                            <tr>
+                                <td>@item.FileId</td>
+                                <th>@item.File.Name</th>
+                                <th><a href="@item.File.Path" target="_blank" class="btn btn-success" >Görüntüle</a></th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </abp-card-body>
+        </abp-card>
+        @*  <h3>Müşteri Vize Başvuruları</h3>
+
+        @if (Model.Forms != null)
+        {
+        <ul style="list-style-type:none; margin: 0 !important; padding: 0;">
+        @foreach (var item in Model.Forms)
+        {
+        <li style="padding: 10px 15px; background: #e8e8e8; margin-bottom: 5px; border-radius: 5px; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+        <span>
+        @item.CountryName
+        </span>
+        <span>
+        @item.Name
+        </span>
+        <span>@item.PhoneNumber</span>
+        <span>
+        @item.Email
+        </span>
+        <span>
+        Uygunluk: % @item.FormIsOk
+        </span>
+        <div>
+        <a href="/Admin/Customer/FormDetail?id=@item.Id" class="btn btn-success">İncele</a>
+        </div>
+        </li>
+        }
+        </ul>
+        }
+        else
+        {
+        <div><span>Müşterinin vize başvurusu bulunmuyor...</span></div>
+        }*@
+
+    </div>
+</div>
+

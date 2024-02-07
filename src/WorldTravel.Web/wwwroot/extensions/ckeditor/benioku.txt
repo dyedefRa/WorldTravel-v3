@@ -1,0 +1,27 @@
+﻿Pages > Admin > CountryContent > Create te kullandık
+
+1)  LAYOUTTA JS I TANIMLA 
+    <script src="~/extensions/ckeditor/ckeditor.js"></script>
+
+2) HTML INPUTU TANIMLA
+<abp-input asp-for="CountryContent.Description" label="@L["Description"]" class="ckeditor" />
+
+
+3) CK EDITOR UU INITLE
+    $('.ckeditor').each(function () {
+                CKEDITOR.replace($(this).attr("id")
+                    //, {
+                    //    filebrowserBrowseUrl: $.adminRootUrl + '~/extensions/ckeditor/ckfinder/ckfinder.html',
+                    //    filebrowserImageBrowseUrl: $.adminRootUrl + '~/extensions/ckeditor/ckfinder/ckfinder.html?type=Images',
+                    //    filebrowserFlashBrowseUrl: $.adminRootUrl + '~/extensions/ckeditor/ckfinder/ckfinder.html?type=Flash',
+                    //    filebrowserUploadUrl: $.adminRootUrl + '~/extensions/ckeditor/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+                    //    filebrowserImageUploadUrl: $.adminRootUrl + '~/extensions/ckeditor/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images',
+                    //    filebrowserFlashUploadUrl: $.adminRootUrl + '~/extensions/ckeditor/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash'
+                    //}
+                );
+            });
+
+
+NOT --------------------------
+
+ OTOKOC > ADMIN > _SCRIPT   ve  admin/ContentPages/Detail/4*@   dan aldık

@@ -1,0 +1,133 @@
+﻿@using Volo.Abp.AspNetCore.Mvc.AntiForgery
+@using Volo.Abp.AspNetCore.Mvc.UI.Components.LayoutHook
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.PageAlerts
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetScripts
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetStyles
+@using Volo.Abp.Localization
+@using WorldTravel.Localization
+@using Microsoft.Extensions.Localization
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IPageLayout PageLayout
+@inject IStringLocalizer<WorldTravelResource> L
+@{
+    Layout = null;
+    AbpAntiForgeryManager.SetCookie();
+    var pageTitle = "WorldTravel";
+
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="<" />
+
+    <title>@pageTitle</title>
+    @if (ViewBag.Description != null)
+    {
+        <meta name="description" content="@ViewBag.Description" />
+    }
+    <abp-style-bundle name="css_files" />
+    @await Component.InvokeAsync(typeof(WidgetStylesViewComponent))
+    @await RenderSectionAsync("styles", false)
+    <style>
+        /* .dataTables_scroll .dataTables_scrollBody {
+            overflow: unset !important;
+        }
+        .datatable-w-scroll .dataTables_scroll .dataTables_scrollBody {
+            overflow: auto !important;
+        }*/
+    </style>
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.Last, StandardLayouts.Empty)
+</head>
+<body>
+    <div class="loading" style="display:none">
+        <svg class="loader" viewBox="0 0 120 120">
+            <circle class="internal-circle" cx="60" cy="60" r="30"></circle>
+            <circle class="external-circle" cx="60" cy="60" r="50"></circle>
+        </svg>
+    </div>
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.First, StandardLayouts.Empty)
+
+    <partial name="~/Pages/Admin/Shared/_PartialHeader.cshtml" />
+
+    <div class="page-content">
+        <partial name="~/Pages/Admin/Shared/_PartialSidebar.cshtml" />
+        <div class="content-wrapper">
+            <div class="page-header">
+                <div class="page-header-content header-elements-md-inline">
+                    <div class="page-title d-flex">
+                        @*<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Dashboard</h4>
+                            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>*@
+                        @(await Component.InvokeAsync<PageAlertsViewComponent>())
+                    </div>
+                </div>
+            </div>
+
+            <div class="content pt-0">
+                @RenderBody()
+            </div>
+
+            <div class="navbar navbar-expand-lg navbar-light">
+                <div class="text-center d-lg-none w-100">
+                    <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
+                        <i class="icon-unfold mr-2"></i>
+                        Footer
+                    </button>
+                </div>
+
+                <div class="navbar-collapse collapse" id="navbar-footer">
+                    <span class="navbar-text">
+                        &copy; 2023 <a href="#">@L["ProjectName"]</a> ver1.0 by <a href="#" target="_blank">Antiexe VıÞs</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <abp-script-bundle name="@BasicThemeBundles.Scripts.Global" />
+    <script src="~/Abp/ApplicationConfigurationScript"></script>
+    <script src="~/Abp/ServiceProxyScript"></script>
+
+    @*<abp-script-bundle name="theme_js_files" />*@
+    <script src="~/global_assets/js/plugins/visualization/d3/d3.min.js"></script>
+    <script src="~/global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+    <script src="~/global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script src="~/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="~/global_assets/js/plugins/loaders/blockui.min.js"></script>
+    <script src="~/global_assets/js/plugins/forms/inputs/inputmask.js"></script>
+    <script src="~/global_assets/js/plugins/forms/inputs/formatter.min.js"></script>
+    <script src="~/assets/js/app.js"></script>
+    <script src="~/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script src="~/global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script src="~/global_assets/js/plugins/forms/styling/switch.min.js"></script>
+    <script src="~/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+    <script src="~/global_assets/js/demo_pages/form_multiselect.js"></script>
+    <script src="~/global_assets/js/plugins/pickers/daterangepicker.js"></script>
+    @*<script src="~/global_assets/js/plugins/editors/ckeditor/ckeditor.js"></script>*@
+    <script src="~/assets/js/jquery.mask.js"></script>
+
+    <script src="~/global_assets/js/plugins/tables/datatables/extensions/select.min.js"></script>
+
+@*    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+*@
+    @*<script src="~/global_assets/js/plugins/extensions/jquery_ui/jquery.blockUI.js"></script>*@
+
+
+    <script src="~/extensions/ckeditor/ckeditor.js"></script>
+    @*<script src="~/assets/js/custom.js" asp-append-version="true"></script>*@
+    <abp-script-bundle name="custom_js_files" />
+    <script src="~/assets/js/custom.js?_v=@DateTime.Now.Millisecond"></script>
+
+
+    @await RenderSectionAsync("scripts", false)
+    @await Component.InvokeAsync(typeof(WidgetScriptsViewComponent))
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.Last, StandardLayouts.Empty)
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+﻿@using Volo.Abp.AspNetCore.Mvc.AntiForgery
+@using Volo.Abp.AspNetCore.Mvc.UI.Components.LayoutHook
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.PageAlerts
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetScripts
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetStyles
+@using Volo.Abp.Localization
+@using WorldTravel.Localization
+@using Volo.Abp.Users
+@using Microsoft.Extensions.Localization
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IPageLayout PageLayout
+@inject ICurrentUser CurrentUser
+@inject IStringLocalizer<WorldTravelResource> L
+@{
+    Layout = null;
+    AbpAntiForgeryManager.SetCookie();
+}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@L["ProjectName"]</title>
+    @if (ViewBag.Description != null)
+    {
+        <meta name="description" content="@ViewBag.Description" />
+    }
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/web/images/world-logo.png" />
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="/web/css/plugins.css">
+    <!-- Bootstap CSS -->
+    <link rel="stylesheet" href="/web/css/bootstrap.min.css">
+    <link href="~/libs/toastr/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/web/css/style.css">
+    <link rel="stylesheet" href="/web/css/responsive.css">
+    @*<link href="~/extensions/chatbot/chatbot.css" rel="stylesheet" />*@
+    <link href="~/extensions/golden/golden.css" rel="stylesheet" />
+    <link href="/web/css/custom.css" rel="stylesheet" />
+    @await Component.InvokeAsync(typeof(WidgetStylesViewComponent))
+    @await RenderSectionAsync("styles", false)
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.Last, StandardLayouts.Empty)
+</head>
+<body class="template-index belle" id="body-bg" style="background-color:#fff;">
+    @* <div id="pre-loader">
+    <img src="/web/images/loader.gif" alt="Loading..." />
+    </div>*@
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.First, StandardLayouts.Empty)
+
+    <div class="pageWrapper">
+        <!--Search Form Drawer-->
+        <div class="search">
+            <div class="search__form">
+                <form class="search-bar__form" action="#">
+                    <button class="go-btn search__button" type="submit"><i class="icon anm anm-search-l"></i></button>
+                    <input class="search__input" type="search" name="q" value="" placeholder="@L["Search"]" aria-label="Search" autocomplete="off">
+                </form> 
+                <button type="button" class="search-trigger close-btn"><i class="anm anm-times-l"></i></button>
+            </div>
+        </div>
+        <!--End Search Form Drawer-->
+
+        <div class="top-header">
+            <div class="container-fluid">
+                <div class="row" style="display: flex; align-items: center;">
+                    <div class="col-11 col-sm-8 col-md-5 col-lg-4" style="display:flex; justify-content:flex-start; align-items: center;">
+                        @*   <div class="currency-picker">
+                        <span class="selected-currency">USD</span>
+                        <ul id="currencies">
+                        <li data-currency="INR" class="">INR</li>
+                        <li data-currency="GBP" class="">GBP</li>
+                        <li data-currency="CAD" class="">CAD</li>
+                        <li data-currency="USD" class="selected">USD</li>
+                        <li data-currency="AUD" class="">AUD</li>
+                        <li data-currency="EUR" class="">EUR</li>
+                        <li data-currency="JPY" class="">JPY</li>
+                        </ul>
+                        </div>*@
+                        <div class="language-dropdown">
+                            <span class="language-dd" style="display: flex; flex-direction: row; background: #ffffff; align-items: center; justify-content: space-evenly; padding: 8px;">
+                                <img loading="lazy" width="23" class="selectedLanguageImage" src="/global_assets/images/lang/tr.png" />
+                                @*                                    <span class="selectedLanguageName fs15" style="margin-left:5px;">@L["Turkish"]</span>
+                                *@
+                            </span>
+                            <ul id="language" style="border-radius: 0; width: 65px;">
+                                <li class="select-language">
+                                    <a style="color:black;text-decoration:none; color: black; text-decoration: none; display: flex; justify-content: space-between;" href="#">
+                                        <img loading="lazy" width="23" class="optionLanguageImage" src="/global_assets/images/lang/en.png" />
+                                        @*                                            <span class="optionLanguageName fs15">@L["English"]</span>
+                                        *@
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="d-lg-none d-md-none d-sm-block">
+                            <form method="post" action="/aramayap" style="display: flex;">
+                                <input type="text" class="form-control search__form" placeholder="Arama Yapın..." 
+                                style="margin-left: 10px; height: 34px; border-radius:0;">
+                                <span class="fa fa-search search-icon-style"></span>
+                            </form>
+                        </div>
+                        <p class="phone-no d-none d-lg-block" style="border-right: 1px solid #fff; padding-right: 15px; margin:0 15px;">
+                            <a href="tel:905343970662" class="fs15" title="@L["ClickCallMe"]" style="cursor:pointer; display: flex; align-items: center;">
+                                <i class="anm anm-phone-s"></i> <span style="margin-left: 5px; font-weight: 600;">+90 (534) 397 0662 </span>
+                            </a>
+                        </p>
+                        <p style="margin-left:5px;" class="phone-no d-none d-lg-block" @*style="border-right: 1px solid #fff; padding-right: 45px; margin-right: 15px;"*@>
+                            <a href="mailto:contact@worldvisaturkey.com" class="fs15" title="@L["ClickSendMail"]"
+                               style="cursor:pointer;text-transform:initial; display: flex; align-items: center;">
+                                <i class="icon-email"></i> <span style="margin-left: 5px; font-weight: 600; text-transform: uppercase;">@L["SendMail"]</span>
+                            </a>
+                        </p>
+
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-flex" style="justify-content: center;">
+                        @*                        <div class="text-center"><p class="top-header_middle-text"><a href="/Home" class="fs15">@L["ProjectName"]</a></p></div>
+                        *@
+                        <a href="/Home" class="fs15"> <img src="/web/images/world-logo.png" height="55" alt="@L["ImageFailedToLoad"]" title="Anasayfa" /></a>
+                    </div>
+                    <div class="col-1 col-sm-4 col-md-3 col-lg-4 text-right">
+                        <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
+                        <ul class="customer-links list-inline">
+                            @if (CurrentUser.IsAuthenticated)
+                            {
+                                <li style="border-right: 1px solid #fff; padding: 0px 15px 0px 0px; margin-right: 5px;">
+                                    <a class="fs15" href="/Account/Manage" style="display: flex; align-items: center; text-decoration:none;">
+                                        <i class="fa fa-user" style="margin-right:5px; font-size:18px;"></i> <span style="margin-top:3px; font-weight: 600;">@L["MyAccountInformation"] </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="fs15" href="/Account/Logout" style="display: flex; align-items: center; text-decoration:none;">
+                                        <i class="fa fa-close" style="margin-right:5px; font-size:18px;"></i> <span style="margin-top:3px; font-weight: 600;">@L["Logout"]</span>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li style="border-right: 1px solid #fff; padding: 0px 15px 0px 0px; margin-right: 5px;">
+                                    <a class="fs15" href="/Account/Login" style="display: flex; align-items: center; text-decoration:none;">
+                                        <i class="fa fa-user" style="margin-right:5px; font-size:18px;"></i> <span style="margin-top:3px; font-weight: 600;">@L["LoginB"]</span>
+                                    </a>
+                                </li>
+                // BUNUN KEYWORDUNU UNUTMA
+                                <li>
+                                    <a class="fs15" href="/Form/FormFindJob?formRegisterType=vizebasvurusu" style="display: flex; align-items: center; text-decoration:none;">
+                                        <i class="fa fa-wpforms" style="margin-right:5px; font-size:18px;"></i> <span style="margin-top:3px; font-weight: 600;">@L["VisaRegister"]</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Header-->
+
+        <partial name="_Menu" />
+
+        <div id="page-content">
+            @RenderBody()
+        </div>
+        <partial name="_WhatsApp" />
+
+        @*  <partial name="_ChatBot" />*@
+        <partial name="_Footer" />
+
+        <!--Scoll Top-->
+        @*   <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>*@
+        <!--End Scoll Top-->
+        <abp-script-bundle name="@BasicThemeBundles.Scripts.Global" />
+        <script src="~/Abp/ApplicationConfigurationScript"></script>
+        <script src="~/Abp/ServiceProxyScript"></script>
+        <!-- Including Jquery -->
+        <script src="~/web/js/vendor/jquery-3.3.1.min.js"></script>
+        <script src="~/web/js/jquery.tmpl.min.js"></script>
+        <script src="~/web/js/vendor/modernizr-3.6.0.min.js"></script>
+        <script src="~/web/js/vendor/jquery.cookie.js"></script>
+        <script src="~/libs/jquery-validation/jquery.validate.min.js"></script>
+        <script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
+        </script><script src="~/assets/js/jquery.mask.js"></script>
+        <script src="~/web/js/vendor/wow.min.js"></script>
+        <!-- Including Javascript -->
+        <script src="~/web/js/bootstrap.min.js"></script>
+        <script src="~/web/js/plugins.js"></script>
+        <script src="~/web/js/popper.min.js"></script>
+        <script src="~/web/js/lazysizes.js"></script>
+        <script src="~/libs/abp/core/abp.js"></script>
+        <script src="~/libs/abp/jquery/abp.jquery.js"></script>
+        <script src="~/assets/js/select2.min.js"></script>
+        <script src="~/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+        <script src="~/global_assets/js/plugins/forms/inputs/formatter.min.js"></script>
+        <script src="~/libs/toastr/toastr.min.js"></script>
+        <script src="~/web/js/main.js"></script>
+        @*<script src="~/extensions/chatbot/chatbot.js"></script>*@
+        <script src="~/extensions/golden/golden.js"></script>
+        <script src="~/web/js/custom.js"></script>
+        <!--For Newsletter Popup-->
+        <!-- Photoswipe Gallery -->
+        <script src="~/web/js/vendor/photoswipe.min.js"></script>
+        <script src="~/web/js/vendor/photoswipe-ui-default.min.js"></script>
+
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+
+        <script>
+
+            jQuery(document).ready(function () {
+
+                //#region Localization
+                var languageCookie = localStorage.getItem('$language');
+                if (languageCookie == 'tr' || languageCookie == null) {
+                    $('.selectedLanguageImage').attr('src', '/global_assets/images/lang/tr.png');
+                    $('.selectedLanguageName').html('@L["Turkish"]');
+                    $('.optionLanguageImage').attr('src', '/global_assets/images/lang/en.png');
+                    $('.optionLanguageName').html('@L["English"]');
+                }
+                else {
+                    $('.selectedLanguageImage').attr('src', '/global_assets/images/lang/en.png');
+                    $('.selectedLanguageName').html('@L["English"]');
+                    $('.optionLanguageImage').attr('src', '/global_assets/images/lang/tr.png');
+                    $('.optionLanguageName').html('@L["Turkish"]');
+                }
+
+                $('.select-language').click(function (e) {
+                    var languageCookie = localStorage.getItem('$language');
+                    if (languageCookie == 'en') {
+                        localStorage.setItem('$language', 'tr');
+                        window.location.href = "/Abp/Languages/Switch?culture=tr&uiCulture=tr&returnUrl=" + location.pathname
+                    }
+                    else {
+                        localStorage.setItem('$language', 'en');
+                        window.location.href = "/Abp/Languages/Switch?culture=en&uiCulture=en&returnUrl=" + location.pathname
+                    }
+                });
+                //#endregion
+
+                jQuery('.closepopup').on('click', function () {
+                    jQuery('#popup-container').fadeOut();
+                    jQuery('#modalOverly').fadeOut();
+                });
+
+                //var visits = jQuery.cookie('visits') || 0;
+                //visits++;
+                //jQuery.cookie('visits', visits, { expires: 1, path: '/' });
+                //console.debug(jQuery.cookie('visits'));
+                //if (jQuery.cookie('visits') > 1) {
+                //    jQuery('#modalOverly').hide();
+                //    jQuery('#popup-container').hide();
+                //} else {
+                //    var pageHeight = jQuery(document).height();
+                //    jQuery('<div id="modalOverly"></div>').insertBefore('body');
+                //    jQuery('#modalOverly').css("height", pageHeight);
+                //    jQuery('#popup-container').show();
+                //}
+                //if (jQuery.cookie('noShowWelcome')) { jQuery('#popup-container').hide(); jQuery('#active-popup').hide(); }
+            });
+
+            jQuery(document).mouseup(function (e) {
+                var container = jQuery('#popup-container');
+                if (!container.is(e.target) && container.has(e.target).length === 0) {
+                    container.fadeOut();
+                    jQuery('#modalOverly').fadeIn(200);
+                    jQuery('#modalOverly').hide();
+                }
+            });
+
+            function openCity(cityName) {
+                var i;
+                var x = document.getElementsByClassName("city");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                document.getElementById(cityName).style.display = "block";
+            }
+
+        </script>
+        <!--End For Newsletter Popup-->
+        <abp-script-bundle name="custom_js_files" />
+        <script src="~/assets/js/custom.js?_v=@DateTime.Now.Millisecond"></script>
+
+        @await RenderSectionAsync("scripts", false)
+        @await Component.InvokeAsync(typeof(WidgetScriptsViewComponent))
+        @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.Last, StandardLayouts.Empty)
+    </div>
+</body>
+
+</html>

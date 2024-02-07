@@ -1,0 +1,51 @@
+﻿@page
+@using WorldTravel.Extensions;
+@model WorldTravel.Web.Pages.Blog.IndexModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@{
+}
+
+<div class="page section-header" style="margin-top:90px; margin-bottom: 0;">
+    <div class="bredcrumbWrap mb-00">
+        <div class="container breadcrumbs">
+            <a class="bread breadfirst" href="/Home" title="Ana Sayfa"><i class="fa fa-home fa-fw"></i> Ana Sayfa</a>
+            <span style="font-size: 14px;" aria-hidden="true">›</span>
+            <span class="bread breadsecond"><i class="fa fa-cog fa-fw"></i> Güncel</span>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="max-width:100%;">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col" style="margin: 0 auto;">
+            <section id="guncel" style="z-index:1; position: relative; padding: 60px 0px 115px 0px;">
+
+                <div class="container zoomIn" data-wow-duration="2s">
+                    <div class="blog-post">
+
+                        <div class="job-body">
+                            <div class="row">
+                                    @foreach (var item in Model.Blog.ToList())
+                                    {
+                                        <div class="col-sm-6 col-lg-6 col-md-6">
+                                            <a href="/Blog/Detail?IId=@item.Id" class="text-decoration-none">
+                                                <div class="job-card">
+                                                <img loading="lazy" class="job-image" src="@item.PreviewImageUrl" />
+                                                    <div class="job-content">
+                                                    <h1 style="font-family: Poppins-Medium !important;" class="job-title">@item.Title</h1>
+                                                        <p class="job-desc">@item.SeoDescription</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>

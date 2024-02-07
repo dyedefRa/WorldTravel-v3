@@ -1,0 +1,38 @@
+﻿@page
+@model WorldTravel.Web.Pages.Admin.Form.IndexModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@section scripts
+    {
+    <abp-script src="/Pages/Admin/Form/Index.js" />
+}
+@Html.AntiForgeryToken()
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_12">
+                <abp-card-title>@L["Forms"]</abp-card-title>
+            </abp-column>
+        </abp-row>
+        <br />
+        <abp-row>
+            <abp-column size="_2">
+                <abp-input asp-for="FullNameFilter" label="@L["FullName"]" />
+            </abp-column>
+            <abp-column size="_2">
+                <abp-input asp-for="PhoneFilter" label="@L["PhoneNumber"]" />
+            </abp-column>
+            <abp-column size="_2">
+                <abp-input asp-for="EmailFilter" label="@L["Email"]" />
+            </abp-column>
+            <abp-column size="_2">
+                <abp-select asp-for="IsContactedFilter" label="@L["IsContacted"]" />
+            </abp-column>
+            <abp-column size-md="_4" style="margin:auto;">
+                <abp-button id="btnSearch" class="btn-success float-right">@L["Filter"]</abp-button>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="FormsTable"></abp-table>
+    </abp-card-body>
+</abp-card>

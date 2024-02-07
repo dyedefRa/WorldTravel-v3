@@ -1,0 +1,46 @@
+﻿@page
+@using WorldTravel.Localization
+@using Microsoft.Extensions.Localization
+@model WorldTravel.Web.Pages.Account.LoginModel
+@inject IStringLocalizer<WorldTravelResource> L
+@{
+    Layout = "~/Pages/Shared/_Layout2.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+            <div class="mb-4">
+                <form method="post" href="/Account/Login" class="contact-form cont-content" style="box-shadow: -1px 0px 20px 0 #ededed;">
+                    @Html.AntiForgeryToken()
+                    @(await Component.InvokeAsync<Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.PageAlerts.PageAlertsViewComponent>())
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <abp-input asp-for="UserLoginInputModel.Email" class="golden-from-element" label="@L["Email"]" />
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <abp-input asp-for="UserLoginInputModel.Password" class="golden-from-element" label="@L["Password"]" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
+                            <abp-button text="@L["LoginB"]" style="background: #ff7800; padding: 15px 20px;
+                                        border-radius: 5px; font-weight: 700; box-shadow: 0px 1px 20px 0 #1594d069;" type="submit" button-type="Success" class="btn mb-3" />
+                            <p class="mb-4">
+                                <a href="/Account/ForgotPassword">@L["ForgotYourPassword"]</a> &nbsp; | &nbsp;
+                                <a href="/Account/Register">@L["WantToBeRegister"]</a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+                });
+    </script>
+}

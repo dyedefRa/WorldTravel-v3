@@ -1,0 +1,266 @@
+﻿@page
+@using WorldTravel.Localization
+@using Microsoft.Extensions.Localization
+@model WorldTravel.Web.Pages.Form.FormFindJobModel
+@inject IStringLocalizer<WorldTravelResource> L
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+
+    string titleName = ViewData["RegType"].ToString() == "isbul"
+    ? "TitleJobFind" : ViewData["RegType"].ToString() == "iscibul"
+    ? "TitleWorkerFind" : ViewData["RegType"].ToString() == "danismanol"
+    ? "TitleBeConsultant" : ViewData["RegType"].ToString() == "danismanbul"
+      ? "TitleConsultantFind" : ViewData["RegType"].ToString() == "vizebasvurusu"
+    ? "VisaApply" : "VisaApply";
+}
+
+<style>
+    .cont-content {
+        background: #fff;
+        padding: 45px;
+        width: 800px;
+        margin: 0 auto;
+    }
+
+    .cont-top p {
+        margin-bottom: 35px;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 100;
+    }
+
+    .btn-form {
+        background: #ff7800;
+        padding: 15px 20px;
+        border-radius: 5px;
+        font-weight: 700;
+        box-shadow: 0px 1px 20px 0 #1594d069;
+    }
+
+    .home9-parallax .footer-top h4, .home9-parallax .footer-top .h4, .home9-parallax .footer-top, .home9-parallax .footer-links a, .home9-parallax .footer-top p, .home9-parallax .footer-bottom, .home9-parallax .footer-bottom a {
+        color: #fff;
+    }
+</style>
+
+<div class="page section-header">
+    <div class="bredcrumbWrap mb-00">
+        <div class="container breadcrumbs">
+            <a class="bread breadfirst" href="/Home" title="@L["Home"]"><i class="fa fa-home fa-fw"></i> @L["Home"]</a><span style="font-size: 14px;" aria-hidden="true">›</span>
+            <a class="bread breadsecond" href="#" onClick="return false;" title="@L["Register"]"><i class="fa fa-user-plus fa-fw"></i> @L["Register"]</a>
+        </div>
+    </div>
+</div>
+
+<section id="contact">
+    <div class="container">
+        <div class="mb-4">
+            <div class="cont-content">
+                <div class="cont-top text-center ">
+                    <h5 style="font-size:30px;">@L[$"{titleName}"]</h5>
+                    <p>@L["descFormConsultantAndJob"]</p>
+                </div>
+                <form method="post" href="/Form">
+                    @Html.AntiForgeryToken()
+                    @(await Component.InvokeAsync<Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.PageAlerts.PageAlertsViewComponent>())
+                    <div class="row">
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                            <abp-input asp-for="Form.Name" class="golden-from-element" required label="@L["Name"]" />
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                            <abp-input asp-for="Form.Surname" class="golden-from-element" required label="@L["Surname"]" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                            <abp-input asp-for="Form.Email" class="golden-from-element" required label="@L["Email"]" />
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                            <abp-input asp-for="Form.PhoneNumber" class="golden-from-element" required placeholder="0(5__) ___-____" label="@L["PhoneNumber"]" />
+                        </div>
+                    </div>
+
+                    @if (titleName == "TitleBeConsultant")
+                    {
+                        <input type="hidden" name="Form.FormRegType" value="danismanol">
+                        <div class="row">
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.JobTitle" class="golden-from-element" required label="@L["JobTitle"]" />
+                            </div>
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.Sector" class="golden-from-element" required label="@L["Sector"]" />
+                            </div>
+                        </div>
+                    }
+
+                    @if (titleName == "TitleConsultantFind")
+                    {
+                        <input type="hidden" name="Form.FormRegType" value="danismanbul">
+
+                        <div class="row">
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.IsNeedConsult" class="golden-from-element" required label="@L["IsNeedConsult"]" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12 col-lg-12col-xl-12">
+                                <abp-input asp-for="Form.RequiredQualification" class="golden-from-element" required label="@L["RequiredQualification"]" />
+                            </div>
+                        </div>
+                    }
+
+                    @if (titleName == "TitleJobFind")
+                    {
+                        <input type="hidden" name="Form.FormRegType" value="isbul">
+
+                        <div class="row">
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.EducationStatus" class="golden-from-element" required label="@L["EducationStatus"]" />
+                            </div>
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.JobPosition" class="golden-from-element" required label="@L["JobPosition"]" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                                <abp-select asp-for="Form.CountryId" class="golden-from-element" required label="@L["Country"]">
+                                    <option disabled selected>@L["Choose"]</option>
+                                </abp-select>
+                            </div>
+                        </div>
+                    }
+
+                    @if (titleName == "TitleWorkerFind")
+                    {
+                        <input type="hidden" name="Form.FormRegType" value="iscibul">
+
+                        <div class="row">
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.CompanyName" class="golden-from-element" required label="@L["CompanyName"]" />
+                            </div>
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.CompanyContact" class="golden-from-element" required label="@L["CompanyContact"]" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.PositionName" class="golden-from-element" required label="@L["PositionName"]" />
+                            </div>
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.JobTip" class="golden-from-element" required label="@L["JobTip"]" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.RequiredQualification" class="golden-from-element" required label="@L["RequiredQualification"]" />
+                            </div>
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.SalaryRange" class="golden-from-element" required label="@L["SalaryRange"]" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.HoursWork" class="golden-from-element" required label="@L["HoursWork"]" />
+                            </div>
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.Location" class="golden-from-element" required label="@L["Location"]" />
+                            </div>
+                        </div>
+                    }
+
+                    @if (titleName == "VisaApply")
+                    {
+                        <input type="hidden" name="Form.FormRegType" value="vizebasvurusu">
+                        <div class="row">
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-select asp-for="Form.Gender" class="golden-from-element" required label="@L["Gender"]">
+                                    <option disabled selected>@L["Choose"]</option>
+                                </abp-select>
+                            </div>
+                            <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                <abp-input asp-for="Form.BirthDate" class="golden-from-element" required label="@L["BirthDate"]" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                                <abp-input asp-for="Form.Description" class="golden-from-element" label="@L["Description"]" />
+                            </div>
+                        </div>
+                    }
+
+                    <div style="margin: 0px 0px 16px 16px;" class="g-recaptcha" data-sitekey="6LfnZn0mAAAAADE4DCn4Blm0rKUxC1ePZ2T0AjYb"></div>
+                    <div class="flex-direction-mb-column text-center col-12 col-sm-12 col-md-12 col-lg-12" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                        <div class="flex" style="flex-direction: row; align-items: center;">
+                            <input id="sozlesmeonay" type="checkbox" name="IsRead" required>
+                            <span class="kvkk" style="position: relative; left: 10px; font-size: 18px;">
+                                <a style="text-decoration:underline" class="kvkkopenModal" href="#">@L["kvkk"]</a>
+                            </span>
+                        </div>
+                        <abp-button text="@L["ApplyNow"]" type="submit" class="btn-nice btn-form " button-type="Primary" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade bd-example-modal-lg modal-dialog-scrollable" id="kvkkmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content" style="height: 90vh; overflow: scroll;">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Kişisel Verilerin Korunması Kanunu (KVKK) Uyarınca Aydınlatma Metni
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>1. Veri Sorumlusu</strong></p>
+
+                <p>Bu aydınlatma metni, [Şirket Adı/İsim ve Soyisim] olarak bizlerin, KVKK kapsamında, kişisel verilerinizi nasıl işlediğimiz ve koruduğumuz konusunda sizi bilgilendirmek amacıyla hazırlanmıştır.</p>
+
+                <p><strong>2. Kişisel Verilerin İşlenme Ama&ccedil;ları</strong></p>
+
+                <p>Kişisel verileriniz, başvuru s&uuml;recinizin değerlendirilmesi, vize işlemlerinin y&uuml;r&uuml;t&uuml;lmesi, iletişim kurulması, iş ilişkisinin y&uuml;r&uuml;t&uuml;lmesi ve yasal y&uuml;k&uuml;ml&uuml;l&uuml;klerin yerine getirilmesi gibi ama&ccedil;larla işlenecektir.</p>
+
+                <p><strong>3. Kişisel Verilerin Aktarılabileceği Taraflar ve Aktarım Ama&ccedil;ları</strong></p>
+
+                <p>Kişisel verileriniz, vize başvurusunun işlenmesi i&ccedil;in gerekli olan kurumlarla (&ouml;rneğin, ilgili konsolosluklar, vize işlemlerini y&uuml;r&uuml;ten resmi kurumlar) paylaşılabilir. Verileriniz, yasal d&uuml;zenlemeler gereği veya işbu a&ccedil;ıklamada belirtilen ama&ccedil;larla sınırlı olmak &uuml;zere, hukuki zorunluluklar doğrultusunda yetkili kamu kurumlarına aktarılabilir.</p>
+
+                <p><strong>4. Kişisel Veri Toplanma Y&ouml;ntemi ve Hukuki Sebebi</strong></p>
+
+                <p>Kişisel verileriniz, başvuru formunuz aracılığıyla toplanacak olup, KVKK&#39;nın 5. ve 6. maddelerinde belirtilen hukuki sebeplere dayanarak işlenecektir. Veri işleme faaliyetlerimiz, a&ccedil;ık rıza, s&ouml;zleşme, hukuki y&uuml;k&uuml;ml&uuml;l&uuml;k, kamu yararı, meşru menfaat gibi hukuki sebeplere dayanmaktadır.</p>
+
+                <p><strong>5. Kişisel Veri Sahibinin Hakları</strong></p>
+
+                <p>KVKK kapsamında, kişisel veri sahipleri olarak sizlere; veri işlenip işlenmediğini &ouml;ğrenme, bu verilere erişim, verilerinizin d&uuml;zeltilmesi, silinmesi veya yok edilmesi, verilerinizin aktarıldığı &uuml;&ccedil;&uuml;nc&uuml; kişilere bilgi verilmesi gibi haklar tanınmaktadır. Bu haklarınızı kullanmak i&ccedil;in şirketimize başvurabilirsiniz.</p>
+
+                <p><strong>6. İletişim Bilgileri</strong></p>
+
+                <p>Kişisel verilerinizle ilgili talepleriniz, [Şirket Adı/İsim ve Soyisim]&#39;ne yazılı olarak iletilmelidir. [Adres, Telefon Numarası, E-posta Adresi] &uuml;zerinden iletişime ge&ccedil;ebilirsiniz.</p>
+
+                <p><strong>Sonu&ccedil;</strong></p>
+
+                <p>Bu metin, kişisel verilerinizin işlenmesi ve korunması konusunda size bilgi vermek amacıyla hazırlanmıştır. KVKK gerekliliklerine uygun olarak şirketimizin politika ve uygulamalarını i&ccedil;ermekte olup, veri g&uuml;venliği ve gizliliğinizin korunmasına &ouml;nem verilmektedir.</p>
+                <!-- Sidebar Wrapper -->
+
+                <p>&nbsp;</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('body').addClass('home9-parallax');
+            $('.header-wrap').removeClass('classicHeader');
+            $('#FormInputModel_BirthDate').attr('type', 'date');
+        });
+    </script>
+}
+

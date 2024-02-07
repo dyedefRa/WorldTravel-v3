@@ -1,0 +1,44 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@model WorldTravel.Web.Pages.Admin.Customer.IndexModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@inject IAuthorizationService AuthorizationService
+@section scripts
+    {
+    <abp-script src="/Pages/Admin/Customer/Index.js" />
+}
+@Html.AntiForgeryToken()
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_12">
+                <abp-card-title>@L["Müşteri Yönetimi"]</abp-card-title>
+            </abp-column>
+        </abp-row>
+        <br />
+        <abp-row>
+           @* <abp-column size="_2">
+                <abp-input asp-for="CountryNameFilter" label="@L["CountryName"]" />
+            </abp-column>*@
+            <abp-column size="_6">
+            </abp-column>
+            <abp-column size-md="_4" style="margin:auto;">
+                <abp-button id="btnSearch" class="btn-success float-right">@L["Filter"]</abp-button>
+            </abp-column>
+        </abp-row>
+        <abp-row>
+            <abp-column size-md="_12" class="text-right">
+               @* @if (await AuthorizationService.IsGrantedAsync(WorldTravel.Permissions.WorldTravelPermissions.CountryContent.Create))
+                {
+                    <abp-button id="createCountryContentButton"
+                            text="@L["NewCountryContent"]"
+                            icon="plus"
+                            button-type="Primary" />
+                }*@
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="CustomersTable"></abp-table>
+    </abp-card-body>
+</abp-card>

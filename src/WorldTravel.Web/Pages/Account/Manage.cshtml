@@ -1,0 +1,707 @@
+﻿@page
+@using WorldTravel.Localization
+@using WorldTravel.Enums
+@using WorldTravel.Extensions
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Pages.Shared.Components.AbpPageToolbar
+@inject IStringLocalizer<WorldTravelResource> L
+@model WorldTravel.Web.Pages.Account.ManageModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+    .w3-black, .w3-hover-black:hover {
+        color: #000 !important;
+        background-color: white !important;
+        border: 1px solid #e7e7e7;
+        box-shadow: 0px 1px 6px 0 #bfc6c875;
+    }
+
+
+    .home9-parallax .footer-top h4, .home9-parallax .footer-top .h4, .home9-parallax .footer-top, .home9-parallax .footer-links a, .home9-parallax .footer-top p, .home9-parallax .footer-bottom, .home9-parallax .footer-bottom a {
+        color: #fff;
+    }
+
+    .uploader {
+        display: block;
+        clear: both;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+        .uploader label {
+            clear: both;
+            width: 100%;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            background: #fff;
+            border-radius: 7px;
+            border: 3px solid #eee;
+            transition: all 0.2s ease;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .uploader label:hover {
+                border-color: #454cad;
+            }
+
+            .uploader label.hover {
+                border: 3px solid #454cad;
+                box-shadow: inset 0 0 0 6px #eee;
+            }
+
+                .uploader label.hover #start i.fa {
+                    transform: scale(0.8);
+                    opacity: 0.3;
+                }
+
+        .uploader #start {
+            float: left;
+            clear: both;
+            width: 100%;
+        }
+
+            .uploader #start.hidden {
+                display: none;
+            }
+
+            .uploader #start i.fa {
+                font-size: 50px;
+                margin-bottom: 1rem;
+                transition: all 0.2s ease-in-out;
+            }
+
+        .uploader #response {
+            float: left;
+            clear: both;
+            width: 100%;
+        }
+
+            .uploader #response.hidden {
+                display: none;
+            }
+
+            .uploader #response #messages {
+                margin-bottom: 0.5rem;
+            }
+
+        .uploader #file-image {
+            display: inline;
+            margin: 0 auto 0.5rem auto;
+            width: auto;
+            height: auto;
+            max-width: 180px;
+        }
+
+            .uploader #file-image.hidden {
+                display: none;
+            }
+
+        .uploader #notimage {
+            display: block;
+            float: left;
+            clear: both;
+            width: 100%;
+        }
+
+            .uploader #notimage.hidden {
+                display: none;
+            }
+
+        .uploader progress,
+        .uploader .progress {
+            display: inline;
+            clear: both;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 180px;
+            height: 8px;
+            border: 0;
+            border-radius: 4px;
+            background-color: #eee;
+            overflow: hidden;
+        }
+
+            .uploader .progress[value]::-webkit-progress-bar {
+                border-radius: 4px;
+                background-color: #eee;
+            }
+
+            .uploader .progress[value]::-webkit-progress-value {
+                background: linear-gradient(to right, #393f90 0%, #454cad 50%);
+                border-radius: 4px;
+            }
+
+            .uploader .progress[value]::-moz-progress-bar {
+                background: linear-gradient(to right, #393f90 0%, #454cad 50%);
+                border-radius: 4px;
+            }
+
+        .uploader input[type=file] {
+            display: none;
+        }
+
+        .uploader div {
+            margin: 0 0 0.5rem 0;
+            color: #5f6982;
+        }
+
+        .uploader .btn {
+            display: inline-block;
+            margin: 0.5rem 0.5rem 1rem 0.5rem;
+            clear: both;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            text-transform: initial;
+            border: none;
+            border-radius: 0.2rem;
+            outline: none;
+            padding: 0 1rem;
+            height: 36px;
+            line-height: 36px;
+            color: #fff;
+            transition: all 0.2s ease-in-out;
+            box-sizing: border-box;
+            background: #1162b1;
+            border-color: #1162b1;
+            cursor: pointer;
+        }
+
+    .progress-bar {
+        width: 100%;
+        height: 15px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        background-color: #d9d9d9;
+    }
+
+    .progress {
+        height: 100%;
+        background-color: red;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .item-progress {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .item-card {
+        background: #fff;
+        padding: 20px;
+        border: 1px solid #d9d9d9;
+        box-shadow: -2px 2px 20px 0 #efefef;
+        border-radius: 5px;
+    }
+
+    .circular-progress {
+        position: relative;
+        height: 210px;
+        width: 210px;
+        background-color: rebeccapurple;
+        border-radius: 50%;
+        background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .circular-progress::before {
+            content: "";
+            position: absolute;
+            height: 170px;
+            border-radius: 50%;
+            width: 170px;
+            background: #fff;
+        }
+
+    .progress-value {
+        position: relative;
+        font-size: 30px;
+        font-weight: 600;
+        color: #7d2ae8;
+    }
+
+    .panel-circular {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        box-shadow: -1px 1px 8px 0 #dedede;
+        border-radius: 5px;
+        border: 1px solid #e8e8e8;
+    }
+
+    .align-items-panel {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<div class="container" style="margin-top: 60px;">
+    <div class="main-body">
+
+        <div class="w3-bar w3-black" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+            <button class="w3-bar-item w3-button active" style="width:100%" onclick="openCity('profile-status-p')"><i class="fa fa-user"></i> @L["Profile"]</button>
+            <button class="w3-bar-item w3-button" style="width:100%" onclick="openCity('profile-edit-p')"><i class="fa fa-edit"></i> @L["EditProfile"]</button>
+            @*            <button class="w3-bar-item w3-button" onclick="openCity('status-p')">Vize Uygunluk</button>
+            *@            <button class="w3-bar-item w3-button" style="width:100%" onclick="openCity('document-upld-p')"><i class="fa fa-upload"></i> @L["Documents"]</button>
+        </div>
+
+        <div id="profile-status-p" class="city">
+            <div class="container" style="margin-bottom: 70px; margin-top: 20px; padding: 0;">
+                <!-- https://www.youtube.com/watch?v=SKU2gExpkPI -->
+                <!-- Buradaki videodan circular progress barı yap -->
+
+                <abp-card style="margin-top: 30px;">
+                    <abp-card-body style="padding:15px 30px">
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-12 col-md-12 align-items-panel">
+                                <div class="panel-circular" style="margin-top:10px;">
+                                    <img src="@Model.UserManageInputModel.ImageUrl" alt="@L["User"]" id="profileImage"
+                                         loading="lazy" style="cursor: pointer; object-fit: cover;" class="rounded-circle" width="210" height="210">
+                                    @*  <img src="@Model.UserManageInputModel.ImageUrl"
+                                    alt="@L["User"]" id="profileImage" style="cursor: pointer"
+                                    class="rounded-circle p-1 @(Model.UserManageInputModel.Gender==GenderType.Male?"bg-primary":"bg-pink")" width="210" height="210">*@
+                                    <div class="mt-2 d-flex flex-column" style="align-items:center;">
+                                        <h4 style="color: #676767;">@Model.UserManageInputModel.Name @Model.UserManageInputModel.Surname</h4>
+                                        @*                                        <p class="text-secondary mb-1">@Model.UserManageInputModel.Name @Model.UserManageInputModel.Surname</p>
+                                        *@
+                                    </div>
+                                </div>
+                                <div class="panel-circular">
+
+                                    <div class="circular-progress">
+                                        <span class="progress-value">%0</span>
+                                    </div>
+                                    <h4 style="margin: 15px 0 0 0; color: #676767;">
+                                        @L["Acceptability"]
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 style="font-family: Poppins-Medium !important; margin: 0 0px 15px 0; color: #676767; font-family: Poppins-Medium !important;">
+                                    @L["UploadDocument"]
+                                </h4>
+                            </div>
+                        </div>
+                        <form method="post" style="display: flex;" href="Account/Manage">
+                            <input type="file" id="fileup" hidden accept="image/*" />
+                            <button type="button" id="btnInsertReceiptImage" class="btn btn-success btn-block" style="margin-top:10px;">
+                                @L["ChooseAndUpload"]
+                            </button>
+                        </form>
+                        <br />
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 style="font-family: Poppins-Medium !important; margin: 0 0px 15px 0; color: #676767; font-family: Poppins-Medium !important;">
+                                    @L["VisaApplication"]
+                                </h4>
+                            </div>
+                        </div>
+                        <table class="table table-response" style="margin-bottom:0;">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>@L["Countries"]</th>
+                                    <th>@L["Description"]</th>
+                                    <th class="d-none d-lg-block">@L["ApplyDate"]</th>
+                                    <th class="d-none">@L["BirthDate"]</th>
+                                    <th>@L["Setting"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Forms.Where(x => x.FormRegType == "Vize Başvurusu"))
+                                {
+                                    string desc = item.Description.Length > 100 ? $"{item.Description.Substring(0, 100)}..." : item.Description;
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Country.Title</td>
+                                        <td>@desc</td>
+                                        <td>@item.CreatedDate</td>
+                                        <td>@item.BirthDate</td>
+                                        <td>
+                                            @if (item.FormIsOk == 100)
+                                            {
+                                                <span class="text-success">@L["Approved"]</span>
+                                            }
+                                            else if (item.FormIsOk == 0)
+                                            {
+                                                <span class="text-warning">@L["Rejected"]</span>
+                                            }
+                                            else if (item.FormIsOk > 0 && item.FormIsOk < 100)
+                                            {
+                                                <span class="text-primary">@L["ReviewNow"]</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@L["NotYetRated"]</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 style="font-family: Poppins-Medium !important; margin: 0 0px 15px 0; color: #676767; font-family: Poppins-Medium !important;">
+                                    @L["MyOtherApplications"]
+                                </h4>
+                            </div>
+                        </div>
+                        <table class="table table-response" style="margin-bottom:0;">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>@L["Countries"]</th>
+                                    <th>@L["Description"]</th>
+                                    <th class="d-none d-lg-block">@L["ApplyDate"]</th>
+                                    <th class="d-none">@L["BirthDate"]</th>
+                                    <th>@L["Setting"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Forms.Where(x => x.FormRegType != "Vize Başvurusu"))
+                                {
+                                    string desc = item.Description.Length > 100 ? $"{item.Description.Substring(0, 100)}..." : item.Description;
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Country.Title</td>
+                                        <td>@desc</td>
+                                        <td>@item.CreatedDate</td>
+                                        <td>@item.BirthDate</td>
+                                        <td>
+                                            @if (item.FormIsOk == 100)
+                                            {
+                                                <span class="text-success">@L["Approved"]</span>
+                                            }
+                                            else if (item.FormIsOk == 0)
+                                            {
+                                                <span class="text-warning">@L["Rejected"]</span>
+                                            }
+                                            else if (item.FormIsOk > 0 && item.FormIsOk < 100)
+                                            {
+                                                <span class="text-primary">@L["ReviewNow"]</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@L["NotYetRated"]</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @* <abp-table striped-rows="true" id="FormUserTable"></abp-table>*@
+                    </abp-card-body>
+                </abp-card>
+
+            </div>
+        </div>
+
+        <div id="profile-edit-p" class="city" style="display:none;">
+            <div class="container" style="margin-bottom:70px; margin-top:20px; padding:0">
+                <form method="post" href="/Account/Manage" style="margin-top: 25px;">
+                    <abp-input asp-for="UserManageInputModel.Id" />
+                    @Html.AntiForgeryToken()
+                    @(await Component.InvokeAsync<Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.PageAlerts.PageAlertsViewComponent>())
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="my-card" style="height:370.33px">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-center text-center">
+                                        <img loading="lazy" src="@Model.UserManageInputModel.ImageUrl" alt="@L["User"]" id="profileImage" style="cursor: pointer" class="rounded-circle p-1 @(Model.UserManageInputModel.Gender==GenderType.Male?"bg-primary":"bg-pink")" width="110" height="110">
+                                        <div class="mt-3">
+                                            <h4>@Model.UserManageInputModel.UserName</h4>
+                                            <p class="text-secondary mb-1">@Model.UserManageInputModel.Name @Model.UserManageInputModel.Surname</p>
+                                            @if (Model.UserManageInputModel.BirthDate.HasValue)
+                                            {
+                                                <p class="text-secondary mb-1">@Model.UserManageInputModel.BirthDate.Value.ToZodiacSign()</p>
+                                            }
+                                            <p></p>
+                                            <p class="text-muted font-size-sm">@Model.UserManageInputModel.CreationTime.ToTurkishDateString() @L["MemberSinceJoin"]</p>
+                                            @*   <button type="button" id="btnChangePassword" class="btn btn-blue">
+                                            @L["Şifre Değiş"]
+                                            </button>*@
+                                            <button type="button" id="btnChangeProfileImage" class="btn btn-blue" style="margin-top:10px;">
+                                                @L["SelectImage"]
+                                            </button>
+                                            <input type="file" id="fileImage" hidden accept="image/*" />
+                                        </div>
+                                    </div>
+                                    @*                            <hr class="my-4">
+                                    *@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="my-card" id="my-card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-lg-6 col-xl-6">
+                                            <abp-input asp-for="UserManageInputModel.Name" label="@L["Name"]" />
+                                        </div>
+                                        <div class="form-group col-md-12 col-lg-6 col-xl-6">
+                                            <abp-input asp-for="UserManageInputModel.Surname" label="@L["Surname"]" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-lg-6 col-xl-6">
+                                            <abp-input asp-for="UserManageInputModel.Email" label="@L["Email"]" />
+                                        </div>
+                                        <div class="form-group col-md-12 col-lg-6 col-xl-6">
+                                            <abp-input asp-for="UserManageInputModel.PhoneNumber" class="mobilephone" placeholder="0(5__) ___-____" label="@L["PhoneNumber"]" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                                            <abp-input asp-for="UserManageInputModel.BirthDate" label="@L["BirthDate"]" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-lg-12 col-xl-12" style="margin-bottom: 0; display: flex; justify-content: flex-end;">
+                                            <abp-button text="@L["Save"]" type="submit" class="btn-blue" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        @*  <div id="status-p" class="city" style="display:none">
+        <div class="container" style="margin-bottom: 70px; margin-top: 20px; padding: 0;">
+        <div class="item-card">
+        @foreach (var item in Model.Forms)
+        {
+        <div class="item-progress">
+        <div class="item-header">
+        <span>@item.Country.Title</span>
+        <span>Uygunluk: @item.FormIsOk%</span>
+        </div>
+        <div class="progress-bar">
+        <div class="progress" id="progress-@item.Id" data-percent="@item.FormIsOk"></div>
+        </div>
+        </div>
+
+        }
+        </div>
+
+        </div>
+        </div>*@
+
+        <div id="document-upld-p" class="city" style="display:none;">
+            <div class="container" style="margin-top:30px; margin-bottom: 70px; padding: 0;">
+                <abp-card>
+                    <abp-card-body>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 style="margin: 0 0px 15px 0; color: #676767; font-family: Poppins-Medium !important;">@L["UploadedDocuments"]</h4>
+                            </div>
+                        </div>
+                        <table class="table table-response">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>@L["DocumentName"]</th>
+                                    <th>@L["UploadedTime"]</th>
+                                    <th>@L["Setting"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item2 in Model.Receipts)
+                                {
+                                    <tr>
+                                        <td>@item2.FileId</td>
+                                        <td>@item2.File.Name</td>
+                                        <td>@item2.File.CreatedDate.ToString()</td>
+                                        <td><a class="btn btn-success btn-block" target="_blank" href="@item2.File.Path">@L["Show"]</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @* <abp-table striped-rows="true" id="FormUserTable"></abp-table>*@
+                    </abp-card-body>
+                </abp-card>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts {
+    <script>
+
+        //$(document).ready(function () {
+        //    $('.header-wrap').remove();
+        //});
+
+        let circularProgress = document.querySelector('.circular-progress');
+        let progressValue = document.querySelector('.progress-value');
+        let progressStartValue = 0;
+        let progressEndValue = '@Model.UserManageInputModel.ProfileIsOk';
+        let speed = 20;
+
+        if (progressEndValue == 0) {
+            progressValue.textContent = "0%";
+        }
+        else {
+            let progress = setInterval(() => {
+                progressStartValue++;
+                let calcProgress = progressStartValue * 3.6;
+
+                if (Model.UserManageInputModel.ProfileIsOk > 0)
+                    currentModelValue = @Model.UserManageInputModel.ProfileIsOk;
+                else
+                    currentModelValue = 0;
+
+                var backgroundString = "";
+
+                if (currentModelValue <= 20) {
+                    backgroundString = `conic-gradient(#ff0707 ${calcProgress}deg, #ededed 0deg)`;
+                }
+                else if (currentModelValue <= 50) {
+                    backgroundString = `conic-gradient(#ffc107  ${calcProgress}deg, #ededed 0deg)`;
+                }
+                else if (currentModelValue <= 50) {
+                    backgroundString = `conic-gradient(#ffc107  ${calcProgress}deg, #ededed 0deg)`;
+                }
+                else if (currentModelValue <= 80) {
+                    backgroundString = `conic-gradient(#078aff ${calcProgress}deg, #ededed 0deg)`;
+                }
+                else if (currentModelValue <= 100) {
+                    backgroundString = `conic-gradient(#07ff3c ${calcProgress}deg, #ededed 0deg)`;
+                }
+                else {
+                    backgroundString = `conic-gradient(#ededed ${calcProgress}deg, #ededed 0deg)`;
+
+                }
+
+                progressValue.textContent = `${progressStartValue}%`;
+                circularProgress.style.background = backgroundString;
+
+                if (progressStartValue == progressEndValue) {
+                    clearInterval(progress);
+                }
+            }, speed);
+            progressValue.style.color = @Model.UserManageInputModel.ProfileIsOk <= 20 ?
+                "#ff0707" :
+        @Model.UserManageInputModel.ProfileIsOk >= 20 && @Model.UserManageInputModel.ProfileIsOk <= 50 ?
+                    "#ffc107" :
+        @Model.UserManageInputModel.ProfileIsOk >= 50 && @Model.UserManageInputModel.ProfileIsOk <= 80 ?
+                        "#078aff" :
+        @Model.UserManageInputModel.ProfileIsOk >= 80 && @Model.UserManageInputModel.ProfileIsOk <= 100 ?
+                            "#07ff3c" :
+                            "#000";
+        }
+
+        $(document).ready(function () {
+            $('body').addClass('home9-parallax');
+            $('.header-wrap').removeClass('classicHeader');
+            $('#UserManageInputModel_BirthDate').attr('type', 'date');
+
+        @if (Model.UserManageInputModel.BirthDate.HasValue)
+        {
+            @:$('#UserManageInputModel_BirthDate').val('@Model.UserManageInputModel.BirthDate.Value.ToLocalDateString()');
+        }});
+
+        $('#btnChangeProfileImage,#profileImage').click(function () {
+            $('#fileImage').trigger('click');
+        });
+
+        document.getElementById('fileImage').addEventListener('change', function (e) {
+            if (e.target.files[0]) {
+                var formData = new FormData();
+                formData.append('image', e.target.files[0]);
+                $.ajax({
+                    url: '/Account/Manage?handler=ChangeProfileImage',
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("RequestVerificationToken", $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    success: function (result) {
+                        if (result.success) {
+                            pageLoadAndAfterAlert_Post("imageAlert", AlertType.success, "Profil resminiz başarıyla değiştirildi");
+                        }
+                        else {
+                            toastr.error(result.message)
+                        }
+                    },
+                    error: function (err) {
+                    }
+                });
+            }
+        });
+
+        window.onload = function () {
+            pageLoadAndAfterAlert_Get("imageAlert")
+        }
+
+        $('#btnInsertReceiptImage').click(function () {
+            $('#fileup').trigger('click');
+        });
+
+        document.getElementById('fileup').addEventListener('change', function (e) {
+            if (e.target.files[0]) {
+                var formData = new FormData();
+                formData.append('image', e.target.files[0]);
+                $.ajax({
+                    url: '/Account/Manage?handler=InsertReceiptFile',
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("RequestVerificationToken", $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    success: function (result) {
+                        if (result.success) {
+                            pageLoadAndAfterAlert_Post("imageAlert", AlertType.success, "Belgeniz başarıyla yüklendi");
+                        }
+                        else {
+                            toastr.error(result.message)
+                        }
+                    },
+                    error: function (err) {
+                    }
+                });
+            }
+        });
+    </script>
+}

@@ -1,0 +1,28 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model WorldTravel.Web.Pages.Admin.Customer.EditModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@{
+    Layout = null;
+}
+
+@*<form asp-page="/Admin/Customer/Edit" method="post" enctype="multipart/form-data">
+    <abp-modal size="Large">
+        <abp-modal-header title="@L["NewVisaType"]"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for=".Title" label="@L["Title"]" />
+            <abp-input asp-for="VisaType.MainImage" label="@L["Image"]" accept="image/png, image/gif, image/jpeg" />
+            <abp-select asp-for="VisaType.CountryId" label="@L["Country"]">
+                <option disabled selected>@L["Choose"]</option>
+            </abp-select>
+            <abp-input asp-for="VisaType.ShortDescription" label="@L["ShortDescription"]" />
+            <abp-input asp-for="VisaType.Description" label="@L["Description"]" class="ckeditor" />
+            <abp-input asp-for="VisaType.ExtraDescription" label="@L["ExtraDescription"]" class="ckeditor" />
+            <abp-input asp-for="VisaType.Rank" label="@L["Rank"]" />
+            <abp-input asp-for="VisaType.IsSeenHomePage" label="@L["IsSeenHomePage"]" />
+            <hr />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>
+*@

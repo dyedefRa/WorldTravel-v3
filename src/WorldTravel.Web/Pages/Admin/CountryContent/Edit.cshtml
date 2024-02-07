@@ -1,0 +1,37 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model WorldTravel.Web.Pages.Admin.CountryContent.EditModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@{
+    Layout = null;
+}
+
+<form method="post" enctype="multipart/form-data" asp-page="/Admin/CountryContent/Edit">
+    <abp-modal size="Large">
+        <abp-modal-header title="@L["NewCountryContent"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Id" type="hidden" />
+            <abp-select asp-for="CountryContentInfo.CountryId" label="@L["Country"]">
+                <option disabled selected>@L["Choose"]</option>
+            </abp-select>
+            <abp-input asp-for="CountryContentInfo.MainImage" label="@L["Image"]" accept="image/png, image/gif, image/jpeg" />
+            <abp-input asp-for="CountryContentInfo.Title" label="@L["Title"]" />
+            <abp-input asp-for="CountryContentInfo.ShortDescription" label="@L["ShortDescription"] (@L["OnlySeenCountryList"])" class="ckeditor" />
+            <abp-input asp-for="CountryContentInfo.Description" label="@L["Description"]" class="ckeditor" />
+            <abp-input asp-for="CountryContentInfo.ExtraDescription" label="@L["ExtraDescription"]" class="ckeditor" />
+            <abp-input asp-for="CountryContentInfo.Rank" label="@L["Rank"]" />
+            <abp-input asp-for="CountryContentInfo.IsSeenHomePage" label="@L["IsSeenHomePage"]" />
+            <hr />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>
+
+<script>
+
+    $(document).ready(function () {
+        $('.ckeditor').each(function () {
+            CKEDITOR.replace($(this).attr("id"));
+        });
+    });
+</script>

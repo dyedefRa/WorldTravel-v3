@@ -1,0 +1,45 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@inject IAuthorizationService AuthorizationService
+@model WorldTravel.Web.Pages.Admin.Slider.IndexModel
+@{
+}
+@section scripts
+    {
+    <abp-script src="/Pages/Admin/Slider/Index.js" />
+}
+@Html.AntiForgeryToken()
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_12">
+                <abp-card-title>@L["Slider"]</abp-card-title>
+            </abp-column>
+        </abp-row>
+        <abp-row>
+            <abp-column size-md="_2">
+                <abp-input asp-for="SliderTitleFilter" label="@L["SliderTitle"]" />
+            </abp-column>
+            <abp-column size-md="_6">
+            </abp-column>
+            <abp-column size-md="_4" style="margin:auto;">
+                <abp-button id="btnSearch" class="btn-success float-right">@L["Filter"]</abp-button>
+            </abp-column>
+        </abp-row>
+        <abp-row>
+            <abp-column size-md="_12" class="text-right">
+                @if (await AuthorizationService.IsGrantedAsync(WorldTravel.Permissions.WorldTravelPermissions.Slider.Create))
+                {
+                    <abp-button id="createSliderButton"
+                            text="@L["NewSlider"]"
+                            icon="plus"
+                            button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="SliderTable"></abp-table>
+    </abp-card-body>
+</abp-card>

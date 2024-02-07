@@ -1,0 +1,122 @@
+﻿@page
+@using WorldTravel.Extensions;
+@model WorldTravel.Web.Pages.Country.IndexModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    int firstLoadCount = 6;
+    int itemIncreaseCount = 3;
+}
+
+<style>
+    .home9-parallax .footer-top h4, .home9-parallax .footer-top .h4, .home9-parallax .footer-top, .home9-parallax .footer-links a, .home9-parallax .footer-top p, .home9-parallax .footer-bottom, .home9-parallax .footer-bottom a {
+        color: #fff;
+    }
+</style>
+
+@*<div class="page section-header">
+    <div class="bredcrumbWrap mb-00">
+        <div class="container breadcrumbs">
+            <a class="bread breadfirst" href="/Home" title="@L["Home"]"><i class="fa fa-home fa-fw"></i> @L["Home"]</a><span style="font-size: 14px;" aria-hidden="true">›</span>
+            <a class="bread breadsecond" href="#" onClick="return false;" title="@L["Countries"]">@L["Countries"]</a>
+        </div>
+    </div>
+</div>*@
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-9 col-lg-12 main-col" style="margin:0 15px;">
+            <div class="custom-search">
+                <form action="#" method="get" class="input-group search-header search" role="search" style="position: relative;">
+                    <input class="search-header__input search__input input-group__field" type="search" name="q" placeholder="@L["EnterCountryName"]" id="txtCountrySearch" aria-label="Search" autocomplete="off">
+                    <span class="input-group__btn"><button class="btnSearch" type="button"> <i class="icon anm anm-search-l"></i> </button></span>
+                </form>
+            </div>
+            <div class="blog--list-view">
+                <div class="row country-items">
+                    @foreach (var countryContent in Model.CountryContent)
+                    {
+                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 article country-item" style="padding: 20px;border: 2px solid #f9f9f9;">
+                            <!-- Article Image -->
+                            <a class="article_featured-image" href="/Country/Detail?Id=@countryContent.Id">
+                                <img style="height: 200px; object-fit: cover;" class="blur-up lazyload" data-src="@countryContent.PreviewImageUrl"
+                                 src="@countryContent.PreviewImageUrl" title="@countryContent.Title" alt="@L["ImageFailedToLoad"]">
+                            </a>
+                            <div style="margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+                                <h2 style="text-transform: none;" class="h3"><a href="/Country/Detail?Id=@countryContent.Id" class="countryTitle">@countryContent.Title</a></h2>
+                                <div class="rte">
+                                    <p style="text-align:center;">@L["PopCountryExtDesc"]</p>
+                                </div>
+
+                                <p>
+                                    <a style="background-color:#ff7800; padding:10px 15px; border-radius:5px;" href="/Country/Detail?Id=@countryContent.Id"
+                                   class="btn btn-secondary btn--small">@L["ApplyNow"] </a>
+                                </p>
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+                @*   <div class="infinitpaginOuter" style="margin-top:50px;">
+                <div class="infinitpagin">
+                <a href="#" class="btn btn-primary countryLoadMore">@L["LoadMore"]</a>
+                </div>
+                </div>*@
+            </div>
+            <!--End Main Content-->
+        </div>
+    </div>
+
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('body').addClass('home9-parallax');
+            $('.header-wrap').removeClass('classicHeader');
+        });
+
+        //#region LoadMore
+        //function country_load_more() {
+        //    $(".country-items .country-item").slice(0, @firstLoadCount).show(300);
+        //    $(".countryLoadMore").on('click', function (e) {
+        //        e.preventDefault();
+        //        $(".country-items .country-item:hidden").slice(0, @itemIncreaseCount).slideDown();
+        //        if ($(".country-item:hidden").length == 0) {
+        //            $(".infinitpagin").html('<div class="btn btn-warning homeLoadMore">Daha fazla kayıt yok</div>');
+        //        }
+        //    });
+        //}
+
+        //country_load_more();
+        //#endregion
+
+        $('#txtCountrySearch').on('keyup', function () {
+            var searchVal = $(this).val().toLowerCase();
+            $('.country-items .countryTitle').each(function (i) {
+
+                var countryTitle = $(this).html().toLowerCase();
+                var relatedParent = $(this).closest('.country-item');
+                if (countryTitle.toLowerCase().indexOf(searchVal) > -1) {
+                    //relatedParent.addClass('d-flex');
+                    relatedParent.removeClass('d-none');
+                    //relatedParent.next('hr').removeClass('d-none');
+                }
+                else {
+                    //relatedParent.removeClass('d-flex');
+                    relatedParent.addClass('d-none');
+                    //relatedParent.next('hr').addClass('d-none');
+                }
+            });
+        });
+
+        $('#txtCountrySearch').keypress(function (event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                event.preventDefault();
+            }
+        });
+
+    </script>
+}
+

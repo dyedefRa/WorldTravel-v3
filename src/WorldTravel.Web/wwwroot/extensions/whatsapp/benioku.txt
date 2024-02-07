@@ -1,0 +1,8 @@
+﻿https://codepen.io/ofernandocamilo/pen/BaaMwoQ
+
+Page > Shared > _Layout tan partial olarak kullanılıyor.
+
+_WhatsApp.cshtml de css var
+
+1) CSS IMPORT ET
+

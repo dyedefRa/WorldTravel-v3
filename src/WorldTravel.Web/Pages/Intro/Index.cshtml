@@ -1,0 +1,136 @@
+﻿@page
+@model WorldTravel.Web.Pages.Intro.IndexModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<style>
+/*    body {
+        -moz-transform: scale(0.8, 0.8);
+        zoom: 0.8;
+        zoom: 85%;
+    }*/
+</style>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Wisa Turkey Intro</title>
+    <link rel="stylesheet" href="/assets/css/intro.css">
+    <link href="~/web/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="circle-container">
+        <div class="circle"></div>
+    </div>
+    <div class="page-wrap">
+        <div class="head-count-title">
+            <div style="display:flex; align-items:center;">
+                <img loading="lazy" src="/web/images/world-logo-long-w.png" height="50" title="Anasayfa" />
+            </div>
+        </div>
+        <div class="row d-lg-flex" style="margin-top:35px;">
+              <div class="col-sm-12 col-md-4 col-center">
+              <img loading="lazy" style="display: block; -webkit-user-select: none;"
+                     src="/assets/images/world-light.gif">
+            </div>
+            <div class="col-sm-12 col-md-4 col-center">
+                <div class="container-all-count">
+                    <div class="count-cont-cell1">
+                        <div class="count-container">
+                            <h1 class="count" data-count="250"></h1>
+                            <div id="completionMessage"> Emlak Danışmanı<br><span>Eklendi</span></div>
+                        </div>
+                        <div class="count-container">
+                            <h1 class="count" data-count="500"></h1>
+                            <div id="completionMessage2"> İş Danışmanı<br><span>Eklendi</span></div>
+                        </div>
+                    </div>
+                    <div class="count-cont-cell2" style="margin-left: 25px;">
+                        <div class="count-container">
+                            <h1 class="count" data-count="300"></h1>
+                            <div id="completionMessage3"> Eğitim Danışmanı<br><span>Eklendi</span></div>
+                        </div>
+                        <div class="count-container">
+                            <h1 class="count" data-count="120"></h1>
+                            <div id="completionMessage4"> Sağlık Danışmanı<br><span>Eklendi</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <abp class="col-sm-12 col-md-4 col-center">
+                <div class="container-all-count">
+                    <div class="count-cont-cell3">
+                        <div class="count-container">
+                            <h1 class="count" data-count="700"></h1>
+                            <div id="completionMessage5"> Vize Danışmanı<br><span>Eklendi</span></div>
+                        </div>
+                        <div class="count-container">
+                            <h1 class="count" data-count="400"></h1>
+                            <div id="completionMessage6"> Turizm Danışmanı<br><span>Eklendi</span></div>
+                        </div>
+                    </div>
+                    <div class="count-cont-cell4" style="margin-left: 25px;">
+                        <div class="count-container">
+                            <h1 class="count" data-count="200"></h1>
+                            <div id="completionMessage7"> Avukat Danışmanı<br><span>Eklendi</span></div>
+                        </div>
+                        <div class="count-container">
+                            <h1 class="count" data-count="300"></h1>
+                            <div id="completionMessage8"> Göçmen Danışmanı<br><span>Eklendi</span></div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="completion-message" style="color:#fff;margin:30px;font-size:15px;" id="redirectMessage"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script>
+        initCount();
+
+        function initCount() {
+            $(".count").hide(0).fadeIn(3000);
+            $('.count').each(function () {
+                var $this = $(this),
+                    countTo = $this.attr('data-count');
+                $({ countNum: $this.text() }).animate(
+                    {
+                        countNum: countTo,
+                    },
+                    {
+                        duration: 5000,
+                        easing: 'linear',
+                        step: function () {
+                            $this.text(Math.floor(this.countNum));
+                        },
+                        complete: function () {
+                            $this.text(
+                                this.countNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                            );
+                            // Counter tamamlandıktan sonra mesajı göster
+                            if ($('.count:animated').length === 0) {
+                                redirectAfterDelay();
+                            }
+                        },
+                    }
+                );
+            });
+        }
+
+        function redirectAfterDelay() {
+            setTimeout(function () {
+                $("#redirectMessage")
+                    .html("Şimdi siteye yönlendiriliyorsunuz<span class='dot-animation'>.</span><span class='dot-animation'>.</span><span class='dot-animation'>.</span>")
+                    .fadeIn(1000);
+                setTimeout(function () {
+                    window.location.href = "/Home"; // Burada yönlendirilecek URL'i belirtin
+                }, 800); // 3 saniye sonra yönlendirme
+            }, 500); // 2 saniye sonra mesaj gösterimi
+        }
+    </script>   
+</body>
+</html>

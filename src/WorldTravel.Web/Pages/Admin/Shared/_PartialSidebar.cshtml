@@ -1,0 +1,90 @@
+﻿@using WorldTravel.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using WorldTravel.Localization
+@using Microsoft.Extensions.Localization
+@inject IAuthorizationService AuthorizationService
+@inject IStringLocalizer<WorldTravelResource> L
+
+<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+    <div class="sidebar-mobile-toggler text-center">
+        <a href="#" class="sidebar-mobile-main-toggle">
+            <i class="icon-arrow-left8"></i>
+        </a>
+        Navigation
+        <a href="#" class="sidebar-mobile-expand">
+            <i class="icon-screen-full"></i>
+            <i class="icon-screen-normal"></i>
+        </a>
+    </div>
+    <div class="sidebar-content">
+        <div class="sidebar-user">
+            <div class="card-body">
+                <div class="media">
+                    <div class="mr-3">
+                        <a href="#"><img src="~/global_assets/images/placeholders/placeholder.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-title font-weight-semibold">@User.Identity.Name</div>
+                        <div class="font-size-xs opacity-50">
+                            <a href="/Account/Logout"><i class="icon-switch2 font-size-sm"></i> &nbsp;@L["Logout"]</a>
+                        </div>
+                    </div>
+                    <div class="ml-3 align-self-center">
+                        <a href="/Account/Manage" class="text-white"><i class="icon-cog3"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-sidebar-mobile">
+            <ul class="nav nav-sidebar" data-nav-type="accordion">
+                <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">@L["ProjectName"]</div> <i class="icon-menu" title="Main"></i></li>
+                <li class="nav-item"><a href="/Admin" class="nav-link"><i class="icon-home"></i> <span>@L["AdminPage"]</span></a></li>
+                @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.User.Default))
+                {
+                    <li class="nav-item"><a href="/Admin/Identity/Users" class="nav-link"><i class="icon-user"></i> <span>@L["UserManagement"]</span></a></li>
+                }
+                 @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.User.Default))
+                {
+                    <li class="nav-item"> <a href="/Admin/Customer/Index" class="nav-link"> <i class="icon-users"></i> <span>@L["Müşteri Yönetimi"]</span></a></li>
+                }
+                @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.Role.Default))
+                {
+                    <li class="nav-item"><a href="/Admin/Identity/Roles" class="nav-link"><i class="icon-wall"></i> <span>@L["RoleManagement"]</span></a></li>
+                }
+                @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.Form.Default))
+                {
+                    <li class="nav-item"> <a href="/Admin/Form/Index" class="nav-link"> <i class="icon-list-unordered"></i> <span>@L["FormManagement"]</span></a></li>
+                }
+                @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.CountryContent.Default))
+                {
+                    <li class="nav-item"> <a href="/Admin/CountryContent/Index" class="nav-link"> <i class="icon-list-unordered"></i> <span>@L["CountryContentManagement"]</span></a></li>
+                }
+                @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.VisaType.Default))
+                {
+                    <li class="nav-item"> <a href="/Admin/VisaType/Index" class="nav-link"> <i class="icon-list-unordered"></i> <span>@L["VisaTypeManagement"]</span></a></li>
+                }
+                @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.Job.Default))
+                {
+                    <li class="nav-item"> <a href="/Admin/Job/Index" class="nav-link"> <i class="icon-list-unordered"></i> <span>@L["JobManagement"]</span></a></li>
+                }
+                  @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.Blog.Default))
+                {
+                    <li class="nav-item"> <a href="/Admin/Blog/Index" class="nav-link"> <i class="icon-list-unordered"></i> <span>@L["BlogManagament"]</span></a></li>
+                }
+                  @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.Slider.Default))
+                {
+                    <li class="nav-item"> <a href="/Admin/Slider/Index" class="nav-link"> <i class="icon-list-unordered"></i> <span>@L["SliderManagament"]</span></a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="~/global_assets/js/main/jquery.min.js"></script>
+<script>
+    var cookieValue = localStorage.getItem("$nav");
+    $(".nav-sidebar").children(".nav-item").eq(cookieValue).addClass('navMenuHover');
+    $('.nav-item').on('click', function (e) {
+        var $clicked = $('.nav-sidebar .nav-item').index(this);
+        localStorage.setItem("$nav", $clicked);
+    });
+</script>

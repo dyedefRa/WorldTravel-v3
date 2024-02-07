@@ -1,0 +1,113 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>WorldTravel.Web</RootNamespace>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+    <PreserveCompilationReferences>true</PreserveCompilationReferences>
+    <UserSecretsId>WorldTravel-4681b4fd-151f-4221-84a4-929d86723e4c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Compile Remove="Pages\Admin\Consultant\**" />
+    <Compile Remove="wwwroot\web\videos\**" />
+    <Content Remove="Logs\**" />
+    <Content Remove="Pages\Admin\Consultant\**" />
+    <Content Remove="wwwroot\web\videos\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <EmbeddedResource Remove="Pages\Admin\Consultant\**" />
+    <EmbeddedResource Remove="wwwroot\web\videos\**" />
+    <None Remove="Logs\**" />
+    <None Remove="Pages\Admin\Consultant\**" />
+    <None Remove="wwwroot\web\videos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Admin\Account\Logout.cshtml" />
+    <Content Remove="Pages\Shared\_ChatBot.cshtml" />
+    <Content Remove="Pages\Shared\_Layout2.cshtml" />
+    <Content Remove="Pages\Shared\_Menu2.cshtml" />
+    <Content Remove="Pages\Shared\_WhatsApp.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Account\Login.cshtml" />
+    <None Include="Pages\Account\Logout.cshtml" />
+    <None Include="Pages\Account\Manage.cshtml" />
+    <None Include="Pages\Account\Register.cshtml" />
+    <None Include="Pages\Admin\Account\Login.cshtml" />
+    <None Include="Pages\Admin\Account\Logout.cshtml" />
+    <None Include="Pages\Admin\Account\Manage.cshtml" />
+    <None Include="Pages\Admin\Identity\Roles\CreateModal.cshtml" />
+    <None Include="Pages\Admin\Identity\Roles\EditModal.cshtml" />
+    <None Include="Pages\Admin\Identity\Roles\Index.cshtml" />
+    <None Include="Pages\Admin\Identity\Users\CreateModal.cshtml" />
+    <None Include="Pages\Admin\Identity\Users\EditModal.cshtml" />
+    <None Include="Pages\Admin\Identity\Users\Index.cshtml" />
+    <None Include="Pages\Admin\Identity\_ViewImports.cshtml" />
+    <None Include="Pages\Admin\Index.cshtml" />
+    <None Include="Pages\Admin\Shared\_Layout.cshtml" />
+    <None Include="Pages\Admin\Shared\_LoginLayout.cshtml" />
+    <None Include="Pages\Admin\Shared\_PartialHeader.cshtml" />
+    <None Include="Pages\Admin\Shared\_PartialSidebar.cshtml" />
+    <None Include="Pages\Admin\_ViewImports.cshtml" />
+    <None Include="Pages\Admin\_ViewStart.cshtml" />
+    <None Include="Pages\Error\Index.cshtml" />
+    <None Include="Pages\Shared\_WhatsApp.cshtml" />
+    <None Include="Pages\Shared\_Footer.cshtml" />
+    <None Include="Pages\Shared\_Layout2.cshtml" />
+    <None Include="Pages\Shared\_Layout.cshtml" />
+    <None Include="Pages\Shared\_ChatBot.cshtml" />
+    <None Include="Pages\Shared\_Menu2.cshtml" />
+    <None Include="Pages\Shared\_Menu.cshtml" />
+    <None Include="Pages\Shared\_VideoModal.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Pages\**\*.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Pages\**\*.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.27" />
+    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WorldTravel.Application\WorldTravel.Application.csproj" />
+    <ProjectReference Include="..\WorldTravel.HttpApi\WorldTravel.HttpApi.csproj" />
+    <ProjectReference Include="..\WorldTravel.EntityFrameworkCore\WorldTravel.EntityFrameworkCore.csproj" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic" Version="4.4.4" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="4.4.4" />
+    <PackageReference Include="Volo.Abp.Swashbuckle" Version="4.4.4" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Authentication.JwtBearer" Version="4.4.4" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="4.4.4" />
+    <PackageReference Include="Volo.Abp.Identity.Web" Version="4.4.4" />
+    <PackageReference Include="Volo.Abp.Account.Web.IdentityServer" Version="4.4.4" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Web" Version="4.4.4" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Web" Version="4.4.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\countrycontent\" />
+    <Folder Include="wwwroot\uploads\job\" />
+    <Folder Include="wwwroot\uploads\visatypecontent\" />
+    <Folder Include="wwwroot\uploads\profile\" />
+    <Folder Include="wwwroot\web\images\home\" />
+  </ItemGroup>
+
+</Project>

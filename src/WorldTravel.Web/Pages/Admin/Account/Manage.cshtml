@@ -1,0 +1,56 @@
+﻿@page
+@model WorldTravel.Web.Pages.Admin.Account.ManageModel
+@{
+    Layout = "~/Pages/Admin/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xl-3 col-sm-6">
+        <div class="card bg-teal-400" style="background-image: url(../../../../global_assets/images/backgrounds/panel_bg.png); background-size: contain;">
+            <div class="card-body text-center">
+                <div class="card-img-actions d-inline-block mb-3">
+                    <img class="img-fluid rounded-circle" src="~/global_assets/images/placeholders/placeholder.jpg" width="170" height="170" alt="">
+                </div>
+
+                <h6 class="font-weight-semibold mb-0">@Model.Name</h6>
+                <span class="d-block opacity-75">@Model.Role</span>
+
+                <div class="list-icons list-icons-extended mt-3">
+                    <a href="#" class="list-icons-item text-white"><i class="icon-user"></i> @Model.UserName</a>
+                    <a href="#" class="list-icons-item text-white"><i class="icon-mail5"></i> @Model.Email</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9 col-sm-6">
+        <div class="mb-3">
+            <div class="page-header page-header-dark" style="background-image: url(../../../../global_assets/images/backgrounds/panel_bg.png); background-size: contain;">
+                <div class="page-header-content header-elements-inline">
+                    <div class="page-title">
+                        <h5>
+                            <i class="icon-arrow-right13 mr-2"></i> <span class="font-weight-semibold">Şifre Değiştir</span>
+                            <small class="d-block opacity-75">Mevcut şifrenizi aşağıdaki formu kullanarak değiştirebilirsiniz</small>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-info alert-styled-left alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+                Şifre en az 6 karakter olmalıdır. Parolalar en az bir alfasayısal olmayan karakter içermelidir. Parolalarda en az bir küçük harf ve büyük harf olmalıdır.
+                Şifreler en az bir rakam içermelidir.
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form method="post" asp-page="/Account/Manage" autocomplete="off" id="myForm">
+                    <abp-input asp-for="FormModel.CurrentPassword" />
+                    <abp-input asp-for="FormModel.NewPassword" />
+                    <abp-input asp-for="FormModel.NewPasswordConfirm" />
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Kaydet <i class="icon-paperplane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

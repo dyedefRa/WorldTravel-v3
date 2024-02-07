@@ -1,0 +1,197 @@
+﻿.dataTable_filters {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    padding: 1.25rem 1.25rem 0 1.25rem;
+}
+
+    .dataTable_filters > div:first-child {
+        margin-left: 0;
+    }
+
+.dataTables_filter input {
+    margin-left: 15px;
+}
+
+.dataTable_footer {
+    border-top: 1px solid #b7b7b7;
+    padding: 1.25rem 1.25rem 0 1.25rem;
+}
+
+.dataTables_wrapper > .row {
+    margin: 0;
+}
+
+.dataTables_length {
+    margin: 0;
+}
+
+
+/*LOADING*/
+
+.loading {
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    z-index: 9999999;
+}
+
+    .loading .loader {
+        width: 80px;
+        height: 80px;
+        -moz-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+        stroke-linecap: round;
+        stroke-width: 4;
+        fill: none;
+    }
+
+        .loading .loader .internal-circle,
+        .loading .loader .external-circle {
+            stroke: #fff;
+            stroke-dashoffset: 0;
+            moz-transform-origin: center;
+            -o-transform-origin: center;
+            -ms-transform-origin: center;
+            -webkit-transform-origin: center;
+            transform-origin: center;
+        }
+
+        .loading .loader .internal-circle {
+            stroke-dasharray: 187;
+            -webkit-animation: internal 1s ease-in-out infinite;
+            animation: internal 1s ease-in-out infinite;
+            opacity: 0.4;
+        }
+
+        .loading .loader .external-circle {
+            stroke-dasharray: 312;
+            -webkit-animation: external 1s linear infinite;
+            animation: external 1s linear infinite;
+            opacity: 0.9;
+        }
+
+@-webkit-keyframes internal {
+    0% {
+        stroke-dashoffset: 187;
+    }
+
+    25% {
+        stroke-dashoffset: 80;
+    }
+
+    100% {
+        stroke-dashoffset: 187;
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes internal {
+    0% {
+        stroke-dashoffset: 187;
+    }
+
+    25% {
+        stroke-dashoffset: 80;
+    }
+
+    100% {
+        stroke-dashoffset: 187;
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes external {
+    0% {
+        stroke-dashoffset: 312;
+        -webkit-transform: rotate(70deg);
+        transform: rotate(70deg);
+    }
+
+    60% {
+        stroke-dashoffset: -312;
+    }
+
+    100% {
+        stroke-dashoffset: -312;
+        -moz-transform: rotate(450deg);
+        -o-transform: rotate(450deg);
+        -ms-transform: rotate(450deg);
+        -webkit-transform: rotate(450deg);
+        transform: rotate(450deg);
+    }
+}
+
+@keyframes external {
+    0% {
+        stroke-dashoffset: 312;
+        -moz-transform: rotate(70deg);
+        -o-transform: rotate(70deg);
+        -ms-transform: rotate(70deg);
+        -webkit-transform: rotate(70deg);
+        transform: rotate(70deg);
+    }
+
+    60% {
+        stroke-dashoffset: -312;
+    }
+
+    100% {
+        stroke-dashoffset: -312;
+        -moz-transform: rotate(450deg);
+        -o-transform: rotate(450deg);
+        -ms-transform: rotate(450deg);
+        -webkit-transform: rotate(450deg);
+        transform: rotate(450deg);
+    }
+}
+
+
+/*LOADING*/
+
+.greyBackground {
+    background: #f9f9f9;
+}
+
+.removeOuterButton::-webkit-outer-spin-button,
+.removeOuterButton::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.removeOuterButton {
+    -moz-appearance: textfield;
+}
+
+.navMenuHover {
+    background-color: rgba(255,255,255,.1);
+}
+
+.textButton {
+    background-color: #269abc;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}

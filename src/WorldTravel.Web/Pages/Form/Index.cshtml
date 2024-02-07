@@ -1,0 +1,83 @@
+﻿@page
+@using WorldTravel.Localization
+@using Microsoft.Extensions.Localization
+@model WorldTravel.Web.Pages.Form.IndexModel
+@inject IStringLocalizer<WorldTravelResource> L
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="page section-header">
+    <div class="bredcrumbWrap mb-00">
+        <div class="container breadcrumbs">
+            <a class="bread breadfirst" href="/Home" title="@L["Home"]"><i class="fa fa-home fa-fw"></i> @L["Home"]</a><span style="font-size: 14px;" aria-hidden="true">›</span>
+            <a class="bread breadsecond" href="#" onClick="return false;" title="@L["Register"]"><i class="fa fa-user-plus fa-fw"></i> @L["Register"]</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
+            <div class="mb-4">
+                <form method="post" href="/Form">
+                    @Html.AntiForgeryToken()
+                    @(await Component.InvokeAsync<Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.PageAlerts.PageAlertsViewComponent>())
+                    <div class="row">
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                            <abp-input asp-for="Form.Name" label="@L["Name"]" />
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                            <abp-input asp-for="Form.Surname" label="@L["Surname"]" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                            <abp-input asp-for="Form.Email" label="@L["Email"]" />
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                            <abp-input asp-for="Form.PhoneNumber" class="mobilephone" placeholder="0(5__) ___-____" label="@L["PhoneNumber"]" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                            <abp-select asp-for="Form.Gender" label="@L["Gender"]">
+                                <option disabled selected>@L["Choose"]</option>
+                            </abp-select>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                            <abp-input asp-for="Form.BirthDate" label="@L["BirthDate"]" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                            <abp-select asp-for="Form.CountryId" label="@L["Country"]">
+                                <option disabled selected>@L["Choose"]</option>
+                            </abp-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                            <abp-input asp-for="Form.Description" label="@L["Description"]" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:40px;">
+                        <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
+                            <abp-button text="@L["CreateForm"]" type="submit" class="btn-nice" button-type="Primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('body').addClass('home9-parallax');
+            $('.header-wrap').removeClass('classicHeader');
+            $('#FormInputModel_BirthDate').attr('type', 'date');
+        });
+    </script>
+}
+

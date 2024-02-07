@@ -1,0 +1,102 @@
+﻿@page
+@using WorldTravel.Extensions;
+@model WorldTravel.Web.Pages.Job.IndexModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .home9-parallax .footer-top h4, .home9-parallax .footer-top .h4, .home9-parallax .footer-top, .home9-parallax .footer-links a, .home9-parallax .footer-top p, .home9-parallax .footer-bottom, .home9-parallax .footer-bottom a {
+        color: #fff;
+    }
+</style>
+
+<div class="container" style="margin-top:40px;">
+    <div class="row">
+        <!--Main Content-->
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col" style="margin:0 15px;">
+            <div class="custom-search">
+                <form action="#" method="get" class="input-group search-header search" role="search" style="position: relative;">
+                    <input class="search-header__input search__input input-group__field" type="search" name="q" placeholder="@L["EnterJobTitle"]" id="txtJobTitleSearch" aria-label="Search" autocomplete="off">
+                    <span class="input-group__btn"><button class="btnSearch" type="button"> <i class="icon anm anm-search-l"></i> </button></span>
+                </form>
+            </div>
+            <div class="blog--list-view">
+                <div class="row visa-type-items" style="margin: 0 auto;">
+                        @foreach (var visaType in Model.Job)
+                        {
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-12 article country-item article-custom-box" style="margin-bottom:15px;">
+                                <div class="article-jbox">
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="article-content-custom-item">
+                                <a class="article_featured-image d-none d-lg-block" href="/Job/Detail?Id=@visaType.Id">
+                                    <img loading="lazy" width="287" height="124" class="blur-up lazyload article-image" data-src="@visaType.PreviewImageUrl"
+                                    src="@visaType.PreviewImageUrl" title="@visaType.Title" alt="@L["ImageFailedToLoad"]">
+                                    </a>
+                                    <div style="text-align:left;">
+                                        <h2 class="h3"><a href="/Job/Detail?Id=@visaType.Id" class="visaTypeTitle">@visaType.Title</a></h2>
+                                        <div class="rte">
+                                            <p>@visaType.ShortDescription.ApplyShortening(200)</p>
+                                        </div>
+
+                                    </div>
+                                    <p style="margin-bottom:0;" class="mt-mb"><i class="fa fa-flag"></i> @visaType.CountryName</p>
+                                    <p style="margin-bottom: 0;"><i class="fa fa-language"></i> @visaType.LanguageName</p>
+                                    <p></p>
+                                </div>
+                                <div class="article-content-sub-item">
+                                <ul class="publish-detail" style="margin:0px; display: flex; flex-direction: column;">
+                                    <li style="color:#fff;">@L["ClockPrice"]</li>
+                                    <li style="color:#fff;">@visaType.HourlyRate</li>
+                                </ul>
+                                <p style="margin-bottom:0px; color:#fff;display: flex; flex-direction: column;">
+                                    <span>@L["HousePrice"]</span>
+                                    <span>@visaType.AccommodationFee</span>
+                                </p>
+                                <p>
+                                    <a href="/Job/Detail?Id=@visaType.Id" class="btn btn-secondary btn--small"
+                                   style="background: #ff7800; color: #fff; padding: 10px 15px; border-radius: 5px;">@*@L["ReadMore"]*@ @L["ApplyNow"] <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                                </p>
+                            </div>
+                            </div>
+                        }
+                    </div>
+            </div>
+            <!--End Main Content-->
+        </div>
+    </div>
+
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('body').addClass('home9-parallax');
+            $('.header-wrap').removeClass('classicHeader');
+        });
+
+        $('#txtJobTitleSearch').on('keyup', function () {
+            var searchVal = $(this).val().toLowerCase();
+
+            $('.visa-type-items .visa-type-item').each(function (i) {
+                var jobTitle = $(this).html().toLowerCase();
+                var relatedParent = $(this).closest('.visa-type-item');
+                if (jobTitle.toLowerCase().indexOf(searchVal) > -1) {
+                    relatedParent.removeClass('d-none');
+                }
+                else {
+                    relatedParent.addClass('d-none');
+                }
+            });
+        });
+
+        $('#txtJobTitleSearch').keypress(function (event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                event.preventDefault();
+            }
+        });
+    </script>
+}

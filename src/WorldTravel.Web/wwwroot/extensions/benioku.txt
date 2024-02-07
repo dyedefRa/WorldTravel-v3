@@ -1,0 +1,19 @@
+﻿
+----------------------------------------------------------------------------------------------
+Url temizleme >>
+
+HOME/INDEX  temizlemek için :
+                window.history.replaceState(null, '', window.location.pathname);
+--------------------
+COUNTRY/DETEAL/14
+de sorun oldu id silinmesi
+var search = window.location.search.split('&');
+            var newUrl = window.location.pathname  + search[0];
+            window.history.replaceState(null, '', newUrl);
+----------------------------------------------------------------------------------------------
+
+FORM VALID KONTROL >>
+$("#frmCreateForm").valid()
+
+TODOO AJAX ILE GIT GEL
+-----

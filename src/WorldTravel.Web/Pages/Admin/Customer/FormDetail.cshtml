@@ -1,0 +1,251 @@
+﻿@page
+@model WorldTravel.Web.Pages.Admin.Customer.FormDetail
+@{
+}
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Pages.Shared.Components.AbpPageToolbar
+@using Volo.Abp.Identity
+@using Volo.Abp.Identity.Localization
+@using Volo.Abp.Identity.Web.Navigation
+@inject IHtmlLocalizer<IdentityResource> L
+@inject IAuthorizationService Authorization
+@inject IPageLayout PageLayout
+@{
+
+    PageLayout.Content.Title = L["Forms"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:IdentityManagement"].Value);
+    PageLayout.Content.MenuItemName = IdentityMenuNames.Users;
+}
+
+<style>
+    .progress-bar {
+        width: 100%;
+        height: 15px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        background-color: #d9d9d9;
+    }
+
+    .progress {
+        height: 100%;
+        background-color: red;
+        transition: width 0.3s ease-in-out;
+    }
+    .li-style{
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .list-item-style-cl{
+        border: 1px solid #d0d0d0;
+        width: 100%;
+        padding: 10px 15px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xl-3 col-sm-6">
+        <div class="card bg-white">
+            <div class="card-body text-center">
+                <div class="card-img-actions d-inline-block mb-3">
+                    <img class="img-fluid rounded-circle" src="~/global_assets/images/placeholders/placeholder.jpg" width="170" height="170" alt="">
+                </div>
+                <input type="hidden" value="@Model.Id" id="formId" />
+                <h6 class="font-weight-semibold mb-0">@Model.FullName</h6>
+                <span class="d-block opacity-75">@Model.Gender</span>
+
+                <div class="list-icons list-icons-extended mt-3" style="display: flex; flex-direction: column;">
+                    <a href="#" class="list-icons-item " style="margin-bottom:10px;"><i clas s="icon-phone"></i> @Model.PhoneNumber</a>
+                    <a href="#" class="list-icons-item "><i class="icon-mail5"></i> @Model.Email</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9 col-sm-6">
+        <abp-card>
+            <abp-card-header>
+                <abp-row>
+                    <abp-column size-md="_12">
+                        <abp-card-title>@L["Başvuru Durumu"] <span>: %@Model.FormIsOk</span></abp-card-title>
+                        <div class="progress-bar">
+                            <div class="progress" id="progress"></div>
+                        </div>
+                        <hr />
+                        <abp-card-title>@L["Başvuru Belgeleri"]</abp-card-title>
+                        <ul style="margin: 15px 0px; padding:0px;">
+                            <li class="li-style">
+                                <span class="list-item-style-cl">
+                                    Adınız Soyadınız
+                                </span>
+                                <span class="list-item-style-cl">@Model.FullName</span>
+                            </li>
+                            <li class="li-style">
+                                <span class="list-item-style-cl">
+                                    Email Adresi
+                                </span>
+                                <span class="list-item-style-cl">@Model.Email</span>
+                            </li>
+                              <li class="li-style">
+                              <span class="list-item-style-cl">
+                                    Cinsiyet</span>
+                                <span class="
+                                list-item-style-cl">@Model.Gender</span>
+                            </li>
+                            <li class="li-style">
+                                <span class="list-item-style-cl">
+                                    Telefon No
+                                </span>
+                                <span class="list-item-style-cl">@Model.PhoneNumber</span>
+                            </li>
+                               @if (Model.PositionName != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Pozisyon Adı
+                                    </span>
+                                    <span class="list-item-style-cl">@Model.PositionName</span>
+                                </li>
+                            }
+                            @if (Model.JobPosition != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Pozisyon
+                                    </span>
+                                    <span class="list-item-style-cl">@Model.JobPosition</span>
+                                </li>
+                            }
+                            @if (Model.JobTitle != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        İş</span>
+                                    <span class="list-item-style-cl">@Model.JobTitle</span>
+                                </li>
+                            }
+                            @if (Model.IsBecomeConsultDesc != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Neden Danışman Olmaya İhtiyaç Duydunuz?
+                                    </span>
+                                    <span class="list-item-style-cl">@Model.IsBecomeConsultDesc</span>
+                                </li>
+                            }
+                            @if (Model.Profession != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Uzmanlık Alanınız</span>
+                                    <span class="list-item-style-cl">@Model.Profession</span>
+                                </li>
+                            }
+                            @if (Model.IsNeedConsult != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        İhtiyaç Duyulan Danışman Alanı
+                                    </span>
+                                    <span class="list-item-style-cl">@Model.IsNeedConsult</span>
+                                </li>
+                            }
+                            @if (Model.CompanyName != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Firma</span>
+                                    <span class="list-item-style-cl">@Model.CompanyName</span>
+                                </li>
+                            }
+                            @if (Model.CompanyContact != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Firma iletişim</span>
+                                    <span class="list-item-style-cl">@Model.CompanyContact</span>
+                                </li>
+                            }
+                            @if (Model.SpecialRequest != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Özel İstekleriniz
+                                    </span>
+                                    <span class="list-item-style-cl">@Model.SpecialRequest</span>
+                                </li>
+                            }
+                            @if (Model.JobTip != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        İş Tanımı</span>
+                                    <span class="list-item-style-cl">@Model.JobTip</span>
+                                </li>
+                            }
+                            @if (Model.RequiredQualification != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Aranan Nitelikler</span>
+                                    <span class="list-item-style-cl">@Model.RequiredQualification</span>
+                                </li>
+                            }
+                            @if (Model.SalaryRange != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Maaş Aralığı
+                                    </span>
+                                    <span class="list-item-style-cl">@Model.SalaryRange</span>
+                                </li>
+                            }
+                            @if (Model.HoursWork != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Çalışma Saatleri</span>
+                                    <span class="list-item-style-cl">@Model.HoursWork</span>
+                                </li>
+                            }
+                            @if (Model.Location != "yok")
+                            {
+                                <li class="li-style">
+                                    <span class="list-item-style-cl">
+                                        Konum
+                                    </span>
+                                    <span class="list-item-style-cl">@Model.Location</span>
+                                </li>
+                            }
+                        </ul>
+                    </abp-column>
+                </abp-row>
+            </abp-card-header>
+        </abp-card>
+    </div>
+</div>
+
+<script>
+    function setProgress(percent) {
+        const progressBar = document.getElementById('progress');
+
+        if (percent >= 0 && percent < 20) {
+            progressBar.style.backgroundColor = 'red';
+        } else if (percent >= 20 && percent < 50) {
+            progressBar.style.backgroundColor = '#ffda09';
+        } else if (percent >= 50 && percent < 80) {
+            progressBar.style.backgroundColor = '#009aff';
+        } else if (percent >= 80 && percent <= 100) {
+            progressBar.style.backgroundColor = '#14ce14';
+        }
+
+        progressBar.style.width = percent + '%';
+    }
+
+    // Örnek olarak ilerleme çubuğunu yüzde 60 yapalım
+    setProgress(@Model.FormIsOk);
+</script>

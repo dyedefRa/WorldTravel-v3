@@ -1,0 +1,60 @@
+﻿
+_Layout.cs de var
+
+
+önemli olan diğer ülkeye tıklandıgında ne olacak yani =>
+
+        window.location.href = "/Abp/Languages/Switch?culture=tr&uiCulture=tr&returnUrl=" + location.pathname
+olması gerek
+
+VIEW --------------------------
+
+
+     <div class="language-dropdown">
+                            <span class="language-dd">
+                                <img width="23" class="selectedLanguageImage" src="/global_assets/images/lang/tr.png" />
+                                <span class="selectedLanguageName">@L["Turkish"]</span>
+                            </span>
+                            <ul id="language" style="width:120px;">
+                                <li class="select-language">
+                                    <a style="color:black;text-decoration:none;" href="#">
+                                        <img width="23" class="optionLanguageImage" src="/global_assets/images/lang/en.png" />
+                                        <span class="optionLanguageName">@L["English"]</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+JAVASCRIPT --------------------------
+
+          //#region Localization
+                var languageCookie = localStorage.getItem('$language');
+                if (languageCookie == 'tr' || languageCookie == null) {
+                    $('.selectedLanguageImage').attr('src', '/global_assets/images/lang/tr.png');
+                    $('.selectedLanguageName').html('@L["Turkish"]');
+                    $('.optionLanguageImage').attr('src', '/global_assets/images/lang/en.png');
+                    $('.optionLanguageName').html('@L["English"]');
+                }
+                else {
+                    $('.selectedLanguageImage').attr('src', '/global_assets/images/lang/en.png');
+                    $('.selectedLanguageName').html('@L["English"]');
+                    $('.optionLanguageImage').attr('src', '/global_assets/images/lang/tr.png');
+                    $('.optionLanguageName').html('@L["Turkish"]');
+                }
+
+                $('.select-language').click(function (e) {
+                    var languageCookie = localStorage.getItem('$language');
+                    if (languageCookie == 'en') {
+                        localStorage.setItem('$language', 'tr');
+                        window.location.href = "/Abp/Languages/Switch?culture=tr&uiCulture=tr&returnUrl=" + location.pathname
+                    }
+                    else {
+                        localStorage.setItem('$language', 'en');
+                        window.location.href = "/Abp/Languages/Switch?culture=en&uiCulture=en&returnUrl=" + location.pathname
+                    }
+                });
+                //#endregion
+
+----------------------------------------------------

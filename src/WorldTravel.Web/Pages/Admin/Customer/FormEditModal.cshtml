@@ -1,0 +1,106 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using Volo.Abp.Identity.Localization
+@using Volo.Abp.Identity.Web.Pages.Identity.Users
+@using Volo.Abp.Localization
+@using Volo.Abp.ObjectExtending
+@using Volo.Abp.Data
+@using Volo.Abp.Identity
+@model WorldTravel.Web.Pages.Admin.Customer.FormEditModalModel
+@inject IHtmlLocalizer<IdentityResource> L
+@inject IStringLocalizerFactory StringLocalizerFactory
+@{
+    Layout = null;
+}
+
+<style>
+    .spinbar-container {
+        display: flex;
+        width: 100%;
+        position: relative;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Spinbar track styles */
+    .spinbar-track {
+        width: 100%;
+        height: 10px;
+        background-color: #eee;
+        position: relative;
+        margin-top: 10px;
+    }
+
+    /* Spinbar handle styles */
+    .spinbar-handle {
+        width: 20px;
+        height: 20px;
+        background-color: #2196f3;
+        border-radius: 50%;
+        position: absolute;
+        top: -5px;
+        cursor: pointer;
+    }
+
+    /* Spinbar input styles */
+    #spinbar-input {
+        width: 20%;
+        margin-top: 10px;
+        margin-left: 20px;
+        border-radius: 5px;
+        height: 35px;
+        padding: 5px;
+        border: 1px solid darkgrey;
+    }
+</style>
+
+<form method="post" asp-page="/Admin/Customer/FormEditModal">
+    <input asp-for="FormInfo.Id" type="hidden" />
+    <abp-modal>
+        <abp-modal-header title="@L["Edit"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <div class="mt-3">
+                <div class="spinbar-container">
+                    <div class="spinbar-track">
+                        <div class="spinbar-handle"></div>
+                    </div>
+                    <input type="number" id="spinbar-input" min="0" max="100" asp-for=FormInfo.FormIsOk value="@Model.FormInfo.FormIsOk">
+                </div>
+            </div>
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>
+
+<script>
+    const spinbarHandle = document.querySelector('.spinbar-handle');
+    const spinbarTrack = document.querySelector('.spinbar-track');
+    const spinbarInput = document.getElementById('spinbar-input');
+
+    let isDragging = false;
+
+    spinbarHandle.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        document.addEventListener('mousemove', handleDrag);
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            document.removeEventListener('mousemove', handleDrag);
+        });
+    });
+
+    function handleDrag(e) {
+        if (!isDragging) return;
+
+        const trackRect = spinbarTrack.getBoundingClientRect();
+        const offsetX = e.clientX - trackRect.left;
+        const percentage = (offsetX / trackRect.width) * 100;
+
+        const newValue = Math.min(Math.max(percentage, 0), 100);
+        spinbarHandle.style.left = `${newValue}%`;
+        spinbarInput.value = Math.round(newValue);
+    }
+
+</script>

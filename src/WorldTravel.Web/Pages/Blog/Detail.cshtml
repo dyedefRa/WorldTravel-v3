@@ -1,0 +1,60 @@
+﻿@page
+
+@using WorldTravel.Extensions;
+@model WorldTravel.Web.Pages.Blog.DetailModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+
+@{
+}
+
+<style>
+    .home9-parallax .footer-top h4, .home9-parallax .footer-top .h4, .home9-parallax .footer-top, .home9-parallax .footer-links a, .home9-parallax .footer-top p, .home9-parallax .footer-bottom, .home9-parallax .footer-bottom a {
+        color: #fff;
+    }
+
+    h1.product-single__title, .product-single__title.h1 {
+        padding-right: 0;
+    }
+</style>
+
+<div id="MainContent" class="main-content mt-5" role="main">
+    <div id="ProductSection-product-template" class="product-template__container prstyle1 container">
+        <!--product-single-->
+        <div class="product-single">
+            <div class="row">
+
+                <div class="col-lg-9 col-md-9 col-sm-12" style="margin: 70px auto;">
+                    <div class="wrap-content">
+                        <div class="product-details-img">
+                            <img src="@Model.Blog.PreviewImageUrl"
+                                 style="width: 100%; border-top-left-radius: 10px; border-top-right-radius: 10px;
+    object-fit: cover;" loading="lazy" alt="@Model.Blog.Title" title="@Model.Blog.Title" />
+                        </div>
+                        <div class="product-single__meta" style="padding: 20px 45px 5px 45px; margin-bottom: 30px;">
+                            <br />
+                            <h1 class="product-single__title">
+                                @Model.Blog.Title
+                            </h1>
+                            <hr />
+                            <div class="product-single__description rte">
+                                @Html.Raw(Model.Blog.Description)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--End-product-single-->
+            <!-- first slider -->
+            <!--Product Tabs-->
+            <!--End Product Tabs-->
+        </div>
+        <!--#ProductSection-product-template-->
+    </div>
+    <!--MainContent-->
+</div>
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div><div class="pswp__item"></div><div class="pswp__item"></div></div><div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button><button class="pswp__button pswp__button--share" title="Share"></button><button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button><button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button><button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div>
+</div>

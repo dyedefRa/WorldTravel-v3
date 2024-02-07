@@ -1,0 +1,1149 @@
+﻿@page
+@using WorldTravel.Extensions
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@model WorldTravel.Web.Pages.Home.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@section styles {
+    <style>
+        .h275 {
+            height: 200px;
+        }
+
+        .p05 {
+            padding: 10px;
+        }
+
+        .bcg {
+            background-color: #f9f9f9;
+        }
+
+        .bt7 {
+            bottom: -7px !important;
+        }
+
+        .tab {
+            width: 100%;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                display: block;
+                color: black;
+                padding: 8px 0px;
+                border: none;
+                outline: none;
+                text-align: left;
+                cursor: pointer;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                }
+
+                /* Create an active/current "tab button" class */
+                .tab button.active {
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            padding: 0px 12px;
+            width: 100%;
+            display: none;
+            border-left: none;
+            height: 300px;
+        }
+
+            .tabcontent:first-child {
+                display: block;
+            }
+
+        .btn-allview {
+            margin: 10px auto 50px auto;
+            text-decoration: none;
+            font-size: 17px;
+            background: #ff7800;
+            color: #fff;
+            text-align: center;
+            border: 0px;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+
+            .btn-allview:hover {
+                text-decoration: none;
+            }
+    </style>
+}
+
+<div class="slider-ext">
+    @if (Model.Slider.Any())
+    {
+        @foreach (var item in Model.Slider)
+        {
+            <div class="slide-ext active">
+                <img src="@item.PreviewImageUrl" loading="lazy" alt="@item.Title" title="@item.Title">
+                <div class="info-ext">
+                    <div class="title-slider">
+                        <h2>@item.Title</h2>
+                    </div>
+                    <span class="slider-seperator"></span>
+                    <p>@item.Description</p>
+                    <a href="@item.Url" class="btn-slider">@L["ApplyNow"] <i class="fa fa-chevron-right" style="margin-left:5px;"></i></a>
+                </div>
+            </div>
+
+        }
+    }
+
+    @*
+    <div class="slide-ext">
+    <img src="/web/images/slider/slider_2.jpg" loading="lazy" alt="">
+    <div class="info-ext">
+    <div class="title-slider">
+    <h2>@L["SliderTitle2"]</h2>
+    <h2>@L["SliderTitle22"]</h2>
+    </div>
+    <span class="slider-seperator"></span>
+    <p>@L["SliderParagraph2"]</p>
+    <a href="#about" class="btn-slider">@L["SliderButton2"] <i class="fa fa-chevron-right" style="margin-left:5px;"></i></a>
+    </div>
+    </div>
+    <div class="slide-ext">
+    <img src="/web/images/slider/slider_3.jpg" loading="lazy" alt="">
+    <div class="info-ext">
+    <div class="title-slider">
+    <h2>@L["SliderTitle3"]</h2>
+    <h2>@L["SliderTitle33"]</h2>
+    </div>
+    <span class="slider-seperator"></span>
+    <p>@L["SliderParagraph3"]</p>
+    <a href="#about" class="btn-slider">@L["SliderButton3"] <i class="fa fa-chevron-right" style="margin-left:5px;"></i></a>
+    </div>
+    </div>*@
+
+    <div class="navigation-ext">
+        <i class="fa fa-chevron-left prev-btn"></i>
+        <i class="fa fa-chevron-right next-btn"></i>
+    </div>
+    <div class="navigation-visibility-ext">
+        <div class="slide-icon active"></div>
+        <div class="slide-icon"></div>
+        <div class="slide-icon"></div>
+
+    </div>
+</div>
+
+<section id="referanslar" style="display: flex; flex-direction: column; align-items: center;
+    position: relative; bottom: 65px;">
+
+    <div class="container zoomIn" data-wow-duration="2s" style="box-shadow: 2px 2px 20px 0 #e8e8e8;
+               border: 1px solid #d4d4d4; padding: 30px; background: #fff; z-index: 999;">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 data-cont-title">
+                <div class="img-title" style="display:flex;">
+                    <img src="/assets/images/refer.png" style="height: 30px; margin-right: 10px;" />
+                    <h1 style="font-size: 30px; margin-bottom:20px;" class="data-cont-h-mobile">
+                        @L["References"]
+                    </h1>
+                </div>
+
+                <p style="font-size: 15px;" class="data-cont-p-mobile">
+                    @L["RefDesc"]
+                </p>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="collection-box">
+                    <div class="collection-grid-4item wow bounceInLeft">
+                        <div class="collection-grid-item p04">
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/germany.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="4777">0</h1>
+                                    <span>@L["GERMANY"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/netherlands.png" />
+                                <div class="data-content-title-numbers">
+
+                                    <h1 class="counter" data-target="2337">0</h1>
+                                    <span>@L["NETHERLAND"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/canadian.png" />
+                                <div class="data-content-title-numbers">
+
+                                    <h1 class="counter" data-target="6969">0</h1>
+                                    <span>@L["CANADA"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/usa.png" />
+                                <div class="data-content-title-numbers">
+
+                                    <h1 class="counter" data-target="11952">0</h1>
+                                    <span>@L["USA"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/swirtzeland.png" />
+                                <div class="data-content-title-numbers">
+
+                                    <h1 class="counter" data-target="4777">0</h1>
+                                    <span>@L["SWIRTZELAND"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/swedish.png" />
+                                <div class="data-content-title-numbers">
+
+                                    <h1 class="counter" data-target="3259">0</h1>
+                                    <span>@L["SWEDEN"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/norway.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="450">0</h1>
+                                    <span>@L["NORWAY"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/denmark.png" />
+                                <div class="data-content-title-numbers">
+
+                                    <h1 class="counter" data-target="1352">0</h1>
+                                    <span>@L["DENMARK"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/france.png" />
+                                <div class="data-content-title-numbers">
+
+                                    <h1 class="counter" data-target="4100">0</h1>
+                                    <span>@L["FRANCE"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+                            <div class="data-content-title-numbers">
+
+                                <div class="data-cont">
+                                    <img class="data-cont-img" src="~/assets/images/flags/crp.png" />
+                                    <div class="data-content-title-numbers">
+                                        <h1 class="counter" data-target="950">0</h1>
+                                        <span>@L["CZECHREPUBLİC"]</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/spanish.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="2348">0</h1>
+                                    <span>@L["SPAIN"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/italy.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="2348">0</h1>
+                                    <span>@L["ITALY"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+                            <div class="data-content-title-numbers">
+
+                                <div class="data-cont">
+                                    <img class="data-cont-img" src="~/assets/images/flags/austuria.png" />
+                                    <div class="data-content-title-numbers">
+
+                                        <h1 class="counter" data-target="1400">0</h1>
+                                        <span>@L["AUSTRIA"]</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/australia.png" />
+                                <div class="data-content-title-numbers">
+
+                                    <h1 class="counter" data-target="4250">0</h1>
+                                    <span>@L["AUSTRALIA"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/england.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="5600">0</h1>
+                                    <span>@L["UK"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/uae.png" />
+                                <div class="data-content-title-numbers">
+
+                                    <h1 class="counter" data-target="4573">0</h1>
+                                    <span>@L["UAE"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont" style="flex-direction:column;">
+                                <h1 class="counter" data-target="475">0</h1>
+                                <span>@L["DUBAI"]</span>
+
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/newzeland.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="2350">0</h1>
+                                    <span>@L["NEWZELAND"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/ireland.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="3500">0</h1>
+                                    <span>@L["IRELAND"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/belgium.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="3695">0</h1>
+                                    <span>@L["BELGIUM"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/luxemburg.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="490">0</h1>
+                                    <span>@L["LUXEMBURG"]</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/finland.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="2355">0</h1>
+                                    <span>@L["FINLAND"]</span>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-grid-item p04">
+
+                            <div class="data-cont">
+                                <img class="data-cont-img" src="~/assets/images/flags/china.png" />
+                                <div class="data-content-title-numbers">
+                                    <h1 class="counter" data-target="15859">0</h1>
+                                    <span>@L["CHINA"]</span>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@if (Model.CountryContent.Any())
+{
+    <div class="collection-box section wow bounceInLeft" data-wow-duration="6s" style="background-color:#fff; padding-bottom:70px;">
+        <div class="container-fluid">
+            <div class="row" style="margin: 0px 40px;">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="display:flex; justify-content:space-between;">
+                    <div class="section-header">
+                        <p style="margin-bottom: 5px; font-size: 15px;">@L["PopCountryDesc"]</p>
+                        <h2 class="h2">@L["PopulerCountries"]</h2>
+                    </div>
+                    <i class="fa fa-map-marker d-none d-lg-block" style="font-size:40px;"></i>
+                </div>
+            </div>
+            <div class="collection-grid-4item wow bounceInLeft" data-wow-duration="8s" style="padding-left:50px;padding-right:50px;">
+                @foreach (var countryContent in Model.CountryContent)
+                {
+                    <div class="collection-grid-item p05">
+                        <a href="/Country/Detail?Id=@countryContent.Id" class="collection-grid-item__link" style="text-decoration:none;">
+                            <img loading="lazy" src="@countryContent.PreviewImageUrl">
+                            <div class="collection-grid-item__title-wrapper bt7 collection-flag" style="padding-bottom:30px;">
+                                @*  <img loading="lazy" data-src="https://www.worldvisaturkey.com/@countryContent.PreviewImageUrl"
+                        src="https://www.worldvisaturkey.com/countryContent.PreviewImageUrl"
+                        alt="@L["ImageFailedToLoad"]" height="60" title="@countryContent.Title"
+                        class="blur-up lazyload home-country" style="border: 10px solid #fff;" />*@
+                                <h3 style="font-size: 20px;" class="collection-grid-item__title btn btn--secondary no-border">@countryContent.Title</h3>
+                                <p style="font-size:15px; margin: 0 30px;">@L["PopCountryExtDesc"]</p>
+                                <span style="background-color: #ff7800; padding: 10px 20px; width: 80%; margin: 15px auto 0px auto; border-radius: 7px;" class="btn-primary btn-block">@L["PopCountryButton"]</span>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<section id="findjob" class="bcg d-none d-lg-block" style="background-color: #1162b1; margin-top:50px;">
+    <div class="container" style="width: 80%;">
+        <div class="row">
+            <div class="col-sm-12 col-lg-4 col-md-4 job-height-custom">
+                <div class="card-job">
+                    <div class="card-job-header">
+                        <h1>@L["TitleJobFind"]</h1>
+                    </div>
+                    <div class="card-job-body">
+                        <p>@L["JobFindDesc"]</p>
+                        <a href="Form/FormFindJob?formRegisterType=isbul" class="card-job-button btn btn-block btn-primary">@L["ButtonJobFind"]</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-4 col-md-4 image-section-flex d-none d-lg-flex">
+                <img loading="lazy" src="~/extensions/golden/images/worker_non_shaped.png" class="img-section" />
+                <div class="img-job-shape"></div>
+            </div>
+            <div class="col-sm-12 col-lg-4 col-md-4 job-height-custom">
+                <div class="card-job">
+                    <div class="card-job-header">
+                        <h1>@L["TitleWorkerFind"]</h1>
+                    </div>
+                    <div class="card-job-body">
+                        <p>@L["PostAJobDesc"]</p>
+                        <a href="Form/FormFindJob?formRegisterType=iscibul" class="card-job-button btn btn-block btn-primary">@L["ButtonPostJob"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="findjob" class="bcg d-sm-block d-lg-none" style="background-color: #1162b1; margin-top:50px;">
+    <div class="container" style="padding:0;">
+        <div class="row" style="margin: 0;">
+            <div class="col-sm-12 col-lg-6 col-md-4 job-height-custom">
+                <div class="card-job">
+                    <div class="card-job-header">
+                        <h1>@L["TitleJobFind"]</h1>
+                    </div>
+                    <div class="card-job-body">
+                        <p>@L["JobFindDesc"]</p>
+                        <a href="Form/FormFindJob?formRegisterType=isbul" class="card-job-button btn btn-block btn-primary">@L["ButtonJobFind"]</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-4 col-md-4">
+                <img loading="lazy" src="~/extensions/golden/images/worker.png" class="img-section" />
+            </div>
+            <div class="col-sm-12 col-lg-6 col-md-4 job-height-custom">
+                <div class="card-job">
+                    <div class="card-job-header">
+                        <h1>@L["TitleWorkerFind"]</h1>
+                    </div>
+                    <div class="card-job-body">
+                        <p>@L["PostAJobDesc"]</p>
+                        <a href="Form/FormFindJob?formRegisterType=iscibul" class="card-job-button btn btn-block btn-primary">@L["ButtonPostJob"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (Model.Job.Any())
+{
+    <div class="section wow fadeInUp" data-wow-duration="2s" style="margin-top:50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="section-header" style="display: flex; flex-direction: column; align-items: center;">
+                        <h2 class="h2">@L["JobAndLifeTitle"]</h2>
+                        <p class="p-sub-title" style="font-size: 15px; width: 35%; text-align: center;">@L["JobAndLifeDesc"]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="categories-list-items">
+                <div class="row country-items wow fadeInUp" data-wow-duration="4s">
+                    @foreach (var job in Model.Job)
+                    {
+                        <div class="col-12 col-sm-12 col-md-3 col-lg-12 article country-item article-custom-box" style="margin-bottom:15px;">
+                            <div class="article-jbox">
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="article-content-custom-item">
+                                <a class="article_featured-image d-none d-lg-block" href="/Job/Detail?Id=@job.Id">
+                                    <img loading="lazy" width="287" height="124" class="blur-up lazyload article-image" data-src="@job.PreviewImageUrl" src="@job.PreviewImageUrl" title="@job.Title" alt="@L["ImageFailedToLoad"]">
+                                </a>
+                                <div style="text-align:left;" class="job-title-mb">
+                                    <h2 class="h3"><a href="/Job/Detail?Id=@job.Id" class="visaTypeTitle">@job.Title</a></h2>
+                                    <div class="rte">
+                                        <p>@job.ShortDescription.ApplyShortening(200)</p>
+                                    </div>
+
+                                </div>
+                                <p style="margin-bottom:0;" class="mt-mb job-detail-mb"><i class="fa fa-flag"></i> @job.CountryName</p>
+                                <p style="margin-bottom:0;" class="job-detail-mb"><i class="fa fa-language"></i> @job.LanguageName</p>
+                                <p></p>
+                            </div>
+                            <div class="article-content-sub-item">
+                                <ul class="publish-detail" style="margin:0px; display: flex; flex-direction: column;">
+                                    <li style="color:#fff;">@L["ClockPrice"]</li>
+                                    <li style="color:#fff;">@job.HourlyRate</li>
+                                </ul>
+                                <p style="margin-bottom:0px; color:#fff;display: flex; flex-direction: column;">
+                                    <span>@L["HousePrice"]</span>
+                                    <span>@job.AccommodationFee</span>
+                                </p>
+                                <p>
+                                    <a href="/Job/Detail?Id=@job.Id" class="btn btn-secondary btn--small"
+                               style="background: #ff7800; color: #fff; padding: 10px 15px; border-radius: 5px;">
+                                        @*@L["ReadMore"]*@ @L["ApplyNow"]
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                    <a href="/Job" style="margin: 0 auto; text-transform: none;" class="card-job-button btn btn-block btn-primary">@L["HEPSİNİ GÖR"] <i class="fa fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.VisaType.Any())
+{
+    <div class="section wow fadeInUp" data-wow-duration="2s" style="margin-top:50px;">
+        <div class="container" style="padding:40px 0;">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="section-header" style="display: flex; flex-direction: column; align-items: center;">
+                        <h2 style="text-transform:capitalize;" class="h2">@L["VisaTypes"]</h2>
+@*                        <p class="p-sub-title" style="font-size: 15px; width: 35%; text-align: center;">@L["JobAndLifeDesc"]</p>
+*@                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--Main Content-->
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                    <div class="categories-list-items">
+                        <div class="row country-items wow fadeInUp" data-wow-duration="4s">
+                            @foreach (var visaType in Model.VisaType.Take(4))
+                            {
+                                <div class="col-12 col-sm-12 col-md-3 col-lg-3 article country-item" style="padding: 20px;border: 2px solid #f9f9f9;text-align:center;">
+                                    <a class="article_featured-image" href="/VisaType/Detail?Id=@visaType.Id">
+                                        <img width="300" style="height: 195px;
+    object-fit: cover;" class="blur-up lazyload" data-src="@visaType.PreviewImageUrl" src="@visaType.PreviewImageUrl" title="@visaType.Title" alt="@L["ImageFailedToLoad"]">
+                                    </a>
+                                    <h2 style="text-transform: none;" class="h3"><a href="/VisaType/Detail?Id=@visaType.Id" class="visaTypeTitle">@visaType.Title</a></h2>
+                                    <div class="rte">
+                                        <p>@L["PopCountryExtDesc"]</p>
+                                    </div>
+
+                                    <p>
+                                        <a href="/VisaType/Detail?Id=@visaType.Id" class="btn btn-secondary btn--small"
+                                   style="background-color:#ff7800; padding:10px 15px; border-radius:5px;">@L["ApplyNow"]</a>
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!--End Main Content-->
+            </div>
+        </div>
+    </div>
+}
+
+<section id="findjob" class="bcg d-none d-lg-block" style="background-color: #1162b1;">
+    <div class="container" style="width: 80%;">
+        <div class="row">
+            <div class="col-sm-12 col-lg-4 col-md-4 job-height-custom">
+                <div class="card-job">
+                    <div class="card-job-header">
+                        <h1>@L["TitleBeConsultant"]</h1>
+                    </div>
+                    <div class="card-job-body">
+                        <p>@L["BeConsultantDesc"]</p>
+                        <a href="Form/FormFindJob?formRegisterType=danismanol" style="width: fit-content;" class="card-job-button btn btn-block btn-primary">@L["TitleBeConsultant"]</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-4 col-md-4 image-section-flex d-none d-lg-flex">
+                <img loading="lazy" src="~/extensions/golden/images/consultant_non_shape.png" class="img-section" />
+                <div class="img-job-shape"></div>
+            </div>
+            <div class="col-sm-12 col-lg-4 col-md-4 job-height-custom">
+                <div class="card-job">
+                    <div class="card-job-header">
+                        <h1>@L["TitleConsultantFind"]</h1>
+                    </div>
+                    <div class="card-job-body">
+                        <p>@L["ConsultantFindDesc"]</p>
+                        <a href="Form/FormFindJob?formRegisterType=danismanbul" style="width: fit-content;" class="card-job-button btn btn-block btn-primary">@L["TitleConsultantFind"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="findjob" class="bcg d-sm-block d-lg-none" style="background-color: #1162b1;">
+    <div class="container" style="padding:0;">
+        <div class="row" style="margin: 0;">
+            <div class="col-sm-12 col-lg-4 col-md-4 job-height-custom">
+                <div class="card-job">
+                    <div class="card-job-header">
+                        <h1>@L["TitleBeConsultant"]</h1>
+                    </div>
+                    <div class="card-job-body">
+                        <p>@L["BeConsultantDesc"]</p>
+                        <a href="Form/FormFindJob?formRegisterType=danismanol" style="width: fit-content;" class="card-job-button btn btn-block btn-primary">@L["TitleBeConsultant"]</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-4 col-md-4">
+                <img loading="lazy" src="~/extensions/golden/images/consultant.png" class="img-section" />
+            </div>
+            <div class="col-sm-12 col-lg-4 col-md-4 job-height-custom">
+                <div class="card-job">
+                    <div class="card-job-header">
+                        <h1>@L["TitleConsultantFind"]</h1>
+                    </div>
+                    <div class="card-job-body">
+                        <p>@L["ConsultantFindDesc"]</p>
+                        <a href="Form/FormFindJob?formRegisterType=danismanbul" style="width: fit-content;" class="card-job-button btn btn-block btn-primary">@L["TitleConsultantFind"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="guncel" style="z-index:1; position: relative; padding: 60px 0px 115px 0px; background: url(/assets/images/img-bg-world.png) no-repeat; background-position-y: -36px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="section-header" style="text-align: center;">
+                    <h2 class="h2">@L["Latest"]</h2>
+                    <p style="margin-bottom: 5px; font-size: 15px;">@L["LatestDesc"]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container zoomIn" data-wow-duration="2s">
+        <div class="blog-post">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="section-header title-blog" style="margin-bottom:0px;">
+                        <h3 class="title-blog-title">@L["Latest"]</h3>
+                        <a href="/Blog" style="color:#fff;">
+                            @L["ViewAll"]
+                            <i class="fa fa-chevron-right" style="color: #fff;font-size: 10px;"></i>
+                        </a>
+                    </div>
+                    <div class="job-body">
+                        <div class="row">
+                            @if (Model.Blog.Any())
+                            {
+                                @foreach (var item in Model.Blog.ToList())
+                                {
+                                    <div class="col-sm-6 col-lg-6 col-md-6">
+                                        <a href="/Blog/Detail?Id=@item.Id" style="text-decoration:none;">
+                                            <div class="job-card">
+                                                <img loading="lazy" class="job-image" src="@item.PreviewImageUrl" />
+                                                <div class="job-content">
+                                                    <h1 style="font-family: Poppins-Medium !important;" class="job-title">@item.Title</h1>
+                                                    <p class="job-desc">@item.SeoDescription</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="bcg" style="background-color: #1162b1;">
+    <div class="container" style="width: 80%;">
+
+        <div class="about-content-custom">
+
+            <div class="about-custom-content-tab">
+                <div class="tab">
+                    <div class="header-title-section">
+                        <h2 class="header-title-section-t">@L["AboutTitle"]</h2>
+                        <p style="text-align:left; color:#fff; margin-bottom:5px; font-size:15px;">
+                            @L["AboutTitleDesc"]
+                        </p>
+                    </div>
+                    <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">
+                        <div class="about-text">
+                            <h1 class="about-number">1</h1>
+                            <span class="about-seperator"></span>
+                            <div class="about-content-tile">
+                                <h1 class="about-item-span">@L["AboutMeetingTitle"]</h1>
+                                <p class="about-paragraph" style="color:#fff;">@Html.Raw(L["AboutCallCenter"])</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="tablinks" onclick="openCity(event, 'Paris')">
+                        <div class="about-text">
+                            <h1 class="about-number">2</h1>
+                            <span class="about-seperator"></span>
+                            <div class="about-content-tile">
+                                <h1 class="about-item-span">@L["AboutDocTitle"]</h1>
+                                <p class="about-paragraph" style="color:#fff;">@Html.Raw(L["AboutDocumentQuestion"])</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">
+                        <div class="about-text">
+                            <h1 class="about-number">3</h1>
+                            <span class="about-seperator" style="height:80px;"></span>
+                            <div class="about-content-tile">
+                                <h1 class="about-item-span">@L["AboutContractTitle"]</h1>
+                                <p class="about-paragraph" style="color:#fff;">@Html.Raw(L["AboutHandShake"])</p>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="tablinks" onclick="openCity(event, 'Ankara')">
+                        <div class="about-text">
+                            <h1 class="about-number">4</h1>
+                            <div class="about-content-tile">
+                                <h1 class="about-item-span">@L["AboutProcessTitle"]</h1>
+                                <p class="about-paragraph" style="color:#fff;">@L["AboutDocumentTick"]</p>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="content-tab">
+                    <div id="London" class="tabcontent">
+                        <div class="about-item">
+                            <img loading="lazy" class="rsm-yuvarla" src="/extensions/golden/images/img.png" alt="@L["ImageFailedToLoad"]" title="@L["DefaultImageTitle"]">
+                        </div>
+                    </div>
+
+                    <div id="Paris" class="tabcontent">
+                        <div class="about-item">
+                            <img loading="lazy" class="rsm-yuvarla" src="/extensions/golden/images/img2.png" alt="@L["ImageFailedToLoad"]" title="@L["DefaultImageTitle"]">
+                        </div>
+                    </div>
+
+                    <div id="Tokyo" class="tabcontent">
+                        <div class="about-item">
+                            <img loading="lazy" class="rsm-yuvarla" src="/extensions/golden/images/img3.png" alt="@L["ImageFailedToLoad"]" title="@L["DefaultImageTitle"]">
+
+                        </div>
+                    </div>
+
+                    <div id="Ankara" class="tabcontent">
+                        <div class="about-item" data-wow-duration="2s">
+                            <img loading="lazy" class="rsm-yuvarla" src="/extensions/golden/images/img4.png" alt="@L["ImageFailedToLoad"]" title="@L["DefaultImageTitle"]">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</section>
+
+<section id="servisler">
+    <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="section-header" style="text-align: center;">
+                        <h2 class="h2">@L["ServiceTitle"]</h2>
+                        <p style="margin-bottom: 5px; font-size: 15px;">@L["ServiceMarquee"]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="services-content text-center">
+            <div class="row ">
+                <div class="col-md-4 wow bounceInLeft" data-wow-duration="2s">
+                    <div class="item-circle">
+                        <img loading="lazy" src="/extensions/golden/images/s_1.png" alt="@L["ImageFailedToLoad"]" title="@L["DefaultImageTitle"]">
+                    </div>
+                    <h5 class="mt-4">@L["ServiceHappy"]</h5>
+                    <p>@L["ServiceHappyDescription"]</p>
+                </div>
+                <div class="col-md-4 wow bounceInDown" data-wow-duration="2s">
+                    <div class="item-circle">
+                        <img loading="lazy" src="/extensions/golden/images/s_2.png" alt="@L["ImageFailedToLoad"]" title="@L["DefaultImageTitle"]">
+                    </div>
+                    <h5 class="mt-4">@L["ServiceGlobal"]</h5>
+                    <p>@L["ServiceGlobalDescription"]</p>
+                </div>
+                <div class="col-md-4 wow bounceInRight" data-wow-duration="2s">
+                    <div class="item-circle">
+                        <img loading="lazy" src="/extensions/golden/images/s_3.png" alt="@L["ImageFailedToLoad"]" title="@L["DefaultImageTitle"]">
+                    </div>
+                    <h5 class="mt-4">@L["ServiceStrongNetwork"]</h5>
+                    <p>@L["ServiceStrongNetworkDescription"]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container wow zoomIn" data-wow-duration="2s">
+
+        <div class="cont-content">
+            <div class="cont-top text-center ">
+                <h5 style="font-size:30px;">@L["Booking"]</h5>
+            </div>
+            <form method="post" class="golden-from" href="/Home">
+                @Html.AntiForgeryToken()
+                @(await Component.InvokeAsync<Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.PageAlerts.PageAlertsViewComponent>())
+                <div class="row">
+                    <div class="form-group col-md-6 col-lg-4 col-xl-4">
+                        <abp-input asp-for="FormInputModel.Name"
+                                   label="@L["Name"]" placeholder="@L["ContactNamePlaceHolder"]" required class="golden-from-element" />
+                    </div>
+                    <div class="form-group col-md-6 col-lg-4 col-xl-4">
+                        <abp-input asp-for="FormInputModel.Surname" label="@L["Surname"]" required placeholder="@L["ContactSurnNamePlaceHolder"]" class="golden-from-element" />
+                    </div>
+                    <div class="form-group col-md-6 col-lg-4 col-xl-4">
+                        <abp-input asp-for="FormInputModel.BirthDate" label="@L["BirthDate"]" required placeholder="@L["ContanctBirthDatePlaceHolder"]" class="golden-from-element" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                        <abp-input asp-for="FormInputModel.Email" label="@L["Email"]" required placeholder="@L["ContactEmailPlaceHolder"]" class="golden-from-element" />
+                    </div>
+                    <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                        <abp-input asp-for="FormInputModel.PhoneNumber" class="golden-from-element mobilephone" required placeholder="@L["ContactPhonePlaceHolder"]" label="@L["PhoneNumber"]" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                        <abp-select asp-for="FormInputModel.Gender" label="@L["Gender"]" required class="golden-from-element">
+                            <option disabled selected>@L["ContactGenderPlaceHolder"]</option>
+                        </abp-select>
+                    </div>
+                    <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                        <abp-select asp-for="FormInputModel.CountryId" label="@L["Country"]" required class="golden-from-element">
+                            <option disabled selected>@L["ContactCountryPlaceHolder"]</option>
+                        </abp-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                        <abp-input asp-for="FormInputModel.Description" placeholder="@L["ContactDescriptionPlaceHolder"]" class="golden-from-element" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="margin: 0px 0px 16px 16px;" class="g-recaptcha" data-sitekey="6LfnZn0mAAAAADE4DCn4Blm0rKUxC1ePZ2T0AjYb"></div>
+                    <div class="flex-direction-mb-column text-center col-12 col-sm-12 col-md-12 col-lg-12" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                        <div class="flex" style="flex-direction: row; align-items: center;">
+                            <input id="sozlesmeonay" type="checkbox" name="IsRead" required>
+                            <span class="kvkk" style="position: relative; left: 10px; font-size: 18px;">
+                                <a style="text-decoration:underline" class="kvkkopenModal" href="#">@L["kvkk"]</a>
+                            </span>
+                        </div>
+                        <abp-button text="@L["ApplyNow"]" style="background: #ff7800; padding: 15px 20px;
+    border-radius: 5px; font-weight: 700; box-shadow: 0px 1px 20px 0 #1594d069;" type="submit" class="btn-nice" button-type="Primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade bd-example-modal-lg modal-dialog-scrollable" id="kvkkmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content" style="height: 90vh; overflow: scroll;">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Kişisel Verilerin Korunması Kanunu (KVKK) Uyarınca Aydınlatma Metni
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>1. Veri Sorumlusu</strong></p>
+
+                <p>Bu aydınlatma metni, [Şirket Adı/İsim ve Soyisim] olarak bizlerin, KVKK kapsamında, kişisel verilerinizi nasıl işlediğimiz ve koruduğumuz konusunda sizi bilgilendirmek amacıyla hazırlanmıştır.</p>
+
+                <p><strong>2. Kişisel Verilerin İşlenme Ama&ccedil;ları</strong></p>
+
+                <p>Kişisel verileriniz, başvuru s&uuml;recinizin değerlendirilmesi, vize işlemlerinin y&uuml;r&uuml;t&uuml;lmesi, iletişim kurulması, iş ilişkisinin y&uuml;r&uuml;t&uuml;lmesi ve yasal y&uuml;k&uuml;ml&uuml;l&uuml;klerin yerine getirilmesi gibi ama&ccedil;larla işlenecektir.</p>
+
+                <p><strong>3. Kişisel Verilerin Aktarılabileceği Taraflar ve Aktarım Ama&ccedil;ları</strong></p>
+
+                <p>Kişisel verileriniz, vize başvurusunun işlenmesi i&ccedil;in gerekli olan kurumlarla (&ouml;rneğin, ilgili konsolosluklar, vize işlemlerini y&uuml;r&uuml;ten resmi kurumlar) paylaşılabilir. Verileriniz, yasal d&uuml;zenlemeler gereği veya işbu a&ccedil;ıklamada belirtilen ama&ccedil;larla sınırlı olmak &uuml;zere, hukuki zorunluluklar doğrultusunda yetkili kamu kurumlarına aktarılabilir.</p>
+
+                <p><strong>4. Kişisel Veri Toplanma Y&ouml;ntemi ve Hukuki Sebebi</strong></p>
+
+                <p>Kişisel verileriniz, başvuru formunuz aracılığıyla toplanacak olup, KVKK&#39;nın 5. ve 6. maddelerinde belirtilen hukuki sebeplere dayanarak işlenecektir. Veri işleme faaliyetlerimiz, a&ccedil;ık rıza, s&ouml;zleşme, hukuki y&uuml;k&uuml;ml&uuml;l&uuml;k, kamu yararı, meşru menfaat gibi hukuki sebeplere dayanmaktadır.</p>
+
+                <p><strong>5. Kişisel Veri Sahibinin Hakları</strong></p>
+
+                <p>KVKK kapsamında, kişisel veri sahipleri olarak sizlere; veri işlenip işlenmediğini &ouml;ğrenme, bu verilere erişim, verilerinizin d&uuml;zeltilmesi, silinmesi veya yok edilmesi, verilerinizin aktarıldığı &uuml;&ccedil;&uuml;nc&uuml; kişilere bilgi verilmesi gibi haklar tanınmaktadır. Bu haklarınızı kullanmak i&ccedil;in şirketimize başvurabilirsiniz.</p>
+
+                <p><strong>6. İletişim Bilgileri</strong></p>
+
+                <p>Kişisel verilerinizle ilgili talepleriniz, [Şirket Adı/İsim ve Soyisim]&#39;ne yazılı olarak iletilmelidir. [Adres, Telefon Numarası, E-posta Adresi] &uuml;zerinden iletişime ge&ccedil;ebilirsiniz.</p>
+
+                <p><strong>Sonu&ccedil;</strong></p>
+
+                <p>Bu metin, kişisel verilerinizin işlenmesi ve korunması konusunda size bilgi vermek amacıyla hazırlanmıştır. KVKK gerekliliklerine uygun olarak şirketimizin politika ve uygulamalarını i&ccedil;ermekte olup, veri g&uuml;venliği ve gizliliğinizin korunmasına &ouml;nem verilmektedir.</p>
+                <!-- Sidebar Wrapper -->
+
+                <p>&nbsp;</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script>
+        $(document).ready(function () {
+            $(".tablinks").mouseenter(function () {
+                $(this).trigger("click");
+            });
+        });
+
+        $('.kvkkopenModal').click(function (e) {
+            e.preventDefault();
+            $('#kvkkmodal').modal('show');
+        });
+
+        function openCity(evt, cityName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+
+        }
+    </script>
+
+    <script>
+
+        const slider = document.querySelector(".slider-ext");
+        const nextBtn = document.querySelector(".next-btn");
+        const prevBtn = document.querySelector(".prev-btn");
+        const slides = document.querySelectorAll(".slide-ext");
+        const slideIcons = document.querySelectorAll(".slide-icon");
+        const numberOfSlides = slides.length;
+        var slideNumber = 0;
+
+        nextBtn.addEventListener("click", () => {
+            slides.forEach((slide) => {
+                slide.classList.remove("active");
+            });
+            slideIcons.forEach((slideIcon) => {
+                slideIcon.classList.remove("active");
+            });
+
+            slideNumber++;
+
+            if (slideNumber > (numberOfSlides - 1)) {
+                slideNumber = 0;
+            }
+
+            slides[slideNumber].classList.add("active");
+            slideIcons[slideNumber].classList.add("active");
+        });
+
+        //image slider previous button
+        prevBtn.addEventListener("click", () => {
+            slides.forEach((slide) => {
+                slide.classList.remove("active");
+            });
+            slideIcons.forEach((slideIcon) => {
+                slideIcon.classList.remove("active");
+            });
+
+            slideNumber--;
+
+            if (slideNumber < 0) {
+                slideNumber = numberOfSlides - 1;
+            }
+
+            slides[slideNumber].classList.add("active");
+            slideIcons[slideNumber].classList.add("active");
+        });
+
+        //image slider autoplay
+        var playSlider;
+
+        var repeater = () => {
+            playSlider = setInterval(function () {
+                slides.forEach((slide) => {
+                    slide.classList.remove("active");
+                });
+                slideIcons.forEach((slideIcon) => {
+                    slideIcon.classList.remove("active");
+                });
+
+                slideNumber++;
+
+                if (slideNumber > (numberOfSlides - 1)) {
+                    slideNumber = 0;
+                }
+
+                slides[slideNumber].classList.add("active");
+                slideIcons[slideNumber].classList.add("active");
+            }, 4000);
+        }
+        repeater();
+
+        //stop the image slider autoplay on mouseover
+        slider.addEventListener("mouseover", () => {
+            clearInterval(playSlider);
+        });
+
+        //start the image slider autoplay again on mouseout
+        slider.addEventListener("mouseout", () => {
+            repeater();
+        });
+
+        $(document).ready(function () {
+            $('body').addClass('home12-category');
+            $('#FormInputModel_BirthDate').attr('type', 'date');
+            $('.golden-from label').hide();
+            //query temizle
+
+        @if (Model.FormInputModel.IsReturnPost)
+        {
+            @:$('.contantLink').click();
+        }
+                window.history.replaceState(null, '', window.location.pathname);
+        });
+
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // milliseconds
+                const increment = target / duration * 15;
+
+                const updateCounter = () => {
+                    const currentValue = +counter.innerText;
+                    if (currentValue < target) {
+                        counter.innerText = Math.ceil(currentValue + increment);
+                        setTimeout(updateCounter, 15);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+
+                updateCounter();
+            });
+        }
+
+        animateCounters();
+
+    </script>
+    }

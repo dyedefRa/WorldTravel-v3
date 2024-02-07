@@ -1,0 +1,424 @@
+﻿@page
+@using Volo.Abp.Users
+@using WorldTravel.Extensions;
+@model WorldTravel.Web.Pages.VisaType.DetailModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@inject ICurrentUser CurrentUser
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<link href="~/web/css/custom.css" rel="stylesheet" />
+<style>
+    #formModal {
+        background: url('/extensions/golden/images/tourism.jpeg') no-repeat center fixed;
+    }
+
+    .mbn {
+        margin-bottom: 0px !important;
+    }
+
+    .home9-parallax .footer-top h4, .home9-parallax .footer-top .h4, .home9-parallax .footer-top, .home9-parallax .footer-links a, .home9-parallax .footer-top p, .home9-parallax .footer-bottom, .home9-parallax .footer-bottom a {
+        color: #fff;
+    }
+
+    h1.product-single__title, .product-single__title.h1 {
+        padding-right: 0;
+    }
+
+    .modal-open .modal {
+        padding-right: 0 !important;
+        overflow: overlay;
+    }
+</style>
+
+@*<div class="page section-header">
+    <div class="bredcrumbWrap mb-00">
+        <div class="container breadcrumbs">
+            <a class="bread breadfirst" href="/Home" title="@L["Home"]"><i class="fa fa-home fa-fw"></i> @L["Home"]</a><span style="font-size: 14px;" aria-hidden="true">›</span>
+            <a class="bread breadfirst" href="/VisaType" title="@L["VisaTypes"]"> @L["VisaTypes"]</a><span style="font-size: 14px;" aria-hidden="true">›</span>
+            <a class="bread breadsecond" href="#" onClick="return false;" title="@L["VisaTypes"]">
+                <img style="margin-top:-3px;margin-right:3px;" width="20" height="13" src="https://worldvisaturkey.com/@Model.VisaType.PreviewImageUrl"
+                     alt="@L["ImageFailedToLoad"]" title="@L["DefaultImageTitle"]">
+                @L[Model.VisaType.Title]
+            </a>
+        </div>
+    </div>
+</div>*@
+<!--MainContent-->
+<div id="MainContent" class="main-content mt-5" role="main">
+    <div id="ProductSection-product-template" class="product-template__container prstyle1 container">
+        <!--product-single-->
+        <div class="product-single">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="wrap-content">
+                        <div class="product-details-img">
+                            <img loading="lazy" src="@Model.VisaType.PreviewImageUrl"
+                                 style="width:100%;border-top-left-radius: 10px; border-top-right-radius: 10px; object-fit:cover;" />
+                        </div>
+                        <div class="product-single__meta" style=" padding: 0px 25px 5px 25px; margin-bottom: 0;">
+                            <br />
+                            <h1 class="product-single__title">@Model.VisaType.Title</h1>
+                            <hr />
+                            <div class="wrap-content-right d-lg-none d-block">
+                                <div class="tabs-listing">
+                                    <ul class="product-tabs">
+                                        <li rel="tab1"><a class="tablink" style="text-transform:capitalize;">@L["Features"]</a></li>
+                                    </ul>
+                                </div>
+                                <div class="widget">
+                                    <div class="widget-item">
+                                        <div class="widget-icon">
+                                            <i class="fa fa-flag"></i>
+                                        </div>
+                                        <div class="widget-content">
+                                            <h3 style="text-transform:capitalize">@L["VisaTypeTitle"]</h3>
+                                            <p>@Model.VisaType.CountryName</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget">
+                                    <div class="widget-item">
+                                        <div class="widget-icon">
+                                            <i class="fa fa-language"></i>
+                                        </div>
+                                        <div class="widget-content">
+                                            <h3 style="text-transform:capitalize">@L["VisaFee"]</h3>
+                                            <p>@Model.VisaType.VisaFee ₺</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget">
+                                    <div class="widget-item">
+                                        <div class="widget-icon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <div class="widget-content">
+                                            <h3 style="text-transform:capitalize">@L["VisaDuration"]</h3>
+                                            <p>@Model.VisaType.VisaDuration ₺</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*  <div class="widget">
+                                <div class="widget-item">
+                                <div class="widget-icon">
+                                <i class="fa fa-hotel"></i>
+                                </div>
+                                <div class="widget-content">
+                                <h3>Konaklama</h3>
+                                <p>@Model.VisaType.Rank ₺</p>
+                                </div>
+                                </div>
+                                </div>*@
+
+                                <button type="button" name="add" style="background-color:#ff7800; width: 100%; margin: 15px 0px; height: 60px; border-radius: 10px;" class="btn btnOpenFormModal">
+                                    <span>@L["CreateForm"]</span>
+                                </button>
+                                <div class="tabs-listing">
+                                    <ul class="product-tabs">
+                                        <li rel="tab1"><a class="tablink">@L["Details"]</a></li>
+                                    </ul>
+                                    <div class="tab-container">
+                                        <div id="tab1" class="tab-content">
+
+                                            <div class="product-description rte">
+                                                @Html.Raw(Model.VisaType.ExtraDescription)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-single__description rte">
+                                <p>
+                                    @Html.Raw(Model.VisaType.ShortDescription)
+                                </p>
+                                <p>@Html.Raw(Model.VisaType.Description)</p>
+                            </div>
+                            <div class="product-form__item--submit">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 d-none d-lg-block">
+                    <div class="wrap-content-right">
+                        <div class="tabs-listing">
+                            <ul class="product-tabs">
+                                <li rel="tab1"><a class="tablink" style="text-transform:capitalize;">@L["Features"]</a></li>
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <div class="widget-item">
+                                <div class="widget-icon">
+                                    <i class="fa fa-flag"></i>
+                                </div>
+                                <div class="widget-content">
+                                    <h3 style="text-transform:capitalize">@L["VisaTypeTitle"]</h3>
+                                    <p>@Model.VisaType.CountryName</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="widget-item">
+                                <div class="widget-icon">
+                                    <i class="fa fa-language"></i>
+                                </div>
+                                <div class="widget-content">
+                                    <h3 style="text-transform:capitalize">@L["VisaFee"]</h3>
+                                    <p>@Model.VisaType.Rank ₺</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="widget-item">
+                                <div class="widget-icon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <div class="widget-content">
+                                    <h3 style="text-transform:capitalize">@L["VisaDuration"]</h3>
+                                    <p>@Model.VisaType.ReadCount ₺</p>
+                                </div>
+                            </div>
+                        </div>
+                        @*     <div class="widget">
+                        <div class="widget-item">
+                        <div class="widget-icon">
+                        <i class="fa fa-hotel"></i>
+                        </div>
+                        <div class="widget-content">
+                        <h3>@L["Accomodation"]</h3>
+                        <p>@Model.VisaType.Rank ₺</p>
+                        </div>
+                        </div>
+                        </div>
+                        *@
+                        <button type="button" name="add" style="background-color:#ff7800; width: 100%; margin: 15px 0px; height: 60px; border-radius: 10px;" class="btn btnOpenFormModal">
+                            <span>@L["CreateForm"]</span>
+                        </button>
+                        <div class="tabs-listing">
+                            <ul class="product-tabs">
+                                <li rel="tab1"><a class="tablink">@L["Details"]</a></li>
+                            </ul>
+                            <div class="tab-container">
+                                <div id="tab1" class="tab-content">
+                                    <div class="product-description rte">
+                                        @Html.Raw(Model.VisaType.ExtraDescription)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End-product-single-->
+            <!-- first slider -->
+            <!--Product Tabs-->
+            <!--End Product Tabs-->
+        </div>
+        <!--#ProductSection-product-template-->
+    </div>
+    <!--MainContent-->
+</div>
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div><div class="pswp__item"></div><div class="pswp__item"></div></div><div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button><button class="pswp__button pswp__button--share" title="Share"></button><button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button><button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button><button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div>
+</div>
+
+<div class="modal fade bd-example-modal-lg modal-dialog-scrollable" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@L["CreateForm"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="golden-from" href="/VisaType/Detail">
+                    <abp-input asp-for="Form.VisaTypeId" />
+                    @Html.AntiForgeryToken()
+                    @(await Component.InvokeAsync<Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.PageAlerts.PageAlertsViewComponent>())
+                    <div class="row">
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6 mbn">
+                            <abp-input required asp-for="Form.Name" class="golden-form-element" label="@L["Name"]" />
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6 mbn">
+                            <abp-input required asp-for="Form.Surname" class="golden-form-element" label="@L["Surname"]" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6 mbn">
+                            <abp-input required asp-for="Form.Email" class="golden-form-element" label="@L["Email"]" />
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6 mbn">
+                            <abp-input required asp-for="Form.PhoneNumber" class="mobilephone" placeholder="0(5__) ___-____" label="@L["PhoneNumber"]" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6 mbn">
+                            <abp-select required asp-for="Form.Gender" class="golden-form-element" label="@L["Gender"]">
+                                <option disabled selected>@L["Choose"]</option>
+                            </abp-select>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6 col-xl-6 mbn">
+                            <abp-input required asp-for="Form.BirthDate" class="golden-form-element" label="@L["BirthDate"]" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 col-lg-12 col-xl-12 mbn">
+                            <abp-select required asp-for="Form.CountryId" class="golden-form-element" label="@L["Country"]">
+                                <option disabled selected>@L["Choose"]</option>
+                            </abp-select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 col-lg-12 col-xl-12 mbn">
+                            <abp-input asp-for="Form.Description" class="golden-form-element" label="@L["Description"]" style="resize: none;" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:10px;margin-top:10px;">
+                        <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
+                            <div style="margin: 0px;" class="g-recaptcha" data-sitekey="6LfnZn0mAAAAADE4DCn4Blm0rKUxC1ePZ2T0AjYb"></div>
+                            <div class="flex form-apply-group" style="flex-direction: row; justify-content:space-between; align-items: center;">
+                                <span class="kvkk" style="position: relative; left: 10px; font-size: 18px;">
+                                    <input id="sozlesmeonay" type="checkbox" name="IsRead" required>
+                                    <a style="text-decoration:underline" class="kvkkopenModal" href="#">@L["kvkk"]</a>
+                                </span>
+                                <abp-button text="@L["CreateForm"]" style="background-color:#ff7800; margin: 15px 0px; height: 60px; border-radius: 10px;" type="submit" class="btn-nice" button-type="Primary" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg modal-dialog-scrollable" id="kvkkmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content" style="height: 90vh; overflow: scroll;">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Kişisel Verilerin Korunması Kanunu (KVKK) Uyarınca Aydınlatma Metni
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>1. Veri Sorumlusu</strong></p>
+
+                <p>Bu aydınlatma metni, [Şirket Adı/İsim ve Soyisim] olarak bizlerin, KVKK kapsamında, kişisel verilerinizi nasıl işlediğimiz ve koruduğumuz konusunda sizi bilgilendirmek amacıyla hazırlanmıştır.</p>
+
+                <p><strong>2. Kişisel Verilerin İşlenme Ama&ccedil;ları</strong></p>
+
+                <p>Kişisel verileriniz, başvuru s&uuml;recinizin değerlendirilmesi, vize işlemlerinin y&uuml;r&uuml;t&uuml;lmesi, iletişim kurulması, iş ilişkisinin y&uuml;r&uuml;t&uuml;lmesi ve yasal y&uuml;k&uuml;ml&uuml;l&uuml;klerin yerine getirilmesi gibi ama&ccedil;larla işlenecektir.</p>
+
+                <p><strong>3. Kişisel Verilerin Aktarılabileceği Taraflar ve Aktarım Ama&ccedil;ları</strong></p>
+
+                <p>Kişisel verileriniz, vize başvurusunun işlenmesi i&ccedil;in gerekli olan kurumlarla (&ouml;rneğin, ilgili konsolosluklar, vize işlemlerini y&uuml;r&uuml;ten resmi kurumlar) paylaşılabilir. Verileriniz, yasal d&uuml;zenlemeler gereği veya işbu a&ccedil;ıklamada belirtilen ama&ccedil;larla sınırlı olmak &uuml;zere, hukuki zorunluluklar doğrultusunda yetkili kamu kurumlarına aktarılabilir.</p>
+
+                <p><strong>4. Kişisel Veri Toplanma Y&ouml;ntemi ve Hukuki Sebebi</strong></p>
+
+                <p>Kişisel verileriniz, başvuru formunuz aracılığıyla toplanacak olup, KVKK&#39;nın 5. ve 6. maddelerinde belirtilen hukuki sebeplere dayanarak işlenecektir. Veri işleme faaliyetlerimiz, a&ccedil;ık rıza, s&ouml;zleşme, hukuki y&uuml;k&uuml;ml&uuml;l&uuml;k, kamu yararı, meşru menfaat gibi hukuki sebeplere dayanmaktadır.</p>
+
+                <p><strong>5. Kişisel Veri Sahibinin Hakları</strong></p>
+
+                <p>KVKK kapsamında, kişisel veri sahipleri olarak sizlere; veri işlenip işlenmediğini &ouml;ğrenme, bu verilere erişim, verilerinizin d&uuml;zeltilmesi, silinmesi veya yok edilmesi, verilerinizin aktarıldığı &uuml;&ccedil;&uuml;nc&uuml; kişilere bilgi verilmesi gibi haklar tanınmaktadır. Bu haklarınızı kullanmak i&ccedil;in şirketimize başvurabilirsiniz.</p>
+
+                <p><strong>6. İletişim Bilgileri</strong></p>
+
+                <p>Kişisel verilerinizle ilgili talepleriniz, [Şirket Adı/İsim ve Soyisim]&#39;ne yazılı olarak iletilmelidir. [Adres, Telefon Numarası, E-posta Adresi] &uuml;zerinden iletişime ge&ccedil;ebilirsiniz.</p>
+
+                <p><strong>Sonu&ccedil;</strong></p>
+
+                <p>Bu metin, kişisel verilerinizin işlenmesi ve korunması konusunda size bilgi vermek amacıyla hazırlanmıştır. KVKK gerekliliklerine uygun olarak şirketimizin politika ve uygulamalarını i&ccedil;ermekte olup, veri g&uuml;venliği ve gizliliğinizin korunmasına &ouml;nem verilmektedir.</p>
+                <!-- Sidebar Wrapper -->
+
+                <p>&nbsp;</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--End Body Content-->
+@section scripts {
+    <script>
+        $('.kvkkopenModal').click(function (e) {
+            e.preventDefault();
+            $('#kvkkmodal').modal('show');
+        });
+
+        $(document).ready(function () {
+            //$('body').removeClass();
+            $('body').addClass('template-product template-product-right-thumb belle');
+            $('#Form_BirthDate').attr('type', 'date');
+
+            $('body').addClass('home9-parallax');
+            $('.header-wrap').removeClass('classicHeader');
+
+            $('.btnOpenFormModal').click(function (e) {
+                e.preventDefault();
+                $('#formModal').modal('show');
+            });
+
+            var search = window.location.search.split('&');
+            var newUrl = window.location.pathname + search[0];
+            window.history.replaceState(null, '', newUrl);
+
+        @if (Model.Form.IsReturnPost)
+        {
+            @:toastr.success('Talebiniz başarıyla alındı.</br> En kısa sürede sizinle iletişime geçeceğiz.Teşekkürler');
+        }
+
+                                                                                                                        });
+
+        $(function () {
+            var $pswp = $('.pswp')[0],
+                image = [],
+                getItems = function () {
+                    var items = [];
+                    $('.lightboximages a').each(function () {
+                        var $href = $(this).attr('href'),
+                            $size = $(this).data('size').split('x'),
+                            item = {
+                                src: $href,
+                                w: $size[0],
+                                h: $size[1]
+                            }
+                        items.push(item);
+                    });
+                    return items;
+                }
+            var items = getItems();
+
+            $.each(items, function (index, value) {
+                image[index] = new Image();
+                image[index].src = value['src'];
+            });
+            $('.prlightbox').on('click', function (event) {
+                event.preventDefault();
+
+                var $index = $(".active-thumb").parent().attr('data-slick-index');
+                $index++;
+                $index = $index - 1;
+
+                var options = {
+                    index: $index,
+                    bgOpacity: 0.9,
+                    showHideOpacity: true
+                }
+                var lightBox = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options);
+                lightBox.init();
+            });
+
+        });
+    </script>
+}
+
+<!-- Vize Türü, Ücreti, Süresi-->
+<!-- Introya bakalım -->

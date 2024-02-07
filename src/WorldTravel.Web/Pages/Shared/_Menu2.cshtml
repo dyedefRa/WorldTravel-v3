@@ -1,0 +1,49 @@
+﻿@using WorldTravel.Localization
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.Users
+@using WorldTravel.Abstract
+@inject IStringLocalizer<WorldTravelResource> L
+@inject ICurrentUser CurrentUser
+@inject ICountryContentAppService _countryContentAppService
+@inject IVisaTypeAppService _visaTypeAppService
+@inject IJobAppService _jobAppService
+@{
+    var countryContents = await _countryContentAppService.GetCountryContentListForUserAsync(new WorldTravel.Dtos.CountryContents.GetCountryContentRequestDto() { IsSeenHomePage = true });
+    var visaTypes = await _visaTypeAppService.GetVisaTypeListForUserAsync(new WorldTravel.Dtos.VisaTypes.GetVisaTypeRequestDto() { IsSeenHomePage = true });
+    var jobs = await _jobAppService.GetJobListForUserAsync(new WorldTravel.Dtos.Jobs.GetJobRequestDto() { IsSeenHomePage = true });
+}
+<!--Web Menu-->
+<div class="header-wrap classicHeader animated d-flex">
+    <div class="container-fluid">
+        <div class="row align-items-center d-none d-lg-flex">
+            <!--Web Logo-->
+            <div class="logo col-md-4 col-lg-3 d-none d-lg-block">
+                <a href="/Home" style="text-decoration:none;">
+                    <div style="display:flex; align-items:center;">
+                        <img loading="lazy" src="/web/images/world-logo-long.png" height="55" alt="@L["ImageFailedToLoad"]" title="Anasayfa" />
+                    </div>
+                </a>
+            </div>
+            <!--End Web Logo-->
+        </div>
+        <div class="row d-flex d-lg-none" style="margin-top:10px; align-items:center;">
+            <div class="col-10">
+                <a href="/Home" style="text-decoration:none;">
+                    <div style="display:flex; align-items:center;">
+                        <img loading="lazy" src="/web/images/world-logo-long.png"
+                             height="55" alt="@L["ImageFailedToLoad"]" class="img-logo-mobile" title="Anasayfa" />
+                    </div>
+                </a>
+            </div>
+            <div class="col-2">
+                <div style="display: flex; justify-content: flex-end;">
+                    <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
+                        <i class="icon anm anm-times-l"></i>
+                        <i class="anm anm-bars-r" style="color: #000;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Menu-->
