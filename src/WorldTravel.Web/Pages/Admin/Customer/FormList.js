@@ -24,26 +24,20 @@
                     rowAction: {
                         items:
                             [
-                                {
-                                    text: l('Detay'),
-                                    visible: function (data) {
-                                        console.log(data);
-                                        return true;
-                                        //    return abp.auth.isGranted('AbpIdentity.Users.Detail') /*&& data.userName !== 'admin'*/;
-                                    },
-                                    action: function (data) {
-                                        if (data.record.userName === 'admin') { //admin ise uyarı ver.
-                                            abp.notify.warn("Bu kullanıcıyı göremezsiniz.");
-                                        }
-                                        else {
-                                            window.location.href = '/Admin/Customer/FormDetail?id=' + data.record.id;
-                                        }
+                                //{
+                                //    text: l('Detay'),
+                                //    action: function (data) {
+                                //        if (data.record.userName === 'admin') { //admin ise uyarı ver.
+                                //            abp.notify.warn("Bu kullanıcıyı göremezsiniz.");
+                                //        }
+                                //        else {
+                                //            window.location.href = '/Admin/Customer/FormDetail?id=' + data.record.id;
+                                //        }
 
-                                    },
-                                },
+                                //    },
+                                //},
                                 {
                                     text: l('Edit'),
-                                    //visible: abp.auth.isGranted('WorldTravel.Forms.Edit'),
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
                                     }

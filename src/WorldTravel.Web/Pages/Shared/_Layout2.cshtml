@@ -44,6 +44,14 @@
     @await Component.InvokeAsync(typeof(WidgetStylesViewComponent))
     @await RenderSectionAsync("styles", false)
     @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.Last, StandardLayouts.Empty)
+
+    <style>
+        body {
+            -moz-transform: scale(0.8, 0.8);
+            zoom: 0.8;
+            zoom: 85%;
+        }
+    </style>
 </head>
 <body class="template-index belle" id="body-bg" style="background-color:#fff;">
     @* <div id="pre-loader">

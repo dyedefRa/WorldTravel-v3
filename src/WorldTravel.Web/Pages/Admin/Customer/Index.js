@@ -32,7 +32,7 @@ $(function () {
                                     },
                                     action: function (data) {
                                         if (data.record.userName === 'admin') { //admin ise uyarý ver.
-                                            abp.notify.warn("Bu kullanýcýyý göremezsiniz.");
+                                            abp.notify.warn("Bu kullan?c?y? göremezsiniz.");
                                         }
                                         else {
                                             window.location.href = '/Admin/Customer/Detail?id=' + data.record.id;

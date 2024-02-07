@@ -47,10 +47,10 @@
                 {
                     <li class="nav-item"> <a href="/Admin/Customer/Index" class="nav-link"> <i class="icon-users"></i> <span>@L["Müşteri Yönetimi"]</span></a></li>
                 }
-                @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.Role.Default))
+            @*    @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.Role.Default))
                 {
                     <li class="nav-item"><a href="/Admin/Identity/Roles" class="nav-link"><i class="icon-wall"></i> <span>@L["RoleManagement"]</span></a></li>
-                }
+                }*@
                 @if (await AuthorizationService.IsGrantedAsync(WorldTravelPermissions.Form.Default))
                 {
                     <li class="nav-item"> <a href="/Admin/Form/Index" class="nav-link"> <i class="icon-list-unordered"></i> <span>@L["FormManagement"]</span></a></li>
