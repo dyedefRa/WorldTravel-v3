@@ -81,6 +81,7 @@ namespace WorldTravel.Services
         [AllowAnonymous]
         public async Task<List<JobViewModel>> GetJobListForUserAsync(GetJobRequestDto input)
         {
+            input.MaxResultCount = 50;
             var result = new List<JobViewModel>();
             var query = Repository.Where(x => x.Status == Status.Active).AsQueryable();
             query = query
