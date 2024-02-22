@@ -2506,6 +2506,96 @@ namespace WorldTravel.Migrations
                     b.ToTable("AppMailTemplates");
                 });
 
+            modelBuilder.Entity("WorldTravel.Entities.MessageContents.MessageContent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDateForReceived")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDateForSender")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeletedForReceiver")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeletedForSender")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSeen")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MessageId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ReceiverId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "MessageId" }, "IX_AppMessageContent_MessageId");
+
+                    b.ToTable("AppMessageContents");
+                });
+
+            modelBuilder.Entity("WorldTravel.Entities.Messages.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MessageType")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ReceiverId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ReceiverStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReceiverStatusDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SenderStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SenderStatusDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "ReceiverId" }, "IX_AppMessage_ReceiverId");
+
+                    b.HasIndex(new[] { "SenderId" }, "IX_AppMessage_SenderId");
+
+                    b.ToTable("AppMessages");
+                });
+
             modelBuilder.Entity("WorldTravel.Entities.Receipts.Receipt", b =>
                 {
                     b.Property<int>("Id")
@@ -3198,6 +3288,36 @@ namespace WorldTravel.Migrations
                     b.Navigation("Image");
                 });
 
+            modelBuilder.Entity("WorldTravel.Entities.MessageContents.MessageContent", b =>
+                {
+                    b.HasOne("WorldTravel.Entities.Messages.Message", "Message")
+                        .WithMany("MessageContents")
+                        .HasForeignKey("MessageId")
+                        .HasConstraintName("FK_AppMessageContents_AppMessages")
+                        .IsRequired();
+
+                    b.Navigation("Message");
+                });
+
+            modelBuilder.Entity("WorldTravel.Entities.Messages.Message", b =>
+                {
+                    b.HasOne("WorldTravel.Entities.Users.AppUser", "Receiver")
+                        .WithMany("ReceivedMessages")
+                        .HasForeignKey("ReceiverId")
+                        .HasConstraintName("FK_AppMessageContents_AppReceivedMessages")
+                        .IsRequired();
+
+                    b.HasOne("WorldTravel.Entities.Users.AppUser", "Sender")
+                        .WithMany("SendedMessages")
+                        .HasForeignKey("SenderId")
+                        .HasConstraintName("FK_AppMessageContents_AppSendedMessages")
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("WorldTravel.Entities.Receipts.Receipt", b =>
                 {
                     b.HasOne("WorldTravel.Entities.Files.File", "File")
@@ -3399,11 +3519,20 @@ namespace WorldTravel.Migrations
                     b.Navigation("VisaTypes");
                 });
 
+            modelBuilder.Entity("WorldTravel.Entities.Messages.Message", b =>
+                {
+                    b.Navigation("MessageContents");
+                });
+
             modelBuilder.Entity("WorldTravel.Entities.Users.AppUser", b =>
                 {
                     b.Navigation("Forms");
 
                     b.Navigation("ReceiptList");
+
+                    b.Navigation("ReceivedMessages");
+
+                    b.Navigation("SendedMessages");
                 });
 #pragma warning restore 612, 618
         }

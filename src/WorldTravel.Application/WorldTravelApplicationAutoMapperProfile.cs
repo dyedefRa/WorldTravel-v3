@@ -11,6 +11,10 @@ using WorldTravel.Dtos.Forms.ViewModels;
 using WorldTravel.Dtos.Jobs;
 using WorldTravel.Dtos.Jobs.ViewModels;
 using WorldTravel.Dtos.MailTemplates;
+using WorldTravel.Dtos.MessageContents;
+using WorldTravel.Dtos.MessageContents.ViewModels;
+using WorldTravel.Dtos.Messages;
+using WorldTravel.Dtos.Messages.ViewModels;
 using WorldTravel.Dtos.Receipts;
 using WorldTravel.Dtos.SentMails;
 using WorldTravel.Dtos.Sliders;
@@ -25,12 +29,13 @@ using WorldTravel.Entities.Files;
 using WorldTravel.Entities.Forms;
 using WorldTravel.Entities.Jobs;
 using WorldTravel.Entities.MailTemplates;
+using WorldTravel.Entities.MessageContents;
+using WorldTravel.Entities.Messages;
 using WorldTravel.Entities.Receipts;
 using WorldTravel.Entities.SentMails;
 using WorldTravel.Entities.Sliders;
 using WorldTravel.Entities.Users;
 using WorldTravel.Entities.VisaTypes;
-using WorldTravel.Models.Pages.Account;
 
 namespace WorldTravel
 {
@@ -59,6 +64,20 @@ namespace WorldTravel
             CreateMap<Form, FormDto>().ReverseMap();//Form/Index POST
             CreateMap<Form, CreateUpdateFormDto>().ReverseMap();//Form/Index POST
             CreateMap<Form, FormViewModel>().ReverseMap();//FormAopService > GetFormListAsync
+            #endregion
+
+            #region Message
+            CreateMap<Message, MessageDto>().ReverseMap();
+            CreateMap<Message, MessageViewModel>().ReverseMap();              //MessageAppService > GetUserMessageListAsync
+            CreateMap<CreateUpdateMessageDto, Message>().ReverseMap();
+
+
+            #endregion
+
+            #region MessageContent 
+            CreateMap<MessageContent, MessageContentDto>().ReverseMap();
+            CreateMap<MessageContent, MessageContentViewModel>().ReverseMap(); //MessageAppService > GetUserMessageWithContentListAsync
+            CreateMap<CreateUpdateMessageContentDto, MessageContent>();        //MessageAppService > InsertMessageContentAsync
             #endregion
 
             #region Receipt

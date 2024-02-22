@@ -10,7 +10,6 @@ namespace WorldTravel.Permissions
         {
             var myGroup = context.AddGroup(WorldTravelPermissions.GroupName);
             //Define your own permissions here. Example:
-            //myGroup.AddPermission(EvArkadasimPermissions.MyPermission1, L("Permission:MyPermission1"));
 
             var formPermission = myGroup.AddPermission(WorldTravelPermissions.Form.Default, L("FormManagement"));
             //formPermission.AddChild(WorldTravelPermissions.Form.Create, L("Permission:Create"));
@@ -42,6 +41,9 @@ namespace WorldTravel.Permissions
             var blogPermission = myGroup.AddPermission(WorldTravelPermissions.Blog.Default, L("BlogPermission"));
             blogPermission.AddChild(WorldTravelPermissions.Blog.Create, L("Permission:Create"));
             blogPermission.AddChild(WorldTravelPermissions.Blog.Edit, L("Permission:Edit"));
+
+            var messagePermission = myGroup.AddPermission(WorldTravelPermissions.Message.Default, L("MesageManagement"));
+            messagePermission.AddChild(WorldTravelPermissions.Message.See, L("MesageManagementSee"));
         }
 
         private static LocalizableString L(string name)

@@ -1,10 +1,4 @@
-﻿using WorldTravel.Abstract;
-using WorldTravel.Dtos.Files;
-using WorldTravel.Enums;
-using WorldTravel.Helpers;
-using WorldTravel.Models.Results.Abstract;
-using WorldTravel.Models.Results.Concrete;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
@@ -13,6 +7,12 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using WorldTravel.Abstract;
+using WorldTravel.Dtos.Files;
+using WorldTravel.Enums;
+using WorldTravel.Helpers;
+using WorldTravel.Models.Results.Abstract;
+using WorldTravel.Models.Results.Concrete;
 
 namespace WorldTravel.Services
 {
@@ -30,7 +30,7 @@ namespace WorldTravel.Services
                 var defaultFileDto = uploadResult.Data;
                 defaultFileDto.FileType = fileType;
                 var entity = ObjectMapper.Map<FileDto, Entities.Files.File>(defaultFileDto);
-                var insertedData = await Repository.InsertAsync(entity,true);
+                var insertedData = await Repository.InsertAsync(entity, true);
                 var resultDto = ObjectMapper.Map<Entities.Files.File, FileDto>(insertedData);
                 return new SuccessDataResult<FileDto>(resultDto);
             }
@@ -66,26 +66,31 @@ namespace WorldTravel.Services
             }
         }
 
-        public string SetDefaultImageIfFileIsNull(int? imageId, GenderType genderType)
+        public string SetDefaultImageIfFileIsNull(int? imageId, GenderType? genderType = GenderType.Male, bool isAdmin = false)
         {
             try
             {
-                if (!imageId.HasValue)
+                if (imageId.HasValue)
                 {
-                    return genderType == GenderType.Male ? WorldTravelConsts.DEFAULT.MaleAvatarImageUrl : WorldTravelConsts.DEFAULT.FemaleAvatarImageUrl;
-
+                    var image = Repository.FindAsync(imageId.Value).Result;
+                    if (image != null)
+                    {
+                        return image.Path;
+                    }
                 }
 
-                var image = Repository.FindAsync(imageId.Value).Result;
-                if (image != null)
+                if (isAdmin)
                 {
-                    return image.Path;
+                    return WorldTravelConsts.DEFAULT.AdminAvatarImageUrl;
+                }
+                else if (genderType == GenderType.Female)
+                {
+                    return WorldTravelConsts.DEFAULT.FemaleAvatarImageUrl;
                 }
                 else
                 {
-                    return genderType == GenderType.Male ? WorldTravelConsts.DEFAULT.MaleAvatarImageUrl : WorldTravelConsts.DEFAULT.FemaleAvatarImageUrl;
+                    return WorldTravelConsts.DEFAULT.MaleAvatarImageUrl;
                 }
-
             }
             catch (Exception ex)
             {

@@ -8,52 +8,44 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Account.Web.Pages.Account;
 using Volo.Abp.Identity.Web.Pages.Identity;
+using Volo.Abp.Users;
 using WorldTravel.Abstract;
 using WorldTravel.Dtos.Forms;
 using WorldTravel.Dtos.Forms.ViewModels;
+using WorldTravel.Dtos.Messages.ViewModels;
 using WorldTravel.Dtos.Receipts;
+using WorldTravel.Dtos.Users.ViewModels;
 using WorldTravel.Enums;
 
 namespace WorldTravel.Web.Pages.Admin.Customer
 {
     public class Detail : PageModel
     {
-        [Parameter]
-        public Guid Id { get; set; }
-
-        public string Name { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Role { get; set; }
-        public string Phone { get; set; }
-        public GenderType? Gender { get; set; }
-        public DateTime? BirthDate { get; set; }
-
         private readonly IUserAppService _userAppService;
-        public Detail(IUserAppService userAppService)
+        private readonly IReceiptAppService _receiptAppService;
+
+        public AppUserViewModel UserViewModel { get; set; }
+        public List<ReceiptViewModel> Receipts { get; set; }
+
+        public Detail(
+            IUserAppService userAppService,
+            IReceiptAppService receiptAppService
+            )
         {
             _userAppService = userAppService;
+            _receiptAppService = receiptAppService;
         }
 
-        public async Task OnGet(Guid id)
+        public async Task<IActionResult> OnGet(Guid id)
         {
-            ViewData["id"] = id;
-            var userId = id;
-            var user = await _userAppService.GetAppUserAsync(userId);
-            if (user == null)
-            {
-                throw new UserFriendlyException("Kullanıcı bulunamadı.");
-            }
-            else
-            {
-                Id = id;
-                Name = user.Data.Name + " " + user.Data.Surname;
-                UserName = user.Data.UserName;
-                Email = user.Data.Email;
-                BirthDate = user.Data.BirthDate;
-                Gender = user.Data.Gender;
-            }
+            var user = (await _userAppService.GetAppUserAsync(id));
+            if (!user.Success || user.Data == null)
+                return Redirect("~/Error?httpStatusCode=404");
 
+            UserViewModel = user.Data;
+            Receipts = await _receiptAppService.GetReceiptByUserIdAsync(id);
+
+            return Page();
         }
     }
 }

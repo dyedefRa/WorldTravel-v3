@@ -358,6 +358,42 @@
 
     "VisaTypeTitle": "Vize Türü",
     "VisaFee": "Vize Ücreti",
-    "VisaDuration": "Vize Süresi"
+    "VisaDuration": "Vize Süresi",
+
+
+    //-------------------------------------------------------------------
+    "CustomerManagement": "Müşteri Yönetimi",
+    "FormCount": "Form Sayısı",
+
+    "MesageManagement": "Mesaj Yönetimi",
+    "MesageManagementSee": "Görme", //Değişecek.
+
+    //MESSAGE
+    "Mute": "Bildirimleri Kapat",
+    "NoMute": "Bildirimleri Aç",
+    "Block": "Engelle",
+    "NoBlock": "Engeli Kaldır",
+    "DeleteMessage": "Mesajı Sil",
+    "WriteMessage": "Mesaj yaz..",
+    "Messages": "Mesajlar",
+    "MessageSuccessfullyDeleted": "Mesaj başarıyla silindi",
+
+
+    //INFO
+    "PleaseSelectPerson": "Lütfen kişi seçiniz",
+    "NoPeopleToShow": "Gösterilecek kişi yok",
+    "NoMessagesToShow": "Gösterilecek mesaj yok",
+    "YouMustLogin": "Lütfen tekrardan giriş yapınız",
+    "BlockedMessage": "Bu kullanıcı sizi engellediği için mesaj atamazsınız",
+
+    //Confirm
+    "AreYouSureUndoAction": "Bu işlemi geri almak istediğinize emin misiniz?",
+    "AreYouSureDeleteMessage": "Bu mesajı silmek istediğinize emin misiniz?",
+    "Yes": "Evet",
+    "AreYouSureMuteNotification": "Bu kullanıcından gelecek olan mesajların bildirimini kapamak istediğinize emin misiniz?",
+    "AreYouSureBlockPerson": "Bu kullanıcının size mesaj göndermesini engellemek istediğinize emin misiniz?",
+    "AreYouSureDeleteAllMessage": "Bu kullanıcıyla olan tüm mesaj geçmişinizi silmek istediğinize emin misiniz?",
+
+    "SendMessageToPerson": "Kişiye Mesaj Gönder"
   }
 }

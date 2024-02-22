@@ -4,6 +4,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Users;
 using WorldTravel.Entities.Files;
 using WorldTravel.Entities.Forms;
+using WorldTravel.Entities.Messages;
 using WorldTravel.Entities.Receipts;
 using WorldTravel.Enums;
 
@@ -33,6 +34,9 @@ namespace WorldTravel.Entities.Users
         public Status? Status { get; set; }
         public virtual ICollection<Form> Forms { get; set; }
         public virtual ICollection<Receipt> ReceiptList { get; set; }
+
+        public virtual ICollection<Message> SendedMessages { get; set; }
+        public virtual ICollection<Message> ReceivedMessages { get; set; }
 
     }
 }

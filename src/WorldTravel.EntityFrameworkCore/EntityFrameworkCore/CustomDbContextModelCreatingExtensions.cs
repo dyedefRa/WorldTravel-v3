@@ -11,6 +11,8 @@ using WorldTravel.Entities.Forms;
 using WorldTravel.Entities.Jobs;
 using WorldTravel.Entities.Logs;
 using WorldTravel.Entities.MailTemplates;
+using WorldTravel.Entities.MessageContents;
+using WorldTravel.Entities.Messages;
 using WorldTravel.Entities.Receipts;
 using WorldTravel.Entities.SentMails;
 using WorldTravel.Entities.Sliders;
@@ -256,6 +258,38 @@ namespace WorldTravel.EntityFrameworkCore
                 entity.Property(e => e.MailTemplateValue).IsRequired(true);
                 entity.Property(e => e.InsertedDate).HasColumnType("datetime");
                 entity.Property(a => a.Status).HasColumnType("int");
+            });
+
+            modelBuilder.Entity<MessageContent>(entity =>
+            {
+                entity.ToTable(dbTablePrefix + "MessageContents");
+
+                entity.HasIndex(e => e.MessageId, "IX_AppMessageContent_MessageId");
+
+                entity.HasOne(d => d.Message)
+                    .WithMany(p => p.MessageContents)
+                    .HasForeignKey(d => d.MessageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AppMessageContents_AppMessages");
+            });
+
+            modelBuilder.Entity<Message>(entity =>
+            {
+                entity.ToTable(dbTablePrefix + "Messages");
+
+                entity.HasIndex(e => e.SenderId, "IX_AppMessage_SenderId");
+                entity.HasIndex(e => e.ReceiverId, "IX_AppMessage_ReceiverId");
+
+                entity.HasOne(d => d.Sender)
+                    .WithMany(p => p.SendedMessages)
+                    .HasForeignKey(d => d.SenderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AppMessageContents_AppSendedMessages");
+                entity.HasOne(d => d.Receiver)
+                    .WithMany(p => p.ReceivedMessages)
+                    .HasForeignKey(d => d.ReceiverId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AppMessageContents_AppReceivedMessages");
             });
 
             modelBuilder.Entity<Receipt>(entity =>

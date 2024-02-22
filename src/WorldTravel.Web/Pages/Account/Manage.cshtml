@@ -1,13 +1,12 @@
 ﻿@page
-@using WorldTravel.Localization
 @using WorldTravel.Enums
 @using WorldTravel.Extensions
-@using Microsoft.Extensions.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
 @using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Pages.Shared.Components.AbpPageToolbar
-@inject IStringLocalizer<WorldTravelResource> L
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
 @model WorldTravel.Web.Pages.Account.ManageModel
 @{
+    var ss = Model.MessageViewModel;
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
@@ -267,8 +266,7 @@
         <div class="w3-bar w3-black" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
             <button class="w3-bar-item w3-button active" style="width:100%" onclick="openCity('profile-status-p')"><i class="fa fa-user"></i> @L["Profile"]</button>
             <button class="w3-bar-item w3-button" style="width:100%" onclick="openCity('profile-edit-p')"><i class="fa fa-edit"></i> @L["EditProfile"]</button>
-            @*            <button class="w3-bar-item w3-button" onclick="openCity('status-p')">Vize Uygunluk</button>
-            *@            <button class="w3-bar-item w3-button" style="width:100%" onclick="openCity('document-upld-p')"><i class="fa fa-upload"></i> @L["Documents"]</button>
+            <button class="w3-bar-item w3-button" style="width:100%" onclick="openCity('document-upld-p')"><i class="fa fa-upload"></i> @L["Documents"]</button>
         </div>
 
         <div id="profile-status-p" class="city">
@@ -313,7 +311,7 @@
                             </div>
                         </div>
                         <form method="post" style="display: flex;" href="Account/Manage">
-                            <input type="file" id="fileup" hidden accept="image/*,.doc, .docx, .pdf"/>
+                            <input type="file" id="fileup" hidden accept="image/*,.doc, .docx, .pdf" />
                             <button type="button" id="btnInsertReceiptImage" class="btn btn-success btn-block" style="margin-top:10px;">
                                 @L["ChooseAndUpload"]
                             </button>
@@ -341,7 +339,7 @@
                             <tbody>
                                 @foreach (var item in Model.Forms.Where(x => x.FormRegType == "Vize Başvurusu"))
                                 {
-                                    string desc = item.Description.Length > 100 ? $"{item.Description.Substring(0, 100)}..." : item.Description;
+                                    var desc = item.Description == null ? "-" : (item.Description.Length > 100 ? $"{item.Description.Substring(0, 100)}..." : item.Description);
                                     <tr>
                                         <td>@item.Id</td>
                                         <td>@item.Country.Title</td>
@@ -501,27 +499,6 @@
 
             </div>
         </div>
-
-        @*  <div id="status-p" class="city" style="display:none">
-        <div class="container" style="margin-bottom: 70px; margin-top: 20px; padding: 0;">
-        <div class="item-card">
-        @foreach (var item in Model.Forms)
-        {
-        <div class="item-progress">
-        <div class="item-header">
-        <span>@item.Country.Title</span>
-        <span>Uygunluk: @item.FormIsOk%</span>
-        </div>
-        <div class="progress-bar">
-        <div class="progress" id="progress-@item.Id" data-percent="@item.FormIsOk"></div>
-        </div>
-        </div>
-
-        }
-        </div>
-
-        </div>
-        </div>*@
 
         <div id="document-upld-p" class="city" style="display:none;">
             <div class="container" style="margin-top:30px; margin-bottom: 70px; padding: 0;">

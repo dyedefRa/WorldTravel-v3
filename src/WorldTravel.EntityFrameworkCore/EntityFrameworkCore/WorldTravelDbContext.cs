@@ -22,6 +22,8 @@ using WorldTravel.Entities.Forms;
 using WorldTravel.Entities.Jobs;
 using WorldTravel.Entities.Logs;
 using WorldTravel.Entities.MailTemplates;
+using WorldTravel.Entities.MessageContents;
+using WorldTravel.Entities.Messages;
 using WorldTravel.Entities.Receipts;
 using WorldTravel.Entities.SentMails;
 using WorldTravel.Entities.Sliders;
@@ -46,6 +48,8 @@ namespace WorldTravel.EntityFrameworkCore
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<MailTemplate> MailTemplates { get; set; }
+        public DbSet<MessageContent> MessageContents { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
         public DbSet<SentMail> SentMails { get; set; }
         public DbSet<Slider> Sliders { get; set; }

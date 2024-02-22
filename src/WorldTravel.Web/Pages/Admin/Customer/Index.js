@@ -1,4 +1,4 @@
-$(function () {
+﻿$(function () {
     var l = abp.localization.getResource('WorldTravel');
     var createModal = new abp.ModalManager(abp.appPath + 'Admin/Customer/Create');
     var editModal = new abp.ModalManager(abp.appPath + 'Admin/Customer/Edit');
@@ -24,15 +24,15 @@ $(function () {
                         items:
                             [
                                 {
-                                    text: l('Detay'),
+                                    text: l('Detail'),
                                     visible: function (data) {
                                         console.log(data);
                                         return true;
                                         //    return abp.auth.isGranted('AbpIdentity.Users.Detail') /*&& data.userName !== 'admin'*/;
                                     },
                                     action: function (data) {
-                                        if (data.record.userName === 'admin') { //admin ise uyar� ver.
-                                            abp.notify.warn("Bu kullan?c?y? g�remezsiniz.");
+                                        if (data.record.userName === 'admin') { //admin ise uyarý ver.
+                                            abp.notify.warn("Bu kullanıcıyı göremezsiniz.");
                                         }
                                         else {
                                             window.location.href = '/Admin/Customer/Detail?id=' + data.record.id;
@@ -57,6 +57,13 @@ $(function () {
                 //        return applyImage_h(data);
                 //    }
                 //},
+                {
+                    title: l('Email'),
+                    data: "email",
+                    render: function (data) {
+                        return data;
+                    }
+                },
                 {
                     title: l('Name'),
                     data: "name",
@@ -138,12 +145,19 @@ $(function () {
                 //    }
                 //},
                 {
-                    title: l('CreatedDate'),
-                    data: "creationTime",
+                    title: l('FormCount'),
+                    data: "formCount",
                     render: function (data) {
-                        return setDate(data);
+                        return data;
                     }
-                }
+                },
+                //{
+                //    title: l('CreatedDate'),
+                //    data: "creationTime",
+                //    render: function (data) {
+                //        return setDate(data);
+                //    }
+                //}
             ],
             createdRow: function (nRow, aData) {
             }

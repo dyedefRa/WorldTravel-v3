@@ -52,13 +52,6 @@
                         return data;
                     }
                 },
-                //{
-                //    title: l('MainImage'),
-                //    data: "imageUrl",
-                //    render: function (data) {
-                //        return applyImage_h(data);
-                //    }
-                //},
                 {
                     title: l('Name'),
                     data: "name",
@@ -72,14 +65,7 @@
                     render: function (data) {
                         return data;
                     }
-                },
-                //{
-                //    title: l('Surname'),
-                //    data: "surname",
-                //    render: function (data) {
-                //        return data;
-                //    }
-                //},
+                },           
                 {
                     title: l('Email'),
                     data: "email",
@@ -94,65 +80,6 @@
                         return data;
                     }
                 },
-                //{
-                //    title: l('Description'),
-                //    data: "description",
-                //    render: function (data) {
-                //        return applyShortening(data);
-                //    }
-                //},
-                //{
-                //    title: l('ExtraDescription'),
-                //    data: "extraDescription",
-                //    render: function (data) {
-                //        return applyShortening(data);
-                //    }
-                //},
-                //{
-                //    title: l('ReadCount'),
-                //    data: "readCount",
-                //    render: function (data) {
-                //        return data;
-                //    }
-                //},
-                //{
-                //    title: l('Rank'),
-                //    data: "rank",
-                //    render: function (data) {
-                //        return data;
-                //    }
-                //},
-                //{
-                //    title: l('IsSeenHomePage'),
-                //    data: "isSeenHomePage",
-                //    render: function (data) {
-                //        if (data === true) {
-                //            return l('True');
-                //        }
-                //        return l('False');
-                //    }
-                //},
-                //{
-                //    title: l('TotalImageCount'),
-                //    data: "totalImageCount",
-                //    render: function (data) {
-                //        return data;
-                //    }
-                //},
-                //{
-                //    title: l('TotalVideoCount'),
-                //    data: "totalVideoCount",
-                //    render: function (data) {
-                //        return data;
-                //    }
-                //},
-                //{
-                //    title: l('CreatedDate'),
-                //    data: "creationTime",
-                //    render: function (data) {
-                //        return setDate(data);
-                //    }
-                //}
             ],
             createdRow: function (nRow, aData) {
             }

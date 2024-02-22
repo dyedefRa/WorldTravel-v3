@@ -1,31 +1,21 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
-using Volo.Abp.ObjectMapping;
 using WorldTravel.Abstract;
-using WorldTravel.Dtos.CountryContents.ViewModels;
-using WorldTravel.Dtos.CountryContents;
 using WorldTravel.Dtos.Users;
 using WorldTravel.Dtos.Users.ViewModels;
-using WorldTravel.Entities.CountryContentFiles;
 using WorldTravel.Entities.Users;
 using WorldTravel.Enums;
 using WorldTravel.Models.Pages.Account;
 using WorldTravel.Models.Results.Abstract;
 using WorldTravel.Models.Results.Concrete;
-using WorldTravel.Dtos.VisaTypes.ViewModels;
-using WorldTravel.Dtos.VisaTypes;
-using WorldTravel.Permissions;
 
 namespace WorldTravel.Services
 {
@@ -35,23 +25,23 @@ namespace WorldTravel.Services
         private IdentityUserManager _identityUserManager { get; set; }
         private readonly IRepository<AppUser> _appUserRepository;
         private readonly IFileAppService _fileAppService;
-
+        private readonly IFormAppService _formAppService;
 
 
         public UserAppService(
             IRepository<AppUser, Guid> repository,
             IIdentityUserAppService identityUserAppService,
             IdentityUserManager identityUserManager,
-             IRepository<AppUser> appUserRepository,
-             IFileAppService fileAppService
-       
+            IRepository<AppUser> appUserRepository,
+            IFileAppService fileAppService,
+            IFormAppService formAppService
             ) : base(repository)
         {
             _identityUserManager = identityUserManager;
             _identityUserAppService = identityUserAppService;
             _appUserRepository = appUserRepository;
             _fileAppService = fileAppService;
-
+            _formAppService = formAppService;
         }
 
 
@@ -77,11 +67,13 @@ namespace WorldTravel.Services
         {
             try
             {
-                var appUser = await _appUserRepository.Include(x => x.Image).Include(x=> x.Forms).FirstOrDefaultAsync(x => x.Id == userId);
+                var appUser = await _appUserRepository.Include(x => x.Image).Include(x => x.Forms).FirstOrDefaultAsync(x => x.Id == userId);
                 if (appUser != null)
                 {
+                    var isUserRole = (appUser.UserType != null && appUser.UserType == UserType.User);
+
                     var result = ObjectMapper.Map<AppUser, AppUserViewModel>(appUser);
-                    result.ImageUrl = _fileAppService.SetDefaultImageIfFileIsNull(appUser.ImageId, appUser.Gender.Value);
+                    result.ImageUrl = _fileAppService.SetDefaultImageIfFileIsNull(appUser.ImageId, appUser.Gender, !isUserRole);
                     return new SuccessDataResult<AppUserViewModel>(result);
                 }
 
@@ -278,8 +270,9 @@ namespace WorldTravel.Services
         public async Task<PagedResultDto<AppUserViewModel>> GetAppUserListAsync(GetIdentityUsersInput input)
         {
             var result = new PagedResultDto<AppUserViewModel>();
+            input.MaxResultCount = 50;
 
-            var query = Repository.Where(x => x.Status == Status.Active).AsQueryable();
+            var query = Repository.Include(x => x.Forms).Where(x => x.Status == Status.Active).AsQueryable();
 
             var totalCount = await query.CountAsync();
             query = ApplySorting(query, input);
@@ -289,8 +282,11 @@ namespace WorldTravel.Services
             var viewModels = list.Select(x =>
             {
                 var viewModel = ObjectMapper.Map<AppUser, AppUserViewModel>(x);
+
+                viewModel.FormCount = _formAppService.GetFormCountByUserId(x.Id);
                 return viewModel;
-            }).ToList();
+            }).OrderByDescending(x => x.FormCount)
+            .ToList();
 
             result.Items = viewModels;
             result.TotalCount = totalCount;

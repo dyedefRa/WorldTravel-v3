@@ -174,6 +174,15 @@ namespace WorldTravel.Services
         }
 
 
+        [AllowAnonymous]
+        public int GetFormCountByUserId(Guid userId)
+        {
+            var data = Repository
+                .Where(x => x.Status == Status.Active && x.UserId == userId).ToList();
+
+            return data.Count;
+        }
+
         //[IgnoreAntiforgeryToken]
         //public async Task SoftDeleteAsync(int Id)
         //{

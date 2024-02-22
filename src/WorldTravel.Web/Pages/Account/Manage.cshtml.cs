@@ -11,6 +11,7 @@ using Volo.Abp.Identity;
 using Volo.Abp.Identity.Web.Pages.Identity;
 using WorldTravel.Abstract;
 using WorldTravel.Dtos.Forms.ViewModels;
+using WorldTravel.Dtos.Messages.ViewModels;
 using WorldTravel.Dtos.Receipts;
 using WorldTravel.Dtos.Users.ViewModels;
 using WorldTravel.Enums;
@@ -22,29 +23,30 @@ namespace WorldTravel.Web.Pages.Account
     [AutoValidateAntiforgeryToken]
     public class ManageModel : IdentityPageModel
     {
-        [BindProperty]
-        public UserManageModel UserManageInputModel { get; set; }
+
         private readonly IFormAppService _formAppService;
         private readonly IUserAppService _userAppService;
         private readonly IReceiptAppService _receiptAppService;
         private readonly IFileAppService _fileAppService;
         private readonly IIdentityUserAppService _identityUserAppService;
-
+        private readonly IMessageAppService _messageAppService;
+        [BindProperty]
+        public UserManageModel UserManageInputModel { get; set; }
         [BindProperty]
         public List<FormViewModel> Forms { get; set; }
 
         [BindProperty]
         public List<ReceiptViewModel> Receipts { get; set; }
-
-        [BindProperty]
-        public ReceiptModel Receipt { get; set; }
+        //[BindProperty]
+        public List<MessageViewModel> MessageViewModel { get; set; }
 
         public ManageModel(
             IUserAppService userAppService,
             IFormAppService formAppService,
             IReceiptAppService receiptAppService,
             IFileAppService fileAppService,
-            IIdentityUserAppService identityUserAppService
+            IIdentityUserAppService identityUserAppService,
+            IMessageAppService messageAppService
             )
         {
             _userAppService = userAppService;
@@ -52,7 +54,7 @@ namespace WorldTravel.Web.Pages.Account
             _receiptAppService = receiptAppService;
             _fileAppService = fileAppService;
             _identityUserAppService = identityUserAppService;
-
+            _messageAppService = messageAppService;
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -68,6 +70,9 @@ namespace WorldTravel.Web.Pages.Account
                 UserManageInputModel = ObjectMapper.Map<AppUserViewModel, UserManageModel>(currentUser.Data);
                 Forms = await _formAppService.GetFormListAsyncUserId(CurrentUser.Id.Value);
                 Receipts = await _receiptAppService.GetReceiptByUserIdAsync(CurrentUser.Id.Value);
+
+                MessageViewModel = (await _messageAppService.GetUserMessageListAsync()).Data;
+
 
                 if (Forms != null && Forms.Count > 0)
                 {

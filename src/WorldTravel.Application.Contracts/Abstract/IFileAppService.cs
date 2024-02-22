@@ -12,7 +12,7 @@ namespace WorldTravel.Abstract
     {
         Task<IDataResult<FileDto>> SaveFileAsync(IFormFile fromFile, UploadType uploadType, FileType fileType = FileType.Image);
         Task<IDataResult<string>> DeleteFileAsync(int id, bool deleteInServer = true);
-        string SetDefaultImageIfFileIsNull(int? imageId, GenderType genderType);
+        string SetDefaultImageIfFileIsNull(int? imageId, GenderType? genderType = GenderType.Male, bool isAdmin = false);
         //Task<IDataResult<GetFileRequestDto>> GetFileAsync(int fileId);
         //Task<IDataResult<bool>> UploadCompanyFileAndFillCompanyDtoAsync(CreateUpdateCompanyDto createUpdateCompanyDto, IFormFile file, FileType fileType);
         Task SoftDeleteAsync(int Id);

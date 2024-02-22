@@ -92,11 +92,11 @@ namespace WorldTravel.Web.Pages.Home
             {
                 if (CurrentUser.IsAuthenticated)
                 {
-                    if (CurrentUser.Name == "admin")
-                    {
-                        await _signInManager.SignOutAsync();
-                        return Redirect("~/Account/Login");
-                    }
+                    //if (CurrentUser.Name == "admin")
+                    //{
+                    //    await _signInManager.SignOutAsync();
+                    //    return Redirect("~/Account/Login");
+                    //}
 
                     var currentUser = await _userAppService.GetAppUserAsync(CurrentUser.Id.Value);
                     if (currentUser == null || currentUser.Data == null || currentUser.Data.Status != Status.Active /*|| currentUser.Data.UserType != UserType.User*/)

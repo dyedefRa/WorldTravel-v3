@@ -1,8 +1,6 @@
 ﻿@page
-@using WorldTravel.Localization
-@using Microsoft.Extensions.Localization
 @model WorldTravel.Web.Pages.Form.IndexModel
-@inject IStringLocalizer<WorldTravelResource> L
+@inject Microsoft.Extensions.Localization.IStringLocalizer< WorldTravel.Localization.WorldTravelResource> L
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }

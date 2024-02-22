@@ -26,6 +26,7 @@
         {
             public static string MaleAvatarImageUrl = "/web/images/avatar-male.png";
             public static string FemaleAvatarImageUrl = "/web/images/avatar-female.png";
+            public static string AdminAvatarImageUrl = "/web/images/avatar-admin.png";
 
             /// <summary>
             /// Filtrelerde kullanılan default tarih değeri

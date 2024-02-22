@@ -70,11 +70,13 @@
             public const string Edit = Default + ".Edit";
         }
 
-        public static class Test
+        public static class Message
         {
-            public const string Default = Identity + ".Test";
-            public const string Create = Default + ".Create";
-            public const string Edit = Default + ".Edit";
+            public const string Default = GroupName + ".Messages";
+            public const string See = Default + ".See";
+            //public const string Create = Default + ".Create";
+            //public const string Edit = Default + ".Edit";
+            //public const string Delete = Default + ".Delete";
         }
 
     }

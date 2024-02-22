@@ -93,7 +93,7 @@
         initCount();
 
         function initCount() {
-            $(".count").hide(0).fadeIn(3000);
+            $(".count").hide(0).fadeIn(2000);
             $('.count').each(function () {
                 var $this = $(this),
                     countTo = $this.attr('data-count');
@@ -102,7 +102,7 @@
                         countNum: countTo,
                     },
                     {
-                        duration: 5000,
+                        duration:2000,
                         easing: 'linear',
                         step: function () {
                             $this.text(Math.floor(this.countNum));
@@ -122,14 +122,12 @@
         }
 
         function redirectAfterDelay() {
-            setTimeout(function () {
                 $("#redirectMessage")
                     .html("Şimdi siteye yönlendiriliyorsunuz<span class='dot-animation'>.</span><span class='dot-animation'>.</span><span class='dot-animation'>.</span>")
-                    .fadeIn(1000);
+                    .fadeIn(500);
                 setTimeout(function () {
                     window.location.href = "/Home"; // Burada yönlendirilecek URL'i belirtin
-                }, 800); // 3 saniye sonra yönlendirme
-            }, 500); // 2 saniye sonra mesaj gösterimi
+                }, 1000); // 3 saniye sonra yönlendirme
         }
     </script>   
 </body>

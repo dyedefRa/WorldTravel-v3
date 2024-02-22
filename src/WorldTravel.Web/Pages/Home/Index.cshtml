@@ -601,8 +601,8 @@
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="section-header" style="display: flex; flex-direction: column; align-items: center;">
                         <h2 style="text-transform:capitalize;" class="h2">@L["VisaTypes"]</h2>
-@*                        <p class="p-sub-title" style="font-size: 15px; width: 35%; text-align: center;">@L["JobAndLifeDesc"]</p>
-*@                    </div>
+                        @*<p class="p-sub-title" style="font-size: 15px; width: 35%; text-align: center;">@L["JobAndLifeDesc"]</p> *@
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -931,7 +931,7 @@
                     <div style="margin: 0px 0px 16px 16px;" class="g-recaptcha" data-sitekey="6LfnZn0mAAAAADE4DCn4Blm0rKUxC1ePZ2T0AjYb"></div>
                     <div class="flex-direction-mb-column text-center col-12 col-sm-12 col-md-12 col-lg-12" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
                         <div class="flex" style="flex-direction: row; align-items: center;">
-                            <input id="sozlesmeonay" type="checkbox" name="IsRead" required>
+                            <input id="sozlesmeonay" type="checkbox" checked="checked" name="IsRead" required>
                             <span class="kvkk" style="position: relative; left: 10px; font-size: 18px;">
                                 <a style="text-decoration:underline" class="kvkkopenModal" href="#">@L["kvkk"]</a>
                             </span>
@@ -996,7 +996,7 @@
 @section scripts {
 
     <script>
-        $(document).ready(function () {
+            $(document).ready(function () {
             $(".tablinks").mouseenter(function () {
                 $(this).trigger("click");
             });

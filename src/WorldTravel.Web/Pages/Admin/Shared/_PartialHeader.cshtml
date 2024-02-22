@@ -1,6 +1,16 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using System.ComponentModel;
+@using WorldTravel.Abstract
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.Toolbar.LanguageSwitch;
 @inject IHtmlLocalizer<WorldTravel.Localization.WorldTravelResource> L
+@inject IMessageAppService _messageAppService
 
+<style>
+    .message-unseen, .menu-unseen {
+        color: forestgreen !important;
+        font-size: 16px !important;
+    }
+</style>
 <div class="navbar navbar-expand-md navbar-light">
     @* Logo Start *@
     <div class="navbar-header navbar-dark d-none d-md-flex align-items-md-center">
@@ -48,9 +58,11 @@
 
         <span class="badge badge-pill ml-md-3 mr-md-auto">&nbsp;</span>
         <ul class="navbar-nav">
-            @*@await Component.InvokeAsync(typeof(PlastikMarketim.Web.Components.LanguageSwitchViewComponent))*@
+            @await Component.InvokeAsync(typeof(LanguageSwitchViewComponent))
             @if (User.Identity.IsAuthenticated)
             {
+                var unseenMessageCount = _messageAppService.GetUnseenMessageCount();
+
                 <li class="nav-item dropdown dropdown-user">
                     <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
                         <img src="~/global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt="">
@@ -59,10 +71,19 @@
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="/Admin/Account/Manage" class="dropdown-item"><i class="icon-user"></i>@L["ProfileS"]</a>
-                        @*@await Component.InvokeAsync(typeof(Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Themes.Basic.Components.Toolbar.LanguageSwitch.LanguageSwitchViewComponent))*@
-                        @*@await Component.InvokeAsync(typeof(LanguageSwitchViewComponent))*@
                         <div class="dropdown-divider"></div>
-                        <a href="/Home" target="_blank" class="dropdown-item"><i class="icon-reply"></i>@L["ReturnUserPage"]</a>
+                        <a href="/Message" class="dropdown-item"><i class="icon-envelope"></i>@L["Messages"]
+                            @if (unseenMessageCount > 0)
+                            {
+                                <span class="menu-unseen">(<span class="menu-unseen-count">@unseenMessageCount</span>)</span>
+                            }
+                            else
+                            {
+                                <span>(0)</span>
+                            }
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/Home" class="dropdown-item"><i class="icon-reply"></i>@L["ReturnUserPage"]</a>
                         <div class="dropdown-divider"></div>
                         <a href="/Admin/Account/Logout" class="dropdown-item"><i class="icon-switch2"></i>@L["Logout"]</a>
                     </div>

@@ -178,42 +178,72 @@ namespace WorldTravel.Extensions
             return astro_sign + " Burcu";
         }
 
-        public static string ToMessageSendDateString(this DateTime value)
+        /// <summary>
+        /// isUserLastSeen ==true ise Kullanıcının Son Görülme Tarihi : false ise Mesajın son gönderilme tarihi.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="isUserLastSeen"></param>
+        /// <returns></returns>
+        public static string ToMessageSendDateString(this DateTime value, bool isUserLastSeen = false)
         {
             var now = DateTime.Now;
+            var userLastSeenDate = "Son Görülme: ";
 
             var totalMinutes = (now - value).TotalMinutes;
 
             if (totalMinutes <= 3)
             {
-                return "Şimdi";
+                if (isUserLastSeen)
+                    return "Çevrimiçi";
+                else
+                    return "Şimdi";
             }
             if (totalMinutes <= 5)
             {
-                return "Az önce";
+                if (isUserLastSeen)
+                    return "Çevrimiçi";
+                else
+                    return "Az önce";
             }
             else if (totalMinutes <= 60)
             {
-                return Math.Ceiling(totalMinutes).ToString() + " dakika önce";
+                var minute = Math.Ceiling(totalMinutes).ToString() + " dakika önce";
+                if (isUserLastSeen)
+                    return userLastSeenDate + minute;
+                else
+                    return minute;
             }
 
             var totalHours = (now - value).TotalHours;
             if (totalHours <= 23)
             {
-                return Math.Ceiling(totalHours).ToString() + " saat önce";
+                var hour = Math.Ceiling(totalHours).ToString() + " saat önce";
+                if (isUserLastSeen)
+                    return userLastSeenDate + hour;
+                else
+                    return hour;
             }
 
             var totalDays = (now - value).TotalDays;
             if (totalDays <= 29)
             {
-                return Math.Ceiling(totalDays).ToString() + " gün önce";
+                var day = Math.Ceiling(totalDays).ToString() + " gün önce";
+
+                if (isUserLastSeen)
+                    return userLastSeenDate + day;
+                else
+                    return day;
             }
 
             var totalMonth = GetMonthDifference(now, value);
-
             if (totalMonth <= 11)
             {
-                return Math.Ceiling(totalDays).ToString() + " ay önce";
+                var month = totalMonth.ToString() + " ay önce";
+
+                if (isUserLastSeen)
+                    return userLastSeenDate + month;
+                else
+                    return month;
             }
 
             return "Yıllar önce";

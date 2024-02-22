@@ -11,28 +11,10 @@
 @using WorldTravel.Abstract
 @using WorldTravel.Dtos.Receipts
 @inject IReceiptAppService _receiptSevice
-@inject IHtmlLocalizer<IdentityResource> L
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WorldTravel.Localization.WorldTravelResource> L
 @inject IAuthorizationService Authorization
 @inject IPageLayout PageLayout
 @{
-    List<ReceiptViewModel> receiptList = null;
-    if (ViewData["id"] != null)
-    {
-        try
-        {
-            string idString = ViewData["id"].ToString();
-            Guid idGuid = Guid.Parse(idString);
-            receiptList = await _receiptSevice.GetReceiptByUserIdAsync(idGuid);
-
-        }
-        catch (FormatException)
-        {
-        }
-    }
-    else
-    {
-    }
-
     PageLayout.Content.Title = L["Users"].Value;
     PageLayout.Content.BreadCrumb.Add(L["Menu:IdentityManagement"].Value);
     PageLayout.Content.MenuItemName = IdentityMenuNames.Users;
@@ -48,21 +30,21 @@
         <div class="card bg-teal-400" style="background-image: url(../../../../global_assets/images/backgrounds/panel_bg.png); background-size: contain;">
             <div class="card-body text-center">
                 <div class="card-img-actions d-inline-block mb-3">
-                    <img class="img-fluid rounded-circle" src="~/global_assets/images/placeholders/placeholder.jpg" width="170" height="170" alt="">
+                    <img class="rounded-circle" src="@Model.UserViewModel.ImageUrl" alt="@L["ImageFailedToLoad"]" title="@L["User"]" width="170" height="170" alt="">
                 </div>
-                <input type="hidden" value="@Model.Id" id="userId" />
-                <h6 class="font-weight-semibold mb-0">@Model.Name</h6>
-                <span class="d-block opacity-75">@Model.Role</span>
-
+                <input type="hidden" value="@Model.UserViewModel.Id" id="userId" />
+                <h6 class="font-weight-semibold mb-0">@Model.UserViewModel.Name @Model.UserViewModel.Surname</h6>
+                @*<span class="d-block opacity-75">@Model.UserViewModel.Role</span>*@
                 <div class="list-icons list-icons-extended mt-3">
-                    <a href="#" class="list-icons-item text-white"><i clas s="icon-user"></i> @Model.UserName</a>
-                    <a href="#" class="list-icons-item text-white"><i class="icon-mail5"></i> @Model.Email</a>
+                    <a href="#" class="list-icons-item text-white"><i clas s="icon-user"></i> @Model.UserViewModel.PhoneNumber</a>
+                    <a href="#" class="list-icons-item text-white"><i class="icon-mail5"></i> @Model.UserViewModel.Email</a>
                 </div>
+                <hr />
+                <abp-button id="btnOpenMailModal" data-toggle="modal" data-target="#mailModal" button-type="Dark">@L["SendMessageToPerson"]</abp-button>
             </div>
         </div>
     </div>
     <div class="col-xl-9 col-sm-9">
-
         <abp-card>
             <abp-card-header>
                 <abp-row>
@@ -93,51 +75,73 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in receiptList)
+                        @foreach (var receipt in Model.Receipts)
                         {
                             <tr>
-                                <td>@item.FileId</td>
-                                <th>@item.File.Name</th>
-                                <th><a href="@item.File.Path" target="_blank" class="btn btn-success" >Görüntüle</a></th>
+                                <td>@receipt.FileId</td>
+                                <th>@receipt.File.Name</th>
+                                <th><a href="@receipt.File.Path" target="_blank" class="btn btn-success">Görüntüle</a></th>
                             </tr>
                         }
                     </tbody>
                 </table>
             </abp-card-body>
         </abp-card>
-        @*  <h3>Müşteri Vize Başvuruları</h3>
-
-        @if (Model.Forms != null)
-        {
-        <ul style="list-style-type:none; margin: 0 !important; padding: 0;">
-        @foreach (var item in Model.Forms)
-        {
-        <li style="padding: 10px 15px; background: #e8e8e8; margin-bottom: 5px; border-radius: 5px; display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-        <span>
-        @item.CountryName
-        </span>
-        <span>
-        @item.Name
-        </span>
-        <span>@item.PhoneNumber</span>
-        <span>
-        @item.Email
-        </span>
-        <span>
-        Uygunluk: % @item.FormIsOk
-        </span>
-        <div>
-        <a href="/Admin/Customer/FormDetail?id=@item.Id" class="btn btn-success">İncele</a>
-        </div>
-        </li>
-        }
-        </ul>
-        }
-        else
-        {
-        <div><span>Müşterinin vize başvurusu bulunmuyor...</span></div>
-        }*@
-
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="mailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><b>@Model.UserViewModel.Name @Model.UserViewModel.Surname | @Model.UserViewModel.Email</b> @L["SendMessageToPerson"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" id="txtMessage" rows="3" placeholder="@L["WriteMessage"]" style="resize: none;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@L["Close"]</button>
+                <button class="btn btn-primary" id="btnSendMessage" type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i> @L["Send"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $('#btnSendMessage').on('click', function (e) {
+        var selectedUserId = '@Model.UserViewModel.Id';
+        var messageContent = $('#txtMessage').val();
+
+        if (selectedUserId !== 0 && messageContent.replace(/\s/g, '') !== '') {
+            worldTravel.services.message.sendMessage(selectedUserId, messageContent)
+                .done(function (result) {
+                    if (result.success) {
+                        $('#mailModal').modal('hide');
+
+                        toastr.success('@L["SuccessfullyCompleted"].Value');
+
+                        setTimeout(function () {
+                            toastr.info('Mesaj sayfasına yönleniyorsunuz..Lütfen bekleyiniz..');
+                        }, 1000);
+
+                        setTimeout(function () {
+                            window.location.href = "/Admin/Message"
+                        }, 4000);
+                    }
+                    else {
+                        toastr.error(result.message)
+                    }
+                })
+                .fail(function () {
+                    toastr.error('@L["UnexpectedError"].Value');
+                });
+        }
+
+    });
+</script>

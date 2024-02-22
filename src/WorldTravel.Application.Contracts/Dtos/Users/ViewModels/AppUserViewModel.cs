@@ -21,6 +21,7 @@ namespace WorldTravel.Dtos.Users.ViewModels
         public int? ImageId { get; set; }
         public string ImageUrl { get; set; }
         public Status? Status { get; set; }
+        public int FormCount { get; set; } = 0;
         public virtual ICollection<FormDto> Forms { get; set; }
 
     }
