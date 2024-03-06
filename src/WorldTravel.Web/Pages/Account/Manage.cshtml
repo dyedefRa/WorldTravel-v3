@@ -560,8 +560,9 @@
                 progressStartValue++;
                 let calcProgress = progressStartValue * 3.6;
 
-                if (Model.UserManageInputModel.ProfileIsOk > 0)
-                    currentModelValue = @Model.UserManageInputModel.ProfileIsOk;
+                var isOk = 'Model.UserManageInputModel.ProfileIsOk';
+                if (isOk > 0)
+                    currentModelValue = isOk;
                 else
                     currentModelValue = 0;
 
